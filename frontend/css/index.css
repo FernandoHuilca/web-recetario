@@ -12,6 +12,8 @@ header{
 
 .h1-header{
     color: var(--color-white);
+    font-family: var(--font-h1);
+    font-size: clamp(2rem, 7vw, 4rem);
 }
 
 .button{

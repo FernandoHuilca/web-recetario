@@ -62,3 +62,7 @@ td img {
     width: 150px;  
     height: 150px; 
 }
+
+.general-button a{
+    color: white;
+}
