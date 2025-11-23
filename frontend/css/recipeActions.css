@@ -1,4 +1,4 @@
-/* Styles for registro and actualización de recetas */
+/* Styles for recipe registration and update */
 
 html, body {
     font-family: Arial, Helvetica, sans-serif;
@@ -11,11 +11,11 @@ html, body {
     padding: 20px;
     display: flex;
     flex-direction: column;
-    align-items: center; /* center horizontal */
-    text-align: center;  /* center text */
+    align-items: center;
+    text-align: center;
     background: #FFFFFF;
     border-radius: 50px;
-    margin-bottom: 60px; /* añade espacio debajo */
+    margin-bottom: 60px;
 
 }
 
@@ -39,7 +39,6 @@ input[type="text"], input[type="number"], textarea, select {
     box-sizing: border-box;
 }
 
-
 table#ingredientsTable th, table#ingredientsTable td {
     padding: 6px;
     text-align: left;
@@ -49,7 +48,6 @@ table#ingredientsTable input, table#ingredientsTable select {
     width: 100%;
 }
 
-
 .recipe-actions {
     display: flex;
     gap: 12px;
@@ -58,14 +56,11 @@ table#ingredientsTable input, table#ingredientsTable select {
     width: 100%;
 }
 
-
-
 body {
     background-image: url(../assets/images/index/background.jpeg);
     background-size: cover;
     background-position: center;
     padding: 30px;
-
 }
 
 body::before {
@@ -79,8 +74,6 @@ body::before {
     pointer-events: none;
     filter: blur(6px) brightness(0.6);
     z-index: -1; 
-
-
 }
 
 .button{
@@ -96,7 +89,6 @@ body::before {
     background-color: var(--color-2);
     cursor: pointer;
 }
-
 
 .remove-ingredient{
     background-color: var(--color-1);

@@ -2,10 +2,15 @@ body {
     min-height: 100vh;
 }
 
+.return{
+    margin: 20px 0px;
+}
+
 .card{
     width: 500px;
     border: 2px solid #000;
     border-radius: 25px;
+    margin: 20px 0px;
 }
 
 .fields{
@@ -37,7 +42,7 @@ body {
 }
 
 .text-button{
-    padding: 15px 160px;
+    padding: 15px 168px;
     color: var(--color-white);
 }
 
