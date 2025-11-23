@@ -1,12 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+
+
+
 :root{
     /*Colores*/
+    --color-1: #F90D21;
+    --color-2: #FC6F7E;
+    --color-3: #4A90E2;
+    --color-white: #FFFFFF;
+    --color-black: #000000;
 
     /*Texto*/
     --text-transform-uppercase: uppercase;
     --text-align-center: center;
 
     /*Fuente*/
-
+    --font-h1: 'Great Vibes', cursive;
     /*Formas*/
     
     /*Posicion*/
@@ -22,7 +32,22 @@
 *{box-sizing: var(--border-box);}
 
 /*fuente*/
+/* .font-h1{ 
+    font-family: 'Playfair Display', serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 4rem);
+    line-height: 1.05;
+    letter-spacing: -0.02em;
+    color: #2b2b2b;
+}*/
+
+.font-h1{
+  font-family: var(--font-h1);
+  font-size: clamp(2rem, 7vw, 4rem);
+  color: var(--color-1);
+}
 .font-bold{font-weight: var(--fuente-bold);}
+
 
 /*texto*/
 .text-transform-uppercase{text-transform: var(--text-transform-uppercase);}
@@ -46,3 +71,9 @@
 
 /*padding*/
 .padding-0{padding: 0;}
+
+/*flexbox*/
+.flex-column{flex-direction: column;}
+.flex-row{flex-direction: row;}
+.flex-wrap{flex-wrap: wrap;}
+.display-flex{display: flex;}
