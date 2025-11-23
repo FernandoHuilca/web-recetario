@@ -60,6 +60,7 @@
 .text-transform-uppercase{text-transform: var(--text-transform-uppercase);}
 .text-align-center{text-align: var(--text-align-center);}
 .text-decoration-none{text-decoration: none;}
+.text-while{color: var(--color-white);}
 
 /*Formas*/
 .redondo{border-radius: 50%;}
@@ -71,6 +72,7 @@
 .align-items-center{align-items: var(--align-items-center);}
 .justify-content-around{justify-content: var(--justify-content-around);}
 .justify-content-between{justify-content: var(--justify-content-between);}
+.justify-content-center{justify-content: center;}
 .display-flex{display: var(--display-flex);}
 
 /*margin*/
@@ -84,3 +86,34 @@
 .flex-row{flex-direction: row;}
 .flex-wrap{flex-wrap: wrap;}
 .display-flex{display: flex;}
+
+
+
+/*Justify Content*/
+.justify-content-between{justify-content: space-between;}
+.justify-content-around{justify-content: space-around;}
+.justify-content-center{justify-content: center;}
+.justify-content-flex-end{justify-content: flex-end;}
+
+
+
+/*Align Items*/
+.align-center{align-items: center;}
+.align-flex-start{align-items: flex-start;}
+
+
+
+/* button design */
+.general-button{
+    margin-left: 10px;
+    padding: 8px 12px;
+    background-color: var(--color-1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.general-button:hover{
+    background-color: var(--color-2);
+}
