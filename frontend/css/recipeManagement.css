@@ -1,0 +1,42 @@
+table{
+    margin: 0 auto;
+    /*border-collapse: collapse;*/
+}
+
+thead tr td{
+    font-weight: bold;
+    text-align: var(--text-align-center);
+    width: 100px;
+    height: 50px;
+    background-color: var(--color-2);
+}
+
+.background-color-table thead tr td{
+    background-color: var(--color-2);
+}
+
+td {
+    text-align: var(--text-align-center);
+    width: 100px;
+    height: 100px;
+    margin: 0;
+    padding: 0;
+}
+
+td img{
+    width: 50%;
+    height: 50%;
+    object-fit: cover;
+}
+
+td button{
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    border-radius: 15px;
+    padding: 10px;
+}
+
+td button:hover{
+    background-color: var(--color-3);
+}

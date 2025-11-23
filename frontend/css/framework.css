@@ -17,6 +17,10 @@
 
     /*Fuente*/
     --font-h1: 'Great Vibes', cursive;
+    --fuente-bold: bold;
+    --font-italic: italic; 
+    --font-arial: 'Arial';
+    --font-family-great-vibes: 'Great Vibes';
     /*Formas*/
     
     /*Posicion*/
@@ -47,6 +51,9 @@
   color: var(--color-1);
 }
 .font-bold{font-weight: var(--fuente-bold);}
+.font-italic{font-style: var(--font-italic);}
+.font-family-arial{font-family: var(--font-arial);}
+.font-family-great-vibes{font-family: var(--font-family-great-vibes);}
 
 
 /*texto*/
