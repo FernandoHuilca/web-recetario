@@ -120,3 +120,8 @@
 .general-button:hover{
     background-color: var(--color-2);
 }
+
+.search-favorite{
+    justify-content: center;
+    width: 100%;
+}

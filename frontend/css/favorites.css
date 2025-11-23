@@ -181,3 +181,34 @@ body{
     border: 3px solid var(--color-1);
     object-fit: cover;
 }
+
+.sizing-aside{
+    width: 10%;
+    height: 100vh;
+}
+
+.sizing-main{
+    width: 90%;
+}
+
+.sidebar-title{
+    padding: 0px 25px;
+}
+
+.margin-aside{
+    margin: 30px 2px;
+    padding: 0px;
+}
+
+.sidebar-button{
+    padding: 8px 12px;
+    background-color: var(--color-1);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+.padding-aside{
+    padding: 0px 20px;
+}

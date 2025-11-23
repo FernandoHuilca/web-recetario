@@ -18,15 +18,23 @@
         </section>
         
         
-        <nav>
+        <nav class="display-flex">
             <ul class="display-flex list-none-style">
                 <li class="margin-nav-header"><a class=" general-button text-decoration-none" href="#">Gestion de recetas</a></li>
-                <li class="margin-nav-header"><a class=" general-button text-decoration-none" href="#">Favoritos</a></li>
-                <li class="margin-nav-header"><a class=" text-decoration-none" href="#">Perfil</a></li>
+                <li class="margin-nav-header"><a class=" general-button text-decoration-none" href="favorites.html">Favoritos</a></li>
+                <!-- <li class="margin-nav-header"><a class=" text-decoration-none" href="#">Perfil</a></li> -->
             </ul>
+
+            <div class="avaterPerfil">
+                <a href="#" class="avatar-link">
+                    <img class="icon-user" src="../assets/images/dashboard/defaultPerfil.jpeg" alt="Icono de usuario">
+                </a>
+            </div>
         </nav>
         
         
+
+
     </header>
     
     
@@ -79,8 +87,8 @@
                 </button>
 
                 <div class="recipeInfo name-description-recipe">
-                    <h2 class="font-h3">Pollo Navideño</h2>
-                    <p class="color-subTitle">Deliciosa receta de pollo navideño con especias y hierbas aromáticas, perfecto para celebrar en familia.</p>
+                    <h2 class="font-h3">Lasania</h2>
+                    <p class="color-subTitle">Deliciosa receta de lasania con verduras frescas y mayonesa casera, ideal para acompañar tus comidas.</p>
                 </div>
 
                 <div>
@@ -111,8 +119,8 @@
                 </button>
 
                 <div class="recipeInfo name-description-recipe">
-                    <h2 class="font-h3">Pollo Navideño</h2>
-                    <p class="color-subTitle">Deliciosa receta de pollo navideño con especias y hierbas aromáticas, perfecto para celebrar en familia.</p>
+                    <h2 class="font-h3">Ensalada Rusa</h2>
+                    <p class="color-subTitle">Deliciosa receta de ensalada rusa con verduras frescas y mayonesa casera, ideal para acompañar tus comidas.</p>
                 </div>
 
                 <div>
@@ -126,9 +134,6 @@
                 
             </article>
 
-
-
-
             
         </section>
 
@@ -139,13 +144,3 @@
 
 </body>
 </html>
-<script>
-    // Toggle favorite state for buttons with class .favorite-btn
-    document.addEventListener('click', function(e){
-        var btn = e.target.closest && e.target.closest('.favorite-btn');
-        if(!btn) return;
-        btn.classList.toggle('saved');
-        var pressed = btn.classList.contains('saved');
-        btn.setAttribute('aria-pressed', pressed ? 'true' : 'false');
-    });
-</script>
