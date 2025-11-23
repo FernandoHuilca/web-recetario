@@ -28,6 +28,7 @@
     --justify-content-around: space-around;
     --justify-content-between: space-between;
     --display-flex: flex;
+    --vertical-align-middle: middle;
 
     /*Border*/
     --border-box: border-box;
@@ -74,9 +75,11 @@
 .justify-content-between{justify-content: var(--justify-content-between);}
 .justify-content-center{justify-content: center;}
 .display-flex{display: var(--display-flex);}
+.vertical-align-middle{vertical-align: var(--vertical-align-middle);}
 
 /*margin*/
 .margin-0 {margin: 0;}
+.margin-10{margin: 10px;}
 
 /*padding*/
 .padding-0{padding: 0;}

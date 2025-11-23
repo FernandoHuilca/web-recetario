@@ -1,42 +1,64 @@
-table{
+/* Table: center and fixed layout */
+table {
     margin: 0 auto;
-    /*border-collapse: collapse;*/
+    border-collapse: collapse; /*Hace que todas las casillas se unan entre sí y parezca una sola tabla*/
 }
 
-thead tr td{
+/*Encabezado de la tabla*/
+thead tr td {
+    background-color: var(--color-2);
     font-weight: bold;
     text-align: var(--text-align-center);
-    width: 100px;
-    height: 50px;
-    background-color: var(--color-2);
+    vertical-align: var(--vertical-align-middle);
+    padding: 8px;
+    border-top: 1px solid var(--color-black);
 }
 
-.background-color-table thead tr td{
-    background-color: var(--color-2);
-}
-
-td {
+/* Celdas del cuerpo de la tabla */
+table td {
+    height: auto; /* Permite que la fila crezca con el contenido */
+    border-bottom: 1px solid var(--color-black);
+    padding: 8px;
+    vertical-align: var(--vertical-align-middle);
     text-align: var(--text-align-center);
-    width: 100px;
-    height: 100px;
-    margin: 0;
-    padding: 0;
 }
 
-td img{
-    width: 50%;
-    height: 50%;
-    object-fit: cover;
+/* Make all table columns the same fixed width and truncate overflow */
+table td {
+    width: 200px; /* fixed width for every cell */
+    max-width: 200px;
+    /* allow wrapping instead of truncating */
+    overflow-wrap: break-word;
+    word-break: break-word;
+    white-space: normal;
 }
 
-td button{
+td button {
     background-color: transparent;
     border: none;
+    color: inherit;
     cursor: pointer;
     border-radius: 15px;
-    padding: 10px;
+    
+    /*Compactar y ajustar al contenido*/
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 6px;
+    min-width: 0; /* Hace que el botón sea tan estrecho como el contenido */
+    width: auto;
 }
 
-td button:hover{
+td button:hover {
     background-color: var(--color-3);
+}
+
+td button img {
+  width: 42px;  
+  height: 42px; 
+}
+
+td img {
+    width: 150px;  
+    height: 150px; 
 }

@@ -4,19 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="/frontend/css/framework.css" />
-    <!--
-    <style>
-        *{
-            border: 1px solid red;
-        }
-    </style>
-    -->
+    <link rel="stylesheet" href="/frontend/css/recipeDetails.css" />
     <title>Detalle de la receta</title>
     
   </head>
   <body
-    class="margin-0 padding-0 display-flex align-items-center"
-    style="flex-direction: column"
+    class="margin-0 padding-0 display-flex align-items-center flex-column"
   >
     <header></header>
     <main>
@@ -24,31 +17,30 @@
         <div><h1 class="text-align-center font-h1">Receta</h1></div>
         <div>
           <div class="display-flex">
-            <div style="width: 250px; height: 250px; margin: 0px 25px 25px 0px">
+            <div >
               <img
-                src="/frontend/assets/images/recipeDetails/genericRecipeIcon.png"
+                src="/frontend/assets/images/common/genericRecipeIcon.png"
                 alt="imagen receta"
-                style="width: 100%; height: 100%; object-fit: cover;"
               />
             </div>
             <div>
               <div>
-                <h1 class="margin-0 font-italic" style="padding-bottom: 15px">
+                <h1 class="margin-0 font-italic padding-bottom-15">
                   Este es el nombre de la receta
                 </h1>
               </div>
-              <div style="padding-bottom: 15px">
+              <div class="padding-bottom-15">
                 Esta es la descripcion de la receta
               </div>
               <div class="display-flex">
-                <div class="display-flex" style="padding-right: 15px">
-                  <div style="font-weight: bold; padding-right: 5px;">Total:</div> Este es el total en minutos
+                <div class="display-flex padding-right-15">
+                  <div class="sub-title">Total:</div> Este es el total en minutos
                 </div>
-                <div class="display-flex"><div style="font-weight: bold; padding-right: 5px;">Porciones: </div> Esta es la cantidad de porciones</div>
+                <div class="display-flex"><div class="sub-title">Porciones: </div> Esta es la cantidad de porciones</div>
               </div>
             </div>
           </div>
-          <div style="padding-bottom: 30px;">
+          <div class="padding-bottom-30">
             <div><h2 class="margin-0">Ingredientes</h2></div>
             <ul class="margin-0">
               <li>Este es el ingrediente 1</li>

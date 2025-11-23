@@ -1,0 +1,22 @@
+img{
+    width: 250px; 
+    height: 250px; 
+    margin: 0px 25px 25px 0px;
+}
+
+.padding-bottom-30{
+    padding-bottom: 30px;
+}
+
+.padding-bottom-15{
+    padding-bottom: 15px;
+}
+
+.padding-right-15{
+    padding-right: 15px;
+}
+
+.sub-title{
+    font-weight: bold; 
+    padding-right: 5px;
+}
