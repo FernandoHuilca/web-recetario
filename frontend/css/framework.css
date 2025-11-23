@@ -65,6 +65,7 @@
 .align-items-center{align-items: var(--align-items-center);}
 .justify-content-around{justify-content: var(--justify-content-around);}
 .justify-content-between{justify-content: var(--justify-content-between);}
+.justify-content-center{justify-content: center;}
 .display-flex{display: var(--display-flex);}
 
 /*margin*/
