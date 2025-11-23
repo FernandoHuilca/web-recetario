@@ -6,26 +6,31 @@
     <title>Sign-in</title>
 
     <link rel="stylesheet" href="../css/framework.css">
-    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="../css/signin.css">
 </head>
-<body>
+<body class="margin-0 display-flex justify-content-center align-items-center">
     <main>
-        <div>
-            <h1 class="text-align-center">Iniciar sesión</h1> 
+        <h1 class="text-align-center">Iniciar sesión</h1> 
 
-            <div class="campos display-flex justify-content-center align-items-center">
+        <section class="card">
+
+            <div class="fields">
                 <label class="form-row-label">Correo*:</label>
-                <input class="form-row-input" type="email" placeholder="Ingresa tu correo">
+                <div>
+                    <input class="form-row-input" type="email" placeholder="Ingresa tu correo">
+                </div>
             </div>
 
-            <div class="campos display-flex justify-content-center align-items-center">
+            <div class="fields">
                 <label class="form-row-label">Contraseña*:</label>
-                <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                <div>
+                    <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                </div>
             </div>
-            <div class="display-flex justify-content-center align-items-center">
-                <button class="button">Iniciar sesión</button>
+            <div class="button">
+                <a class="text-button text-decoration-none" href="../pages/dashboard.html">Iniciar sesión</a>
             </div>
-        </div>
+        </section>
     </main>
 </body>
 </html>

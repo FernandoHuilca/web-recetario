@@ -1,34 +1,65 @@
+.background-img{
+    height: 638px;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../assets/images/index/background.jpeg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
 header{
-    padding: 10px;
     margin: 0px 20px;
 }
-.button{
-    all: unset;
+
+.h1-header{
     color: var(--color-white);
-    background-color: var(--color-1);
-    border-radius: 20px;
+}
+
+.button{
+    border-radius: 15px;
     padding: 10px 20px;
     margin: 0px 10px;
 }
 
-.button:hover{
+.button-signin{
+    background-color: var(--color-white);
+}
+
+.button-sigin:hover{
+    cursor: pointer;
+}
+
+.text-signin{
+    color: var(--color-black);
+}
+
+.button-signup{
+    background-color: var(--color-1);
+}
+
+.button-signup:hover{
     background-color: var(--color-2);
     cursor: pointer;
 }
 
-.text-img{
-    width: 700px;
-    font-weight: bold;
-    font-family: var(--font-h1);
-    font-size:4rem;
-    color: var(--color-1);
-    padding: 90px 50px;
+.text-signup{
+    color: var(--color-white);
 }
 
-.background-img{
-    height: 638px;
-    background-image: url('../assets/images/index/background.png');
-    background-size: 100% 100%;
-    background-position: center;
-    padding: 20px;
+.main-text{
+    padding: 60px 0px;
+}
+
+.h1-title{
+    margin: 20px 0px;
+    font-size: 4rem;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.text-img{
+    padding: 0px 400px;
+    color: var(--color-white);
+    font-weight: bold;
+    font-size:1.3rem;
+    text-align: center;
 }

@@ -1,0 +1,47 @@
+body {
+    min-height: 100vh;
+}
+
+.card{
+    width: 500px;
+    border: 2px solid #000;
+    border-radius: 25px;
+}
+
+.fields{
+    margin: 40px;
+}
+
+.form-row-label {
+    width: 200px;
+    text-align: right;
+    font-size: 18px;
+}
+
+.form-row-input {
+    width: 420px; 
+    padding: 10px;
+    font-size: 1rem;
+    border: 1px solid #000;
+    border-radius: 15px;
+    margin: 10px 0px;
+}
+
+.button{
+    width: 420px;
+    background-color: var(--color-1);
+    border-radius: 15px;
+    padding: 15px 0px;
+    margin: 0px 40px 40px 40px;
+    text-align: center;
+}
+
+.text-button{
+    padding: 15px 167px;
+    color: var(--color-white);
+}
+
+.button:hover{
+    background-color: var(--color-2);
+    cursor: pointer;
+}
