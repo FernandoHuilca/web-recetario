@@ -1,0 +1,34 @@
+header{
+    padding: 10px;
+    margin: 0px 20px;
+}
+.button{
+    all: unset;
+    color: var(--color-white);
+    background-color: var(--color-1);
+    border-radius: 20px;
+    padding: 10px 20px;
+    margin: 0px 10px;
+}
+
+.button:hover{
+    background-color: var(--color-2);
+    cursor: pointer;
+}
+
+.text-img{
+    width: 700px;
+    font-weight: bold;
+    font-family: var(--font-h1);
+    font-size:4rem;
+    color: var(--color-1);
+    padding: 90px 50px;
+}
+
+.background-img{
+    height: 638px;
+    background-image: url('../assets/images/index/background.png');
+    background-size: 100% 100%;
+    background-position: center;
+    padding: 20px;
+}
