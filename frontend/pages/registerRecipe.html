@@ -12,7 +12,7 @@
 <body>
     <div class="recipe-container">
         <h1 class="font-h1">Registrar Receta</h1>
-        <form action="" method="post" enctype="multipart/form-data">
+        <form action="recipeManagement.html" method="get" enctype="multipart/form-data">
             <label for="name">Nombre*:</label>
             <input type="text" id="name" name="name" required><br><br>
 
@@ -20,10 +20,10 @@
             <textarea id="description" name="description" rows="3" cols="50" required></textarea><br><br>
 
             <label for="time">Tiempo Preparación (min)*:</label>
-            <input type="number" id="time" name="time" min="1"><br><br>
+            <input type="number" id="time" name="time" min="1" required><br><br>
 
             <label for="servings">Porciones*:</label>
-            <input type="number" id="servings" name="servings" min="1"><br><br>
+            <input type="number" id="servings" name="servings" min="1" required><br><br>
 
             <label>Ingredientes*:</label><br>
             <table id="ingredientsTable">
