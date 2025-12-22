@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,7 +17,7 @@
             <h2 class="font-h2 sidebar-title">Menú</h2>
             <ul class="list-none-style padding-aside">
                 <li class="margin-aside"><a class=" sidebar-button text-decoration-none"
-                        href="dashboard.html">Dashboard</a></li>
+                        href="PanelPrincipal.jsp">Panel Principal</a></li>
                 <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="recipeManagement.html">Gestión</a></li> -->
                 <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="#">Favoritos</a></li> -->
             </ul>
@@ -76,7 +77,7 @@
                     <div>
 
                         <div class="button-viewRecipe text-align-center">
-                            <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                            <a class="text-decoration-none text-while" href="VisualizacionReceta.jsp">Ver receta</a>
                         </div>
 
 
@@ -109,7 +110,7 @@
                     <div>
 
                         <div class="button-viewRecipe text-align-center">
-                            <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                            <a class="text-decoration-none text-while" href="VisualizacionReceta.jsp">Ver receta</a>
                         </div>
 
 
@@ -142,7 +143,7 @@
                     <div>
 
                         <div class="button-viewRecipe text-align-center">
-                            <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                            <a class="text-decoration-none text-while" href="VisualizacionReceta.jsp">Ver receta</a>
                         </div>
 
 

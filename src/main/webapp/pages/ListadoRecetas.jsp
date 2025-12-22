@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -12,7 +13,7 @@
 <body class="margin-0 padding-0">
   <header></header>
   <main>
-    <div class="return"><a class="general-button text-decoration-none" href="dashboard.html">Volver</a></div>
+    <div class="return"><a class="general-button text-decoration-none" href="PanelPrincipal.jsp">Volver</a></div>
 
     <section>
       <div>
@@ -40,7 +41,7 @@
             </td>
             <td>
               <button>
-                <a href="../pages/updateRecipe.html">
+                <a href="../pages/FormularioActualizacionRecetas.jsp">
                   <img src="../assets/images/recipeManagement/updateIcon.png" alt="icono actualizar" />
                 </a>
               </button>
@@ -61,7 +62,7 @@
             </td>
             <td>
               <button>
-                <a href="../pages/updateRecipe.html">
+                <a href="../pages/FormularioActualizacionRecetas.jsp">
                   <img src="../assets/images/recipeManagement/updateIcon.png" alt="icono actualizar" />
                 </a>
               </button>
@@ -77,13 +78,13 @@
           <tr>
             <td>Receta 3</td>
 
-            <td>Descripción de la receta 1</td>
+            <td>Descripción de la receta 3</td>
             <td>
               <img src="../assets/images/common/genericRecipeIcon.png" alt="imagen receta 1" />
             </td>
             <td>
               <button>
-                <a href="../pages/updateRecipe.html">
+                <a href="../pages/FormularioActualizacionRecetas.jsp">
                   <img src="../assets/images/recipeManagement/updateIcon.png" alt="icono actualizar" />
                 </a>
               </button>
@@ -98,7 +99,7 @@
       </table>
       <section>
         <div class="text-align-center margin-20">
-          <a class="general-button text-decoration-none" href="../pages/registerRecipe.html">Registrar receta</a>
+          <a class="general-button text-decoration-none" href="../pages/FormularioRegistroRecetas.jsp">Registrar receta</a>
         </div>
       </section>
 

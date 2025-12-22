@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,9 +24,9 @@
         <nav class="display-flex">
             <ul class="display-flex list-none-style">
                 <li class="margin-nav-header"><a class=" general-button text-decoration-none"
-                        href="../pages/recipeManagement.html">Gestión de recetas</a></li>
+                        href="../pages/ListadoRecetas.jsp">Gestión de recetas</a></li>
                 <li class="margin-nav-header"><a class=" general-button text-decoration-none"
-                        href="favorites.html">Favoritos</a></li>
+                        href="_favorites.jsp">Favoritos</a></li>
                 <!-- <li class="margin-nav-header"><a class=" text-decoration-none" href="#">Perfil</a></li> -->
             </ul>
 
@@ -68,7 +69,7 @@
                 <div>
 
                     <div class="button-viewRecipe text-align-center">
-                        <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                        <a class="text-decoration-none text-while" href="VisualizacionReceta.jsp">Ver receta</a>
                     </div>
 
 
@@ -100,7 +101,7 @@
                 <div>
 
                     <div class="button-viewRecipe text-align-center">
-                        <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                        <a class="text-decoration-none text-while" href="VisualizacionReceta.jsp">Ver receta</a>
                     </div>
 
 
@@ -133,7 +134,7 @@
                 <div>
 
                     <div class="button-viewRecipe text-align-center">
-                        <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                        <a class="text-decoration-none text-while" href="VisualizacionReceta.jsp">Ver receta</a>
                     </div>
 
 

@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,7 @@
 <body class="margin-0 display-flex justify-content-center align-items-center">
     <main>
 
-        <div><a class="general-button text-decoration-none" href="../index.html">Volver</a></div>
+        <div><a class="general-button text-decoration-none" href="../index.jsp">Volver</a></div>
 
         <h1 class="text-align-center">Iniciar sesión</h1>
 
@@ -27,13 +28,13 @@
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Contraseña*:</label>
+                <label class="form-row-label">Contrseña*:</label>
                 <div>
                     <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
                 </div>
             </div>
             <div class="button">
-                <a class="text-button text-decoration-none" href="../pages/dashboard.html">Iniciar sesión</a>
+                <a class="text-button text-decoration-none" href="../pages/PanelPrincipal.jsp">Iniciar sesión</a>
             </div>
         </section>
     </main>

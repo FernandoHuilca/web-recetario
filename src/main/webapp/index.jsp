@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -18,10 +19,10 @@
             <div></div>
             <div class="display-flex">
                 <div class="button button-signin">
-                    <a class="text-decoration-none text-signin" href="pages/signin.html">Iniciar sesión</a>
+                    <a class="text-decoration-none text-signin" href="pages/_signin.jsp">Iniciar sesión</a>
                 </div>
                 <div class="button button-signup">
-                    <a class="text-decoration-none text-signup" href="pages/signup.html">Registrarse</a>
+                    <a class="text-decoration-none text-signup" href="pages/_signup.jsp">Registrarse</a>
                 </div>
             </div>
         </header>

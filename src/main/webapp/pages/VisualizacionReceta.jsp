@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -14,7 +15,7 @@
   <header>
   </header>
   <main>
-    <div class="return"><a class="general-button text-decoration-none" href="dashboard.html">Volver</a></div>
+    <div class="return"><a class="general-button text-decoration-none" href="PanelPrincipal.jsp">Volver</a></div>
     <section>
       <div>
         <h1 class="text-align-center font-h1">Receta</h1>

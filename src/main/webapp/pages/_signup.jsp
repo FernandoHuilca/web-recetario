@@ -1,3 +1,4 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -11,7 +12,7 @@
 
 <body class="margin-0 display-flex justify-content-center align-items-center">
     <main>
-        <div class="return"><a class="general-button text-decoration-none" href="../index.html">Volver</a></div>
+        <div class="return"><a class="general-button text-decoration-none" href="../index.jsp">Volver</a></div>
 
         <h1 class="text-align-center">Registro</h1>
 
@@ -60,7 +61,7 @@
             </div>
 
             <div class="button">
-                <a class="text-button text-decoration-none" href="../pages/signin.html">Registrarse</a>
+                <a class="text-button text-decoration-none" href="../pages/_signin.jsp">Registrarse</a>
             </div>
 
         </section>

@@ -1,18 +1,19 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Registro Receta</title>
+    <title>Actualización Receta</title>
     <link rel="stylesheet" href="../css/framework.css">
     <link rel="stylesheet" href="../css/recipeActions.css">
 </head>
 
 <body>
     <div class="recipe-container">
-        <h1 class="font-h1">Registrar Receta</h1>
-        <form action="recipeManagement.html" method="get" enctype="multipart/form-data">
+        <h1 class="font-h1">Actualizar Receta</h1>
+        <form action="ListadoRecetas.jsp" method="get" enctype="multipart/form-data">
             <label for="name">Nombre*:</label>
             <input type="text" id="name" name="name" required><br><br>
 
@@ -59,7 +60,7 @@
             <button class="button" type="button" id="addIngredient">Agregar ingrediente</button>
             <br>
 
-            <label for="instructions">Pasos/ Instrucciones*:</label><br>
+            <label for="instructions">Pasos / Instrucciones*:</label><br>
             <textarea id="instructions" name="instructions" rows="6" cols="50" required></textarea><br><br>
 
 
@@ -68,12 +69,11 @@
             <input type="file" id="image" name="image" accept="image/*"><br><br>
 
             <div class="recipe-actions">
-                <input class="button" type="submit" value="Registrar">
-                <a class="button" href="recipeManagement.html">Cancelar</a>
+                <input class="button" type="submit" value="Actualizar">
+                <a class="button" href="ListadoRecetas.jsp">Cancelar</a>
             </div>
         </form>
     </div>
-
 </body>
 
 </html>
