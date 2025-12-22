@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Favorite</title>
+    <link rel="stylesheet" href="../css/framework.css">
+    <link rel="stylesheet" href="../css/favorites.css">
+</head>
+
+<body class="display-flex justify-content-between">
+
+    <aside class="sizing-aside bg-1-card">
+        <div class="">
+            <h2 class="font-h2 sidebar-title">Menú</h2>
+            <ul class="list-none-style padding-aside">
+                <li class="margin-aside"><a class=" sidebar-button text-decoration-none"
+                        href="dashboard.html">Dashboard</a></li>
+                <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="recipeManagement.html">Gestión</a></li> -->
+                <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="#">Favoritos</a></li> -->
+            </ul>
+        </div>
+    </aside>
+
+
+    <div class="sizing-main bg">
+        <header class="display-flex justify-content-between align-center padding-header">
+
+
+            <section class="display-flex search-favorite">
+                <input class="search-input" type="text" placeholder="Buscar receta...">
+                <div class="button-search">Buscar</div>
+            </section>
+
+
+            <nav class="display-flex">
+                <div class="avaterPerfil">
+                    <a href="#" class="avatar-link">
+                        <img class="icon-user" src="../assets/images/dashboard/defaultPerfil.jpeg"
+                            alt="Icono de usuario">
+                    </a>
+                </div>
+            </nav>
+
+
+
+
+        </header>
+
+
+        <main>
+            <section class="display-flex  margin-cards">
+
+                <article class="sizing-card bg-1-card margin-card">
+
+                    <div class="card-image">
+                        <img src="../assets/images/dashboard/pollonavideño.jpeg" alt="Pollo Navideño" loading="lazy">
+                    </div>
+
+                    <!-- Favorite / bookmark button -->
+                    <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <!-- bookmark shape -->
+                            <path d="M6 2h12v18l-6-4-6 4V2z" />
+                        </svg>
+                    </button>
+
+                    <div class="recipeInfo name-description-recipe">
+                        <h2 class="font-h3">Pollo Navideño</h2>
+                        <p class="color-subTitle">Deliciosa receta de pollo navideño con especias y hierbas aromáticas,
+                            perfecto para celebrar en familia.</p>
+                    </div>
+
+                    <div>
+
+                        <div class="button-viewRecipe text-align-center">
+                            <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                        </div>
+
+
+                    </div>
+
+                </article>
+
+
+                <article class="sizing-card bg-1-card margin-card">
+
+                    <div class="card-image">
+                        <img src="../assets/images/dashboard/lasania.jpeg" alt="Lasania" loading="lazy">
+                    </div>
+
+                    <!-- Favorite / bookmark button -->
+                    <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <!-- bookmark shape -->
+                            <path d="M6 2h12v18l-6-4-6 4V2z" />
+                        </svg>
+                    </button>
+
+                    <div class="recipeInfo name-description-recipe">
+                        <h2 class="font-h3">Lasania</h2>
+                        <p class="color-subTitle">Deliciosa receta de lasania con verduras frescas y mayonesa casera,
+                            ideal para acompañar tus comidas.</p>
+                    </div>
+
+                    <div>
+
+                        <div class="button-viewRecipe text-align-center">
+                            <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                        </div>
+
+
+                    </div>
+
+                </article>
+
+
+                <article class="sizing-card bg-1-card margin-card">
+
+                    <div class="card-image">
+                        <img src="../assets/images/dashboard/ensaladaRusa.jpeg" alt="Ensalada Rusa" loading="lazy">
+                    </div>
+
+                    <!-- Favorite / bookmark button -->
+                    <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
+                        <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
+                            xmlns="http://www.w3.org/2000/svg">
+                            <!-- bookmark shape -->
+                            <path d="M6 2h12v18l-6-4-6 4V2z" />
+                        </svg>
+                    </button>
+
+                    <div class="recipeInfo name-description-recipe">
+                        <h2 class="font-h3">Ensalada Rusa</h2>
+                        <p class="color-subTitle">Deliciosa receta de ensalada rusa con verduras frescas y mayonesa
+                            casera, ideal para acompañar tus comidas.</p>
+                    </div>
+
+                    <div>
+
+                        <div class="button-viewRecipe text-align-center">
+                            <a class="text-decoration-none text-while" href="recipeDetails.html">Ver receta</a>
+                        </div>
+
+
+                    </div>
+
+
+            </section>
+
+        </main>
+
+    </div>
+
+
+</body>
+
+</html>

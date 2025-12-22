@@ -1,0 +1,67 @@
+.background-img{
+    height: 638px;
+    background-image: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('../assets/images/index/background.jpeg');
+    background-size: cover;
+    background-position: center;
+    padding: 20px;
+}
+
+header{
+    margin: 0px 20px;
+}
+
+.h1-header{
+    color: var(--color-white);
+    font-family: var(--font-h1);
+    font-size: clamp(2rem, 7vw, 4rem);
+}
+
+.button{
+    border-radius: 15px;
+    padding: 10px 20px;
+    margin: 0px 10px;
+}
+
+.button-signin{
+    background-color: var(--color-white);
+}
+
+.button-sigin:hover{
+    cursor: pointer;
+}
+
+.text-signin{
+    color: var(--color-black);
+}
+
+.button-signup{
+    background-color: var(--color-1);
+}
+
+.button-signup:hover{
+    background-color: var(--color-2);
+    cursor: pointer;
+}
+
+.text-signup{
+    color: var(--color-white);
+}
+
+.main-text{
+    padding: 60px 0px;
+}
+
+.h1-title{
+    margin: 20px 0px;
+    font-size: 4rem;
+    text-align: center;
+    color: var(--color-white);
+}
+
+.text-img{
+    padding: 0px 400px;
+    color: var(--color-white);
+    font-weight: bold;
+    font-size:1.3rem;
+    text-align: center;
+}
