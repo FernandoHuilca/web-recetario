@@ -20,7 +20,7 @@ public class Receta implements Serializable {
 	private static List<Receta> recetas = new ArrayList<Receta>(); // TODO: Visual Paradigm
 
 	private int idUsuario;
-	
+
 	public Receta() {
 	}
 
@@ -101,7 +101,7 @@ public class Receta implements Serializable {
 
 	// TODO: static en visual paradigm
 	public static List<Receta> obtenerRecetas() {
-		
+
 		if (recetas.isEmpty()) {
 			// receta 1
 			List<Ingrediente> ingredientes = new ArrayList<Ingrediente>();
@@ -119,24 +119,32 @@ public class Receta implements Serializable {
 
 			recetas.add(new Receta(2, "ensalada de papa", "Esta es la descripción de la ensalada de papa", 30.0,
 					"1. preparar la papa, 2. cocinar, 3. decorar", 3, ingredientes2, "", 0));
+
+			// receta 3
+			List<Ingrediente> ingredientes3 = new ArrayList<Ingrediente>();
+			ingredientes3.add(new Ingrediente("pavo", 1, Unidad.obtenerUnidad("unidad")));
+			ingredientes3.add(new Ingrediente("arroz", 500, Unidad.obtenerUnidad("g")));
+
+			recetas.add(new Receta(2, "pavo de arroz", "Esta es la descripción del pavo con arroz", 90.0,
+					"1. preparar el pavo, 2. cocinar, 3. decorar", 10, ingredientes3, "", 1));
 		}
-		
+
 		return recetas;
 	}
 
 	public static List<Receta> obtenerRecetas(int idUsuario) {
-		
+
 		if (recetas.isEmpty()) {
 			obtenerRecetas();
 		}
-		
+
 		List<Receta> recetasEncontradas = new ArrayList<Receta>();
-		for(Receta receta: recetas) {
-			if(receta.getIdUsuario() == idUsuario) {
+		for (Receta receta : recetas) {
+			if (receta.getIdUsuario() == idUsuario) {
 				recetasEncontradas.add(receta);
 			}
 		}
-		
+
 		return recetasEncontradas;
 	}
 
@@ -151,8 +159,9 @@ public class Receta implements Serializable {
 			}
 		}
 
-		Receta receta = new Receta(max + 1, nombre, descripcion, tiempo, pasos, porciones, ingredientes, imagen, idUsuario);
-		
+		Receta receta = new Receta(max + 1, nombre, descripcion, tiempo, pasos, porciones, ingredientes, imagen,
+				idUsuario);
+
 		recetas.add(receta);
 		return true;
 	}

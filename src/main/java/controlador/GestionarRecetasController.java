@@ -29,8 +29,8 @@ public class GestionarRecetasController extends HttpServlet {
 		int idUsuario = 1;//Integer.parseInt(req.getParameter("idUsuario"));
 		List<Receta> recetas = Receta.obtenerRecetas(idUsuario);
 		
+		// presentarRecetas(recetas)
 		req.setAttribute("recetas", recetas);
 		req.getRequestDispatcher("vista/ListadoRecetas.jsp").forward(req, resp);
-	}
-	
+	}	
 }
