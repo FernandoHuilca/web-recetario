@@ -18,12 +18,34 @@ public class RegistrarRecetasController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		this.ruteador(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
+		this.ruteador(req, resp);
+	}
+	
+	private void ruteador(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String ruta = (req.getParameter("ruta") != null) ? "listarRecetas": req.getParameter("ruta");
+		
+		switch(ruta) {
+		case "registrarReceta":
+			this.registrarReceta(req, resp);
+			break;
+		case "guardar":
+			this.guardar(req, resp);
+			break;
+		case "cancelar":
+			this.cancelar(req, resp);
+			break;
+		case "volver":
+			this.volver(req, resp);
+			break;
+		case "listarRecetas":
+			this.listarRecetas(req, resp);
+			break;
+		}
 	}
 
 	public void registrarReceta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
