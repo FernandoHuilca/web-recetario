@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -13,7 +14,11 @@
 <body>
     <div class="recipe-container">
         <h1 class="font-h1">Registrar Receta</h1>
-        <form action="ListadoRecetas.jsp" method="get" enctype="multipart/form-data">
+        
+        <form method="POST" action="../GestionarRecetasController" enctype="multipart/form-data">
+        	<!-- <label for="id">Id</label> -->
+        	<input type="hidden" name="id" id="id">
+        
             <label for="name">Nombre*:</label>
             <input type="text" id="name" name="name" required><br><br>
 
