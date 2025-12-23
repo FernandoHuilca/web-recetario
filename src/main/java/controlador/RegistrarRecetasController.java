@@ -78,7 +78,8 @@ public class RegistrarRecetasController extends HttpServlet {
 		String descripcion = req.getParameter("description");
 		double tiempoPreparacion = Double.parseDouble(req.getParameter("time"));
 		String descripcionPasos= req.getParameter("instructions");
-		String porciones = req.getParameter("servings");
+		int porciones = Integer.parseInt(req.getParameter("servings"));
+		String imagen = null;
 		
 		// Captura de arrays de ingredientes
 		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
@@ -103,7 +104,7 @@ public class RegistrarRecetasController extends HttpServlet {
         }
 		//2. Hablar con el modelo
         Receta receta = new Receta();
-        boolean resultado = receta.guardarReceta(nombre, descripcion, tiempoPreparacion, porciones, ingredientes, descripcionPasos, porciones, 0);
+        boolean resultado = receta.guardarReceta(nombre, descripcion, tiempoPreparacion, porciones, ingredientes, descripcionPasos, imagen, 0);
 		
         //3. Llamar a la vista
         if(!resultado) {

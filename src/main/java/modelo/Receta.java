@@ -13,17 +13,17 @@ public class Receta implements Serializable {
 	private String descripcion;
 	private double tiempoPreparacion;
 	private String descripcionPasos;
-	private String porciones; // TODO: int o String
+	private int porciones;
 	private List<Ingrediente> ingredientes;
+	private String imagen;
 
 	private static List<Receta> recetas = new ArrayList<Receta>(); // TODO: Visual Paradigm
-	// TODO: Imagen ???
 
 	public Receta() {
 	}
 
 	public Receta(int idReceta, String nombre, String descripcion, double tiempoPreparacion, String descripcionPasos,
-			String porciones, List<Ingrediente> ingredientes) {
+			int porciones, List<Ingrediente> ingredientes, String imagen) {
 		this.idReceta = idReceta;
 		this.nombre = nombre;
 		this.descripcion = descripcion;
@@ -31,6 +31,7 @@ public class Receta implements Serializable {
 		this.descripcionPasos = descripcionPasos;
 		this.porciones = porciones;
 		this.ingredientes = ingredientes;
+		this.imagen = imagen;
 	}
 
 	public int getIdReceta() {
@@ -73,11 +74,11 @@ public class Receta implements Serializable {
 		this.descripcionPasos = descripcionPasos;
 	}
 
-	public String getPorciones() {
+	public int getPorciones() {
 		return porciones;
 	}
 
-	public void setPorciones(String porciones) {
+	public void setPorciones(int porciones) {
 		this.porciones = porciones;
 	}
 
@@ -87,6 +88,14 @@ public class Receta implements Serializable {
 
 	public void setIngredientes(List<Ingrediente> ingredientes) {
 		this.ingredientes = ingredientes;
+	}
+	
+	public String getImagen() {
+		return imagen;
+	}
+	
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
 	/************************* Métodos de negocio *************************/
@@ -101,7 +110,7 @@ public class Receta implements Serializable {
 
 			recetas = new ArrayList<Receta>();
 			recetas.add(new Receta(1, "pollo navideño", "Esta es la descripción del pollo navideño", 90.0,
-					"1. preparar el pollo, 2. cocinar, 3. decorar", "10 personas", ingredientes));
+					"1. preparar el pollo, 2. cocinar, 3. decorar", 10, ingredientes, null));
 
 			// receta 2
 			List<Ingrediente> ingredientes2 = new ArrayList<Ingrediente>();
@@ -109,7 +118,7 @@ public class Receta implements Serializable {
 			ingredientes.add(new Ingrediente("rebanadas de jamon", 5, Unidad.obtenerUnidad("unidad")));
 
 			recetas.add(new Receta(2, "ensalada de papa", "Esta es la descripción de la ensalada de papa", 30.0,
-					"1. preparar la papa, 2. cocinar, 3. decorar", "3 personas", ingredientes2));
+					"1. preparar la papa, 2. cocinar, 3. decorar", 3, ingredientes2, null));
 		}
 
 		return recetas;
@@ -119,7 +128,7 @@ public class Receta implements Serializable {
 		return null;
 	}
 
-	public boolean guardarReceta(String nombre, String descripcion, double tiempo, String porciones,
+	public boolean guardarReceta(String nombre, String descripcion, double tiempo, int porciones,
 			List<Ingrediente> ingredientes, String pasos, String imagen, int idUsuario) {
 
 		int max = 0;
@@ -130,7 +139,7 @@ public class Receta implements Serializable {
 			}
 		}
 
-		Receta receta = new Receta(max + 1, nombre, descripcion, tiempo, pasos, porciones, ingredientes);
+		Receta receta = new Receta(max + 1, nombre, descripcion, tiempo, pasos, porciones, ingredientes, imagen);
 		
 		recetas.add(receta);
 		return true;
