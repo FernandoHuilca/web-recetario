@@ -1,6 +1,7 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Unidad implements Serializable {
@@ -9,6 +10,8 @@ public class Unidad implements Serializable {
 	
 	private String nombre;
 	private String simbolo;
+	
+	private static List<Unidad> unidades = new ArrayList<Unidad>(); // TODO: visual paradigm
 	
 	public Unidad() {
 		
@@ -38,8 +41,38 @@ public class Unidad implements Serializable {
 	
 	/************************* Métodos de negocio *************************/
 	
-	public List<Unidad> obtenerUnidades(){
-		return null;
+	//TODO: static
+	public static List<Unidad> obtenerUnidades(){
+		if(unidades.isEmpty()) {
+			unidades.add(new Unidad("unidad1", "unidad"));
+			unidades.add(new Unidad("gramos", "g"));
+			unidades.add(new Unidad("kilogramos", "kg"));
+			unidades.add(new Unidad("mililitros", "ml"));
+			unidades.add(new Unidad("litros", "l"));
+			
+		}
+		return unidades;
+	}
+
+	// TODO: Visual Paradigm
+	public static Unidad obtenerUnidad(String unidad) {
+		if(unidades.isEmpty()) {
+			obtenerUnidades();
+		}
+		switch(unidad) {
+		case "unidad":
+			return unidades.get(0);
+		case "g":
+			return unidades.get(1);
+		case "kg":
+			return unidades.get(2);
+		case "ml":
+			return unidades.get(3);
+		case "l":
+			return unidades.get(4);
+		default:
+			return null;
+		}
 	}
 
 }
