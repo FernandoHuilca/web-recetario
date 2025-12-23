@@ -17,16 +17,17 @@ public class GestionarRecetasController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		listar(req, resp);
+		listarRecetas(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		listar(req, resp);
+		listarRecetas(req, resp);
 	}
 	
-	public void listar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Receta> recetas = Receta.obtenerRecetas();
+	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int idUsuario = 1;//Integer.parseInt(req.getParameter("idUsuario"));
+		List<Receta> recetas = Receta.obtenerRecetas(idUsuario);
 		
 		req.setAttribute("recetas", recetas);
 		req.getRequestDispatcher("vista/ListadoRecetas.jsp").forward(req, resp);

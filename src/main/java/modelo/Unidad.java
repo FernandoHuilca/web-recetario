@@ -44,7 +44,7 @@ public class Unidad implements Serializable {
 	//TODO: static
 	public static List<Unidad> obtenerUnidades(){
 		if(unidades.isEmpty()) {
-			unidades.add(new Unidad("unidad1", "unidad"));
+			unidades.add(new Unidad("unidad", "unidad"));
 			unidades.add(new Unidad("gramos", "g"));
 			unidades.add(new Unidad("kilogramos", "kg"));
 			unidades.add(new Unidad("mililitros", "ml"));
