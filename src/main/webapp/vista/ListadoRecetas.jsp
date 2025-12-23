@@ -41,7 +41,7 @@
             </td>
             <td>
               <button>
-                <a href="../pages/FormularioActualizacionRecetas.jsp">
+                <a href="../vista/FormularioActualizacionRecetas.jsp">
                   <img src="../assets/images/recipeManagement/updateIcon.png" alt="icono actualizar" />
                 </a>
               </button>
@@ -62,7 +62,7 @@
             </td>
             <td>
               <button>
-                <a href="../pages/FormularioActualizacionRecetas.jsp">
+                <a href="../vista/FormularioActualizacionRecetas.jsp">
                   <img src="../assets/images/recipeManagement/updateIcon.png" alt="icono actualizar" />
                 </a>
               </button>
@@ -84,7 +84,7 @@
             </td>
             <td>
               <button>
-                <a href="../pages/FormularioActualizacionRecetas.jsp">
+                <a href="../vista/FormularioActualizacionRecetas.jsp">
                   <img src="../assets/images/recipeManagement/updateIcon.png" alt="icono actualizar" />
                 </a>
               </button>
@@ -99,7 +99,7 @@
       </table>
       <section>
         <div class="text-align-center margin-20">
-          <a class="general-button text-decoration-none" href="../pages/FormularioRegistroRecetas.jsp">Registrar receta</a>
+          <a class="general-button text-decoration-none" href="../vista/FormularioRegistroRecetas.jsp">Registrar receta</a>
         </div>
       </section>
 

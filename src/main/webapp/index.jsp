@@ -19,10 +19,10 @@
             <div></div>
             <div class="display-flex">
                 <div class="button button-signin">
-                    <a class="text-decoration-none text-signin" href="pages/_signin.jsp">Iniciar sesión</a>
+                    <a class="text-decoration-none text-signin" href="vista/_signin.jsp">Iniciar sesión</a>
                 </div>
                 <div class="button button-signup">
-                    <a class="text-decoration-none text-signup" href="pages/_signup.jsp">Registrarse</a>
+                    <a class="text-decoration-none text-signup" href="vista/_signup.jsp">Registrarse</a>
                 </div>
             </div>
         </header>

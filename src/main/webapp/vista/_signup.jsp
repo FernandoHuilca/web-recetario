@@ -61,7 +61,7 @@
             </div>
 
             <div class="button">
-                <a class="text-button text-decoration-none" href="../pages/_signin.jsp">Registrarse</a>
+                <a class="text-button text-decoration-none" href="../vista/_signin.jsp">Registrarse</a>
             </div>
 
         </section>

@@ -34,7 +34,7 @@
                 </div>
             </div>
             <div class="button">
-                <a class="text-button text-decoration-none" href="../pages/PanelPrincipal.jsp">Iniciar sesión</a>
+                <a class="text-button text-decoration-none" href="../vista/PanelPrincipal.jsp">Iniciar sesión</a>
             </div>
         </section>
     </main>
