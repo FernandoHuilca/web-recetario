@@ -24,7 +24,7 @@
         <nav class="display-flex">
             <ul class="display-flex list-none-style">
                 <li class="margin-nav-header"><a class=" general-button text-decoration-none"
-                        href="../vista/ListadoRecetas.jsp">Gestión de recetas</a></li>
+                        href="../GestionarRecetasController">Gestión de recetas</a></li>
                 <li class="margin-nav-header"><a class=" general-button text-decoration-none"
                         href="_favorites.jsp">Favoritos</a></li>
                 <!-- <li class="margin-nav-header"><a class=" text-decoration-none" href="#">Perfil</a></li> -->

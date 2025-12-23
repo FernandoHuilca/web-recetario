@@ -11,9 +11,9 @@
 
 	<div>
 		<div>Ícono del mensaje</div>
-		<h1>[Tipo de Mensaje]: Título del mensaje</h1>
-		<p>Descripción del mensaje</p>
-		<a href="">Volver</a>
+		<h1>${title}</h1>
+		<p>${description}</p>
+		<a href="${pageContext.request.contextPath}${href}">Volver</a>
 	</div>
 
 </body>

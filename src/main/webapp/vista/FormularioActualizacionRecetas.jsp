@@ -16,7 +16,7 @@
 	
 		<h1 class="font-h1">Actualizar Receta</h1>
 		
-		<form action="../ActualizarRecetasController" method="POST"
+		<form action="../ActualizarRecetasController?ruta=actualizar" method="POST"
 			enctype="multipart/form-data">
 			
 			<label for="name">Nombre*:</label> <input type="text" id="name"
@@ -74,7 +74,7 @@
 
 			<div class="recipe-actions">
 				<input class="button" type="submit" value="Actualizar"> <a
-					class="button" href="ListadoRecetas.jsp">Cancelar</a>
+					class="button" href="${pageContext.request.contextPath}/GestionarRecetasController">Cancelar</a>
 			</div>
 			
 		</form>
