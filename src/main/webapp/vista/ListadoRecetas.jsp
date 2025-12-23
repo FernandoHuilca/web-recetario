@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 
+
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -35,40 +36,37 @@
 				</thead>
 				<tbody>
 					<c:forEach items="${recetas}" var="receta">
-
 						<tr>
 							<td>${receta.nombre}</td>
-
 							<td>${receta.descripcion}</td>
 							<td><img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png"
-								alt="imagen receta 1" /></td>
+								alt="imagen receta" /></td>
 							<td>
-								<button>
-									<a href="${pageContext.request.contextPath}/ActualizarRecetasController"> <img
-										src="${pageContext.request.contextPath}/assets/images/recipeManagement/updateIcon.png"
+								<a href="${pageContext.request.contextPath}/ActualizarRecetasController?idReceta=${receta.idReceta}" 
+									class="icon-link" title="Actualizar receta">
+									<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/updateIcon.png"
 										alt="icono actualizar" />
-									</a>
-								</button>
+								</a>
 							</td>
 							<td>
-								<button>
-									<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/deleteIcon.png"
-										alt="icono eliminar" />
-								</button>
+								<form method="POST" action="${pageContext.request.contextPath}/EliminarRecetasController" style="display:inline;">
+									<input type="hidden" name="idReceta" value="${receta.idReceta}" />
+									<button type="submit" class="icon-button" title="Eliminar receta" 
+										onclick="return confirm('¿Estás seguro de que deseas eliminar esta receta?');">
+										<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/deleteIcon.png"
+											alt="icono eliminar" />
+									</button>
+								</form>
 							</td>
 						</tr>
-
 					</c:forEach>
 				</tbody>
 
 			</table>
-			<section>
-				<div class="text-align-center margin-20">
-					<a class="general-button text-decoration-none"
-						href="${pageContext.request.contextPath}/RegistrarRecetasController">Registrar receta</a>
-				</div>
-			</section>
-
+			<div class="text-align-center margin-20">
+				<a class="general-button text-decoration-none"
+					href="${pageContext.request.contextPath}/RegistrarRecetasController">Registrar receta</a>
+			</div>
 		</section>
 	</main>
 </body>
