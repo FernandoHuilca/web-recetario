@@ -119,7 +119,6 @@ public class Receta implements Serializable {
 		return null;
 	}
 
-	// TODO: método que retorn boolean
 	public boolean guardarReceta(String nombre, String descripcion, double tiempo, String porciones,
 			List<Ingrediente> ingredientes, String pasos, String imagen, int idUsuario) {
 
