@@ -1,0 +1,19 @@
+body {
+    min-height: 100vh;
+}
+
+.card{
+    width: 500px;
+    border: 2px solid #000;
+    border-radius: 25px;
+    margin: 15px 0px;
+}
+
+.button{
+    margin: 0px 40px 40px 40px;
+}
+
+/* Center buttons within the message card */
+/* .card .general-button{
+    margin-left: 0;
+} */
