@@ -65,13 +65,16 @@ public class RegistrarRecetasController extends HttpServlet {
 	public void registrarReceta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		//1. Obtener los parámetros 
 		//2. Hablar con el modelo
+		/*
 		List<Unidad> unidades = Unidad.obtenerUnidades();
 		//3. Llamar a la vista
 		req.setAttribute("unidades", unidades);
 		req.getRequestDispatcher("vista/FormularioRegistroRecetas.jsp").forward(req, resp);
+		*/
 	}
 
 	public void guardar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		/*
 		//1. Obtener los parámetros 
 		//int idReceta = Integer.parseInt(req.getParameter("id"));
 		String nombre = req.getParameter("name");
@@ -120,6 +123,7 @@ public class RegistrarRecetasController extends HttpServlet {
         req.setAttribute("href", "/GestionarRecetasController");
 
     	req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
+    	*/
 	}
 
 	public void cancelar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

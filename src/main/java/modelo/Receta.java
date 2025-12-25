@@ -4,44 +4,74 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
+import jakarta.persistence.CascadeType;
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+@Entity
+@Table(name = "Receta")
 public class Receta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private int idReceta;
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name="id_receta")
+	private Long idReceta;
+	
+	@Column(nullable = false, length = 200)
 	private String nombre;
+	
+    @Column(columnDefinition = "TEXT", nullable = false)
 	private String descripcion;
-	private double tiempoPreparacion;
+	
+    @Column(name = "tiempo_preparacion", nullable = false)
+	private Double tiempoPreparacion;
+	
+    @Column(name = "descripcion_pasos", columnDefinition = "TEXT", nullable = false)
 	private String descripcionPasos;
-	private int porciones;
-	private List<Ingrediente> ingredientes;
+	
+    @Column(nullable = false)
+	private Integer porciones;
+    
+    @Column(name="imagen")
 	private String imagen;
 
-	private static List<Receta> recetas = new ArrayList<Receta>(); // TODO: Visual Paradigm
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "id_usuario", nullable = false)
+	private Usuario usuario;
+    
+    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<RecetaIngrediente> recetaIngredientes = new ArrayList<>();
+	
+    // Constructores
+	public Receta() {}
 
-	private int idUsuario;
-
-	public Receta() {
-	}
-
-	public Receta(int idReceta, String nombre, String descripcion, double tiempoPreparacion, String descripcionPasos,
-			int porciones, List<Ingrediente> ingredientes, String imagen, int idUsuario) {
-		this.idReceta = idReceta;
+	public Receta(String nombre, String descripcion, double tiempoPreparacion, String descripcionPasos,
+			int porciones, List<Ingrediente> ingredientes, String imagen, Usuario Usuario) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.tiempoPreparacion = tiempoPreparacion;
 		this.descripcionPasos = descripcionPasos;
 		this.porciones = porciones;
-		this.ingredientes = ingredientes;
 		this.imagen = imagen;
-		this.idUsuario = idUsuario;
+		this.usuario = Usuario;
 	}
 
-	public int getIdReceta() {
+	// Getters y Setters
+	public Long getIdReceta() {
 		return idReceta;
 	}
 
-	public void setIdReceta(int idReceta) {
+	public void setIdReceta(Long idReceta) {
 		this.idReceta = idReceta;
 	}
 
@@ -85,20 +115,56 @@ public class Receta implements Serializable {
 		this.porciones = porciones;
 	}
 
-	public List<Ingrediente> getIngredientes() {
-		return ingredientes;
+	public Usuario getUsuario() {
+		return usuario;
+	}
+	
+	
+	public String getImagen() {
+		return imagen;
 	}
 
-	public void setIngredientes(List<Ingrediente> ingredientes) {
-		this.ingredientes = ingredientes;
+	public void setImagen(String imagen) {
+		this.imagen = imagen;
 	}
 
-	public int getIdUsuario() {
-		return idUsuario;
+	public List<RecetaIngrediente> getRecetaIngredientes() {
+		return recetaIngredientes;
 	}
 
+	public void setRecetaIngredientes(List<RecetaIngrediente> recetaIngredientes) {
+		this.recetaIngredientes = recetaIngredientes;
+	}
+
+	public void setTiempoPreparacion(Double tiempoPreparacion) {
+		this.tiempoPreparacion = tiempoPreparacion;
+	}
+
+	public void setPorciones(Integer porciones) {
+		this.porciones = porciones;
+	}
+
+	public void setUsuario(Usuario usuario) {
+		this.usuario = usuario;
+	}
+
+	// Método de ayuda para registrar ingredientes
+    public void agregarIngrediente(Ingrediente ingrediente, Double cantidad, Unidad unidad) {
+        RecetaIngrediente ri = new RecetaIngrediente(this, ingrediente, cantidad, unidad);
+        recetaIngredientes.add(ri);
+    }
+
+	@Override
+	public String toString() {
+		return "Receta [idReceta=" + idReceta + ", nombre=" + nombre + ", descripcion=" + descripcion
+				+ ", tiempoPreparacion=" + tiempoPreparacion + ", descripcionPasos=" + descripcionPasos + ", porciones="
+				+ porciones + ", imagen=" + imagen + ", idUsuario=" + usuario 
+				+ "]";
+	}
+	
 	/************************* Métodos de negocio *************************/
 
+	/*
 	// TODO: static en visual paradigm
 	public static List<Receta> obtenerRecetas() {
 
@@ -178,4 +244,5 @@ public class Receta implements Serializable {
 	public boolean eliminarReceta(int idReceta) {
 		return false;
 	}
+	*/
 }

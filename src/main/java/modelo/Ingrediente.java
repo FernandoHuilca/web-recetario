@@ -1,22 +1,40 @@
 package modelo;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.Column;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
+import jakarta.persistence.Table;
+
+//Ingrediente (catálogo sin cantidad ni unidad)
+@Entity
+@Table(name = "Ingrediente")
 public class Ingrediente implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	
+	@Id
+	@GeneratedValue( strategy = GenerationType.IDENTITY)
+	@Column(name="id_Ingrediente")
+	private Long idIngrediente;
+
+    @Column(nullable = false, unique = true, length = 100)
 	private String nombre;
-	private double cantidad;
-	private Unidad unidad;
+    
+    @OneToMany(mappedBy = "ingrediente")
+    private List<RecetaIngrediente> recetaIngredientes = new ArrayList<>();
 	
 	public Ingrediente() {}
 
-	public Ingrediente(String nombre, double cantidad, Unidad unidad) {
+	public Ingrediente(String nombre) {
 		super();
 		this.nombre = nombre;
-		this.cantidad = cantidad;
-		this.unidad = unidad;
 	}
 
 	public String getNombre() {
@@ -25,27 +43,5 @@ public class Ingrediente implements Serializable {
 
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
-	}
-
-	public double getCantidad() {
-		return cantidad;
-	}
-
-	public void setCantidad(double cantidad) {
-		this.cantidad = cantidad;
-	}
-
-	public Unidad getUnidad() {
-		return unidad;
-	}
-
-	public void setUnidad(Unidad unidad) {
-		this.unidad = unidad;
-	}
-	
-	/************************* Métodos de negocio *************************/
-	
-	public void guardarIngrediente(String nombre, double cantidad, Unidad unidad) {
-		
 	}
 }
