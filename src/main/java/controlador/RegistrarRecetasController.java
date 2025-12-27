@@ -132,7 +132,7 @@ public class RegistrarRecetasController extends HttpServlet {
 				Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
 				
 				// Buscar o crear ingrediente en BD para evitar cascade PERSIST issues
-				Ingrediente ingrediente = ingredienteDAO.guardarOObtener(new Ingrediente(nombreIng));
+				Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
 				
 				if (ingrediente == null) {
 					req.setAttribute("title", "ERROR: Ingrediente no pudo guardarse");

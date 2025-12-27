@@ -62,7 +62,7 @@ public class RecetaDAO {
 	/**
 	 * Obtiene una receta por su ID	
 	 */
-	public Receta obtenerRecetaPorId(int idReceta) {
+	public Receta obtenerRecetaPorId(Long idReceta) {
 		try {
 			return em.find(Receta.class, idReceta);
 		} catch (Exception e) {

@@ -42,7 +42,7 @@
 							<td><img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png"
 								alt="imagen receta" /></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/ActualizarRecetasController?idReceta=${receta.idReceta}" 
+								<a href="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizarReceta&idReceta=${receta.idReceta}" 
 									class="icon-link" title="Actualizar receta">
 									<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/updateIcon.png"
 										alt="icono actualizar" />

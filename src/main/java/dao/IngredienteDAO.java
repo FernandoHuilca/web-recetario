@@ -17,6 +17,9 @@ public class IngredienteDAO {
 	}
 	
 	public Ingrediente obtenerPorNombre(String nombre) {
+		
+		return this.em.find(Ingrediente.class, nombre);
+		/*
 		try {
 			TypedQuery<Ingrediente> query = em.createQuery(
 				"SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", 
@@ -27,11 +30,31 @@ public class IngredienteDAO {
 		} catch (Exception e) {
 			e.printStackTrace();
 			return null;
-		}
+		}  
+		 */
 	}
 	
-	public Ingrediente guardarOObtener(Ingrediente ingrediente) {
+	public Ingrediente guardarIngrediente(Ingrediente ingrediente) {
+		
+		Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
+		if (existente != null) {
+			return existente; // Retorna el que ya existe
+		}
+		
 		try {
+			em.getTransaction().begin();
+			em.persist(ingrediente);
+			em.getTransaction().begin();
+			return ingrediente;
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			return null;
+		}
+
+		
+		/*try {
 			// Buscar si ya existe
 			Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
 			if (existente != null) {
@@ -49,7 +72,7 @@ public class IngredienteDAO {
 			}
 			e.printStackTrace();
 			return null;
-		}
+		}*/
 	}
 	
 	public void cerrar() {
