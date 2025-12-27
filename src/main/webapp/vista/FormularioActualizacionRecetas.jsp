@@ -80,7 +80,7 @@
 
 			<div class="recipe-actions">
 				<input class="button" type="submit" value="Actualizar"> <a
-					class="button" href="${pageContext.request.contextPath}/GestionarRecetasController">Cancelar</a>
+					class="button" href="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=cancelar&idUsuario=${receta.usuario.idUsuario}">Cancelar</a>
 			</div>
 			
 		</form>

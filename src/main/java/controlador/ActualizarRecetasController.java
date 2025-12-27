@@ -104,13 +104,15 @@ public class ActualizarRecetasController extends HttpServlet {
 		// 1. Obtener los parámetros
 		// 2. Hablar con el modelo
 		// 3. Llamar a la vista
-		System.out.print("cancelar!");
+		listarRecetas(request, response);
 	}
 
 	public void listarRecetas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// 1. Obtener los parámetros
+		Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
 		// 2. Hablar con el modelo
 		// 3. Llamar a la vista
+		response.sendRedirect(request.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);
 	}
 
 	public void volver(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
