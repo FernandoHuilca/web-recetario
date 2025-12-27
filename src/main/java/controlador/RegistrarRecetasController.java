@@ -111,18 +111,10 @@ public class RegistrarRecetasController extends HttpServlet {
 		
         //3. Llamar a la vista
         if(!resultado) {
-        	req.setAttribute("title", "ERROR: Receta NO creada");
-            req.setAttribute("description", "mensaje de que NO se pudo crear la receta");
-            req.setAttribute("href", "/GestionarRecetasController");
-        	req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
-
+        	mostrarError("No se pudo crear la receta. Por favor, inténtelo de nuevo.", req, resp);
         	return;
         }
-        req.setAttribute("title", "Éxito: Receta creada");
-        req.setAttribute("description", "mensaje de que SÍ se pudo crear la receta");
-        req.setAttribute("href", "/GestionarRecetasController");
-
-    	req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
+        mostrarExito("La receta ha sido creada exitosamente.", req, resp);
     	*/
 	}
 
@@ -143,5 +135,4 @@ public class RegistrarRecetasController extends HttpServlet {
 		//2. Hablar con el modelo
 		//3. Llamar a la vista
 	}
-
 }

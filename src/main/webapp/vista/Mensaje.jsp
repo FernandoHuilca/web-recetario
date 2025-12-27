@@ -14,11 +14,16 @@
 <body class="margin-0 display-flex justify-content-center align-items-center">
 
 	<section class="card text-align-center">
-		<div>Ícono del mensaje</div>
-		<h1>${title}</h1>
-		<p>${description}</p>
-		<a class="general-button text-decoration-none button"
-			href="${pageContext.request.contextPath}${href}">Volver</a>
+		<div>
+			<img class="icon-message" src="../assets/images/message/success.png" alt="">
+		</div>
+		<h1 class="margin-20">${title}</h1>
+		<p class="margin-20">${description}</p>
+		<div class="display-flex justify-content-center">
+			<div class="button">
+				<a class="text-button text-decoration-none" href="${pageContext.request.contextPath}${href}">Volver</a>
+			</div>
+		</div>
 	</section>
 
 </body>
