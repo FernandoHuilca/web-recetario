@@ -44,4 +44,10 @@ public class Ingrediente implements Serializable {
 	public void setNombre(String nombre) {
 		this.nombre = nombre;
 	}
+	public Long getIdIngrediente() {
+		return idIngrediente;
+	}
+	public void setIdIngrediente(Long idIngrediente) {
+		this.idIngrediente = idIngrediente;
+	}
 }

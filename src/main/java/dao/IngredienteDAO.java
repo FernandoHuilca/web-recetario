@@ -1,0 +1,63 @@
+package dao;
+
+import jakarta.persistence.EntityManager;
+import jakarta.persistence.EntityManagerFactory;
+import jakarta.persistence.Persistence;
+import jakarta.persistence.TypedQuery;
+import modelo.Ingrediente;
+
+public class IngredienteDAO {
+	
+	private EntityManagerFactory emf;
+	private EntityManager em;
+	
+	public IngredienteDAO() {
+		this.emf = Persistence.createEntityManagerFactory("WebRecetario");
+		this.em = emf.createEntityManager();
+	}
+	
+	public Ingrediente obtenerPorNombre(String nombre) {
+		try {
+			TypedQuery<Ingrediente> query = em.createQuery(
+				"SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", 
+				Ingrediente.class
+			);
+			query.setParameter("nombre", nombre);
+			return query.getResultList().isEmpty() ? null : query.getResultList().get(0);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public Ingrediente guardarOObtener(Ingrediente ingrediente) {
+		try {
+			// Buscar si ya existe
+			Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
+			if (existente != null) {
+				return existente; // Retorna el que ya existe
+			}
+			
+			// Si no existe, crear nuevo
+			em.getTransaction().begin();
+			em.persist(ingrediente);
+			em.getTransaction().commit();
+			return ingrediente;
+		} catch (Exception e) {
+			if (em.getTransaction().isActive()) {
+				em.getTransaction().rollback();
+			}
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public void cerrar() {
+		if (em != null && em.isOpen()) {
+			em.close();
+		}
+		if (emf != null && emf.isOpen()) {
+			emf.close();
+		}
+	}
+}

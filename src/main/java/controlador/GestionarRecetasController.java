@@ -8,6 +8,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import dao.RecetaDAO;
 import modelo.Receta;
 
 @WebServlet("/GestionarRecetasController")
@@ -24,15 +25,31 @@ public class GestionarRecetasController extends HttpServlet {
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		listarRecetas(req, resp);
 	}
-	
+
+	/**
+	 * Lista las recetas de un usuario específico usando RecetaDAO
+	 */
 	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		/*
-		int idUsuario = 1;//Integer.parseInt(req.getParameter("idUsuario"));
-		List<Receta> recetas = Receta.obtenerRecetas(idUsuario);
+		RecetaDAO recetaDAO = new RecetaDAO();
 		
-		// presentarRecetas(recetas)
-		req.setAttribute("recetas", recetas);
-		req.getRequestDispatcher("vista/ListadoRecetas.jsp").forward(req, resp);
-		*/
+		try {
+			// Obtener ID de usuario del request
+			String idUsuarioParam = req.getParameter("idUsuario");
+			int idUsuario = (idUsuarioParam != null && !idUsuarioParam.isEmpty())
+					? Integer.parseInt(idUsuarioParam)
+					: 1; // valor por defecto
+			
+			// Obtener recetas por usuario
+			List<Receta> recetas = recetaDAO.obtenerRecetasPorUsuario(idUsuario);
+			req.setAttribute("recetas", recetas);
+			req.setAttribute("idUsuario", idUsuario);
+			req.getRequestDispatcher("/vista/ListadoRecetas.jsp").forward(req, resp);
+		} catch (Exception e) {
+			e.printStackTrace();
+			req.setAttribute("error", "Error al cargar las recetas del usuario");
+			req.getRequestDispatcher("/vista/error.jsp").forward(req, resp);
+		} finally {
+			recetaDAO.cerrar();
+		}
 	}	
 }

@@ -49,7 +49,7 @@
 						<td><select name="ingredients_unit[]" required>
 
 								<c:forEach items="${unidades}" var="unidad">
-									<option value="${unidad.simbolo}">${unidad.nombre}</option>
+									<option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
 								</c:forEach>
 
 						</select></td>
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		                <td>
 		                    <select name="ingredients_unit[]" required>
 		                        <c:forEach items="${unidades}" var="unidad">
-		                            <option value="${unidad.simbolo}">${unidad.nombre}</option>
+		                            <option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
 		                        </c:forEach>
 		                    </select>
 		                </td>
