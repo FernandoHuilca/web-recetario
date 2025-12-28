@@ -42,11 +42,18 @@
 							<td><img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png"
 								alt="imagen receta" /></td>
 							<td>
-								<a href="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizarReceta&idReceta=${receta.idReceta}" 
+								<form method="POST" action="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizarReceta" style="display:inline;">
+									<input type="hidden" name="idReceta" value="${receta.idReceta}" />
+									<button type="submit" class="icon-button" title="Eliminar receta">
+										<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/updateIcon.png"
+											alt="icono actualizar" />
+									</button>
+								</form>
+								<!--  <a href="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizarReceta&idReceta=${receta.idReceta}" 
 									class="icon-link" title="Actualizar receta">
 									<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/updateIcon.png"
 										alt="icono actualizar" />
-								</a>
+								</a> -->
 							</td>
 							<td>
 								<form method="POST" action="${pageContext.request.contextPath}/EliminarRecetasController" style="display:inline;">
