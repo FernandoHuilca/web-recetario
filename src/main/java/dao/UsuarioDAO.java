@@ -1,18 +1,15 @@
 package dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import modelo.Usuario;
+import util.JPAUtil;
 
 public class UsuarioDAO {
 
-    private EntityManagerFactory emf;
     private EntityManager em;
 
     public UsuarioDAO() {
-        this.emf = Persistence.createEntityManagerFactory("WebRecetario");
-        this.em = emf.createEntityManager();
+        this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
     }
 
     public Usuario obtenerPorId(Long idUsuario) {
@@ -27,9 +24,6 @@ public class UsuarioDAO {
     public void cerrar() {
         if (em != null && em.isOpen()) {
             em.close();
-        }
-        if (emf != null && emf.isOpen()) {
-            emf.close();
         }
     }
 }

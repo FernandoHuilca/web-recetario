@@ -1,19 +1,17 @@
 package dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import modelo.Ingrediente;
+import util.JPAUtil;
 
 public class IngredienteDAO {
 	
-	private EntityManagerFactory emf;
 	private EntityManager em;
 	
 	public IngredienteDAO() {
-		this.emf = Persistence.createEntityManagerFactory("WebRecetario");
-		this.em = emf.createEntityManager();
+		this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	}
 	
 	public Ingrediente obtenerPorNombre(String nombre) {
@@ -40,7 +38,7 @@ public class IngredienteDAO {
 		try {
 			em.getTransaction().begin();
 			em.persist(ingrediente);
-			em.getTransaction().begin();
+			em.getTransaction().commit();
 			return ingrediente;
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
@@ -75,8 +73,6 @@ public class IngredienteDAO {
 		if (em != null && em.isOpen()) {
 			em.close();
 		}
-		if (emf != null && emf.isOpen()) {
-			emf.close();
-		}
+
 	}
 }

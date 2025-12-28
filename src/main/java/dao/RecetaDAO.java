@@ -2,10 +2,9 @@ package dao;
 
 import java.util.List;
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.EntityManagerFactory;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import modelo.Receta;
+import util.JPAUtil;
 
 /**
  * DAO (Data Access Object) para la entidad Receta
@@ -13,17 +12,15 @@ import modelo.Receta;
  */
 public class RecetaDAO {
 
-	private EntityManagerFactory emf;
 	private EntityManager em;
 
 	/**
 	 * Constructor - inicializa la conexión con JPA
 	 */
 	public RecetaDAO() {
-		this.emf = Persistence.createEntityManagerFactory("WebRecetario");
-		this.em = emf.createEntityManager();
+		this.em = JPAUtil.getEntityManagerFactory().createEntityManager();
 	}
-
+	
 	// ==================== CREAR ====================
 
 	/**
@@ -155,9 +152,6 @@ public class RecetaDAO {
 	public void cerrar() {
 		if (em != null && em.isOpen()) {
 			em.close();
-		}
-		if (emf != null && emf.isOpen()) {
-			emf.close();
 		}
 	}
 
