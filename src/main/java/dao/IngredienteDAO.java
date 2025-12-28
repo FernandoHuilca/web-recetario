@@ -17,9 +17,6 @@ public class IngredienteDAO {
 	}
 	
 	public Ingrediente obtenerPorNombre(String nombre) {
-		
-		return this.em.find(Ingrediente.class, nombre);
-		/*
 		try {
 			TypedQuery<Ingrediente> query = em.createQuery(
 				"SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", 
@@ -31,7 +28,6 @@ public class IngredienteDAO {
 			e.printStackTrace();
 			return null;
 		}  
-		 */
 	}
 	
 	public Ingrediente guardarIngrediente(Ingrediente ingrediente) {

@@ -16,9 +16,9 @@
 	
 		<h1 class="font-h1">Actualizar Receta</h1>
 		
-		<form action="../ActualizarRecetasController?ruta=actualizar" method="POST"
-			enctype="multipart/form-data">
-
+		<form action="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizar" method="POST" enctype="multipart/form-data">
+			
+			<input type="hidden" name="id" id="id" value="${receta.idReceta}">
 			
 			<label for="name">Nombre*:</label> <input type="text" id="name"
 				name="name" value="${receta.nombre}" required><br>
@@ -75,7 +75,7 @@
 			<br>
 			
 			<br> <label for="image">Imagen:</label> <input type="file"
-				id="image" name="image" accept="image/*"><br>
+				id="image" name="image" accept="image/*" value="${receta.imagen}"><br>
 			<br>
 
 			<div class="recipe-actions">

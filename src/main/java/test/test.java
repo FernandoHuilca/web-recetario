@@ -39,7 +39,6 @@ public class test {
 					25.0, // tiempo de preparacion
 					"1. Cortar papas\n2. Agregar jamon\n3. Agregar lechuga",
 					10,
-					null,
 					"ensaladaPapa.jpg",
 					usuario
 					);

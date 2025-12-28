@@ -30,7 +30,7 @@ public class testMateito {
 		// 3. Crear receta
 		Receta receta = new Receta("Pollo navideño", "Disfruta la navidad con un tremendo pollo", // descripcion
 				120.0, // tiempo de preparacion
-				"1. Sazonar pollo\n2. Colocar en el horno al pollo\n3. Cortar el pollo", 10, null, "polloNavideno.jpg", usuario);
+				"1. Sazonar pollo\n2. Colocar en el horno al pollo\n3. Cortar el pollo", 10, "polloNavideno.jpg", usuario);
 
 		receta.agregarIngrediente(pollo, 2.5, Unidad.KILOGRAMOS);
 
