@@ -44,7 +44,7 @@
 							<td>
 								<form method="POST" action="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizarReceta" style="display:inline;">
 									<input type="hidden" name="idReceta" value="${receta.idReceta}" />
-									<button type="submit" class="icon-button" title="Eliminar receta">
+									<button type="submit" class="icon-button" title="Actualizar receta">
 										<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/updateIcon.png"
 											alt="icono actualizar" />
 									</button>
