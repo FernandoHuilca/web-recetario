@@ -53,6 +53,9 @@ public class ActualizarRecetasController extends HttpServlet {
 		case "listarRecetas":
 			listarRecetas(request, response);
 			break;
+		case "volver":
+			volver(request, response);
+			break;
 		default:
 			System.out.print("Error!");
 			break;
@@ -100,24 +103,21 @@ public class ActualizarRecetasController extends HttpServlet {
 		}
 	
 		boolean respuesta = recetaDAO.actualizarReceta(receta);
-		/*
 		
-
-
-
 		// 3. Llamar a la vista
 		if(respuesta) {
+			request.setAttribute("urlimg", "/assets/images/message/success.png");
 			request.setAttribute("title", "Éxito");
 			request.setAttribute("description", "Actualización exitosa.");
-			request.setAttribute("href", "../ActualizarRecetasController?ruta=listarRecetas");
+			request.setAttribute("href", "/ActualizarRecetasController?ruta=volver&idUsuario=" + receta.getUsuario().getIdUsuario());
 			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
 		}else {
+			request.setAttribute("urlimg", "/assets/images/message/error.png");
 			request.setAttribute("title", "Error");
 			request.setAttribute("description", "Actualización fallida.");
-			request.setAttribute("href", "");
+			request.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
 			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
 		}
-		*/
 		
 		/*
 		int idReceta = Integer.parseInt(request.getParameter("idReceta"));
@@ -167,5 +167,9 @@ public class ActualizarRecetasController extends HttpServlet {
 		// 2. Hablar con el modelo
 		// 3. Llamar a la vista
 		response.sendRedirect(request.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);
+	}
+	
+	public void volver(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		listarRecetas(request, response);
 	}
 }

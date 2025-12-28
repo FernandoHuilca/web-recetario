@@ -15,7 +15,7 @@
 
 	<section class="card text-align-center">
 		<div>
-			<img class="icon-message" src="../assets/images/message/success.png" alt="">
+			<img class="icon-message" src="${pageContext.request.contextPath}${urlimg}" alt="">
 		</div>
 		<h1 class="margin-20">${title}</h1>
 		<p class="margin-20">${description}</p>
