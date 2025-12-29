@@ -56,10 +56,11 @@
 								</a> -->
 							</td>
 							<td>
-								<form method="POST" action="${pageContext.request.contextPath}/EliminarRecetasController" style="display:inline;">
+								<form method="POST" action="${pageContext.request.contextPath}/EliminarRecetasController?ruta=solicitarEliminarReceta" style="display:inline;">
 									<input type="hidden" name="idReceta" value="${receta.idReceta}" />
-									<button type="submit" class="icon-button" title="Eliminar receta" 
-										onclick="return confirm('¿Estás seguro de que deseas eliminar esta receta?');">
+									<button type="submit" class="icon-button" title="Eliminar receta">
+									<!-- onclick="return confirm('¿Estás seguro de que deseas eliminar esta receta?');"-->
+									 
 										<img src="${pageContext.request.contextPath}/assets/images/recipeManagement/deleteIcon.png"
 											alt="icono eliminar" />
 									</button>
