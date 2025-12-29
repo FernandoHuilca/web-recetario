@@ -9,7 +9,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import modelo.Ingrediente;
 import modelo.Receta;
 import modelo.Unidad;
-import modelo.Usuario;
 
 import java.io.IOException;
 import java.util.Arrays;
@@ -69,8 +68,8 @@ public class ActualizarRecetasController extends HttpServlet {
 		System.out.println(idReceta);
 		String nombre = request.getParameter("name");
 		String descripcion = request.getParameter("description");
-		Double tiempoPreparacion = Double.parseDouble(request.getParameter("time"));
-		Integer porciones = Integer.parseInt(request.getParameter("servings"));
+		Double tiempoPreparacion = request.getParameter("time").isEmpty() ? 0.0 : Double.parseDouble(request.getParameter("time"));
+		Integer porciones = request.getParameter("servings").isEmpty() ? 0 : Integer.parseInt(request.getParameter("servings"));
 		String pasos = request.getParameter("instructions");
 		String imagen = request.getParameter("image");
 		String[] nombresIngredientes = request.getParameterValues("ingredients_name[]");
@@ -87,7 +86,6 @@ public class ActualizarRecetasController extends HttpServlet {
 		receta.setDescripcionPasos(pasos);
 		receta.setImagen(imagen);
 		
-		
 		receta.getRecetaIngredientes().clear();
 		IngredienteDAO ingredienteDAO = new IngredienteDAO();
 		
@@ -101,7 +99,21 @@ public class ActualizarRecetasController extends HttpServlet {
 			
 			receta.agregarIngrediente(ingrediente, cantidad, unidad);
 		}
-	
+
+		// Campos obligatorios vacíos
+		if (receta.getNombre().isEmpty() || receta.getDescripcion().isEmpty() || 
+			receta.getDescripcionPasos().isEmpty() || receta.getPorciones() == 0 || receta.getTiempoPreparacion() == 0 || 
+			receta.getRecetaIngredientes().isEmpty()) {
+			request.setAttribute("urlimg", "/assets/images/message/error.png");
+			request.setAttribute("title", "Error");
+			request.setAttribute("description", "Campos obligatorios vacíos.");
+			request.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
+			// Guardar la receta en sesión para recuperarla después del mensaje
+			request.getSession().setAttribute("recetaFallida", receta);
+			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
+			return false;
+		}
+
 		boolean respuesta = recetaDAO.actualizarReceta(receta);
 		
 		// 3. Llamar a la vista
@@ -111,12 +123,16 @@ public class ActualizarRecetasController extends HttpServlet {
 			request.setAttribute("description", "Actualización exitosa.");
 			request.setAttribute("href", "/ActualizarRecetasController?ruta=volver&idUsuario=" + receta.getUsuario().getIdUsuario());
 			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
+			return true;
 		}else {
 			request.setAttribute("urlimg", "/assets/images/message/error.png");
 			request.setAttribute("title", "Error");
 			request.setAttribute("description", "Actualización fallida.");
 			request.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
+			// Guardar la receta en sesión para recuperarla después del mensaje
+			request.getSession().setAttribute("recetaFallida", receta);
 			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
+			return false;
 		}
 		
 		/*
@@ -129,7 +145,6 @@ public class ActualizarRecetasController extends HttpServlet {
 		//List<Ingrediente> ingredientes = ;
 		return true;
 		*/
-		return false;
 	}
 	
 	public boolean actualizarReceta(HttpServletRequest request, HttpServletResponse response)
@@ -139,8 +154,17 @@ public class ActualizarRecetasController extends HttpServlet {
 		// 2. Hablar con el modelo
 		List<Unidad> unidades = Arrays.asList(Unidad.values());
 		
-		RecetaDAO recetaDAO = new RecetaDAO();
-		Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+		// Verificar si hay una receta fallida en sesión
+		Receta receta = (Receta) request.getSession().getAttribute("recetaFallida");
+		if (receta != null) {
+			// Limpiar la sesión
+			request.getSession().removeAttribute("recetaFallida");
+		} else {
+			// Si no hay receta en sesión, obtenerla de la BD
+			RecetaDAO recetaDAO = new RecetaDAO();
+			receta = recetaDAO.obtenerRecetaPorId(idReceta);
+		}
+		
 		// 3. Llamar a la vista
 		if (receta == null) {
 			// haga algo

@@ -21,18 +21,18 @@
 			<input type="hidden" name="id" id="id" value="${receta.idReceta}">
 			
 			<label for="name">Nombre*:</label> <input type="text" id="name"
-				name="name" value="${receta.nombre}" required><br>
+				name="name" value="${receta.nombre}"><br>
 				
 			<br> <label for="description">Descripción*:</label><br>
 			<textarea id="description" name="description" rows="3" cols="50"
-				required>${receta.descripcion}</textarea>
+				>${receta.descripcion}</textarea>
 			<br>
 			
 			<br> <label for="time">Tiempo Preparación (min)*:</label> <input
-				type="number" id="time" name="time" min="1" value="${receta.tiempoPreparacion}" required><br>
+				type="number" id="time" name="time" min="1" value="${receta.tiempoPreparacion}"><br>
 				
 			<br> <label for="servings">Porciones*:</label> <input
-				type="number" id="servings" name="servings" min="1" value="${receta.porciones}" required><br>
+				type="number" id="servings" name="servings" min="1" value="${receta.porciones}"><br>
 			
 			<br> <label>Ingredientes*:</label><br>
 			
@@ -50,9 +50,9 @@
 				
 					<c:forEach items="${receta.recetaIngredientes}" var="recetaIngrediente">	
 						<tr>
-							<td><input type="text" name="ingredients_name[]" value="${recetaIngrediente.ingrediente.nombre}" required></td>
-							<td><input type="text" name="ingredients_quantity[]" value="${recetaIngrediente.cantidad}" required></td>
-							<td><select name="ingredients_unit[]" required>
+							<td><input type="text" name="ingredients_name[]" value="${recetaIngrediente.ingrediente.nombre}"></td>
+							<td><input type="text" name="ingredients_quantity[]" value="${recetaIngrediente.cantidad}"></td>
+							<td><select name="ingredients_unit[]">
 									<c:forEach items="${unidades}" var="unidad">
 										<option value="${unidad}" ${unidad eq recetaIngrediente.unidad ? 'selected' : ''}>${unidad.name()} (${unidad.simbolo})</option>
 									</c:forEach>
@@ -70,8 +70,7 @@
 				ingrediente</button>
 				
 			<br> <label for="instructions">Pasos*:</label><br>
-			<textarea id="instructions" name="instructions" rows="6" cols="50"
-				required>${receta.descripcionPasos}</textarea>
+			<textarea id="instructions" name="instructions" rows="6" cols="50">${receta.descripcionPasos}</textarea>
 			<br>
 			
 			<br> <label for="image">Imagen:</label> <input type="file"
