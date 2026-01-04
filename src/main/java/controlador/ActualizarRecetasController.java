@@ -24,64 +24,61 @@ public class ActualizarRecetasController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	@Override
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+	protected void doGet(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		rutear(request, response);	
+		rutear(req, resp);	
 	}
 
 	@Override
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		rutear(request, response);
+		rutear(req, resp);
 	}
 
-	private void rutear(HttpServletRequest request, HttpServletResponse response)
+	private void rutear(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String ruta = (request.getParameter("ruta") != null)? request.getParameter("ruta") : "listarRecetas";
+		String ruta = (req.getParameter("ruta") != null)? req.getParameter("ruta") : "listarRecetas";
 		
 		switch(ruta) {
 		case "actualizar":
-			actualizar(request, response);
+			actualizar(req, resp);
 			break;
 		case "actualizarReceta":
-			actualizarReceta(request, response);
+			actualizarReceta(req, resp);
 			break;
 		case "cancelar":
-			cancelar(request, response);
+			cancelar(req, resp);
 			break;
 		case "listarRecetas":
-			listarRecetas(request, response);
+			listarRecetas(req, resp);
 			break;
 		case "volver":
-			volver(request, response);
-			break;
-		default:
-			System.out.print("Error!");
+			volver(req, resp);
 			break;
 		}
 	}
 	
-	public boolean actualizar(HttpServletRequest request, HttpServletResponse response)
+	public boolean actualizar(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// 1. Obtener los parámetros
-		Long idReceta = Long.parseLong(request.getParameter("id"));
+		Long idReceta = Long.parseLong(req.getParameter("id"));
 		System.out.println(idReceta);
-		String nombre = request.getParameter("name");
-		String descripcion = request.getParameter("description");
-		Double tiempoPreparacion = request.getParameter("time").isEmpty() ? 0.0 : Double.parseDouble(request.getParameter("time"));
-		Integer porciones = request.getParameter("servings").isEmpty() ? 0 : Integer.parseInt(request.getParameter("servings"));
-		String pasos = request.getParameter("instructions");
-		String imagen = request.getParameter("image");
-		String[] nombresIngredientes = request.getParameterValues("ingredients_name[]");
-		String[] cantidadesIngredientes = request.getParameterValues("ingredients_quantity[]");
-		String[] unidadesIngredientes = request.getParameterValues("ingredients_unit[]");
+		String nombre = req.getParameter("name");
+		String descripcion = req.getParameter("description");
+		Double tiempo = req.getParameter("time").isEmpty() ? 0.0 : Double.parseDouble(req.getParameter("time"));
+		Integer porciones = req.getParameter("servings").isEmpty() ? 0 : Integer.parseInt(req.getParameter("servings"));
+		String pasos = req.getParameter("instructions");
+		String imagen = req.getParameter("image");
+		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
+		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");
+		String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
 
 		// 2. Hablar con el modelo
 		RecetaDAO recetaDAO = new RecetaDAO();
 		Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
 		receta.setNombre(nombre);
 		receta.setDescripcion(descripcion);
-		receta.setTiempoPreparacion(tiempoPreparacion);
+		receta.setTiempoPreparacion(tiempo);
 		receta.setPorciones(porciones);
 		receta.setDescripcionPasos(pasos);
 		receta.setImagen(imagen);
@@ -104,13 +101,13 @@ public class ActualizarRecetasController extends HttpServlet {
 		if (receta.getNombre().isEmpty() || receta.getDescripcion().isEmpty() || 
 			receta.getDescripcionPasos().isEmpty() || receta.getPorciones() == 0 || receta.getTiempoPreparacion() == 0 || 
 			receta.getRecetaIngredientes().isEmpty()) {
-			request.setAttribute("urlimg", "/assets/images/message/error.png");
-			request.setAttribute("title", "Error");
-			request.setAttribute("description", "Campos obligatorios vacíos.");
-			request.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
+			req.setAttribute("urlimg", "/assets/images/message/error.png");
+			req.setAttribute("title", "Error");
+			req.setAttribute("description", "Campos obligatorios vacíos.");
+			req.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
 			// Guardar la receta en sesión para recuperarla después del mensaje
-			request.getSession().setAttribute("recetaFallida", receta);
-			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
+			req.getSession().setAttribute("recetaFallida", receta);
+			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
 			return false;
 		}
 
@@ -118,47 +115,36 @@ public class ActualizarRecetasController extends HttpServlet {
 		
 		// 3. Llamar a la vista
 		if(respuesta) {
-			request.setAttribute("urlimg", "/assets/images/message/success.png");
-			request.setAttribute("title", "Éxito");
-			request.setAttribute("description", "Actualización exitosa.");
-			request.setAttribute("href", "/ActualizarRecetasController?ruta=volver&idUsuario=" + receta.getUsuario().getIdUsuario());
-			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
+			req.setAttribute("urlimg", "/assets/images/message/success.png");
+			req.setAttribute("title", "Éxito");
+			req.setAttribute("description", "Actualización exitosa.");
+			req.setAttribute("href", "/ActualizarRecetasController?ruta=volver&idUsuario=" + receta.getUsuario().getIdUsuario());
+			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
 			return true;
 		}else {
-			request.setAttribute("urlimg", "/assets/images/message/error.png");
-			request.setAttribute("title", "Error");
-			request.setAttribute("description", "Actualización fallida.");
-			request.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
+			req.setAttribute("urlimg", "/assets/images/message/error.png");
+			req.setAttribute("title", "Error");
+			req.setAttribute("description", "Actualización fallida.");
+			req.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
 			// Guardar la receta en sesión para recuperarla después del mensaje
-			request.getSession().setAttribute("recetaFallida", receta);
-			request.getRequestDispatcher("vista/Mensaje.jsp").forward(request, response);
+			req.getSession().setAttribute("recetaFallida", receta);
+			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
 			return false;
 		}
-		
-		/*
-		int idReceta = Integer.parseInt(request.getParameter("idReceta"));
-		String nombre = request.getParameter("nombre");
-		String descripcion = request.getParameter("iddescripcion");
-		double tiempoPreparacion = Double.parseDouble(request.getParameter("tiempoPreparacion"));
-		String descripcionPasos= request.getParameter("descripcionPasos");
-		String porciones = request.getParameter("porciones");
-		//List<Ingrediente> ingredientes = ;
-		return true;
-		*/
 	}
 	
-	public boolean actualizarReceta(HttpServletRequest request, HttpServletResponse response)
+	public boolean actualizarReceta(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// 1. Obtener los parámetros
-		Long idReceta = Long.parseLong(request.getParameter("idReceta"));
+		Long idReceta = Long.parseLong(req.getParameter("idReceta"));
 		// 2. Hablar con el modelo
 		List<Unidad> unidades = Arrays.asList(Unidad.values());
 		
 		// Verificar si hay una receta fallida en sesión
-		Receta receta = (Receta) request.getSession().getAttribute("recetaFallida");
+		Receta receta = (Receta) req.getSession().getAttribute("recetaFallida");
 		if (receta != null) {
 			// Limpiar la sesión
-			request.getSession().removeAttribute("recetaFallida");
+			req.getSession().removeAttribute("recetaFallida");
 		} else {
 			// Si no hay receta en sesión, obtenerla de la BD
 			RecetaDAO recetaDAO = new RecetaDAO();
@@ -167,33 +153,37 @@ public class ActualizarRecetasController extends HttpServlet {
 		
 		// 3. Llamar a la vista
 		if (receta == null) {
-			// haga algo
 			return false;
 		} else {
-			request.setAttribute("unidades", unidades);
-			request.setAttribute("receta", receta);
-			request.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(request, response);	
+			req.setAttribute("unidades", unidades);
+			req.setAttribute("receta", receta);
+			req.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(req, resp);	
 			return true;
 		}
 	}
 
-	public void cancelar(HttpServletRequest request, HttpServletResponse response)
+	public void cancelar(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// 1. Obtener los parámetros
 		// 2. Hablar con el modelo
 		// 3. Llamar a la vista
-		listarRecetas(request, response);
+		listarRecetas(req, resp);
 	}
 
-	public void listarRecetas(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 1. Obtener los parámetros
-		Long idUsuario = Long.parseLong(request.getParameter("idUsuario"));
+		Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
 		// 2. Hablar con el modelo
 		// 3. Llamar a la vista
-		response.sendRedirect(request.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);
+		req.setAttribute("idUsuario", idUsuario);
+		req.getRequestDispatcher("GestionarRecetasController").forward(req, resp);
+		/*resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);*/
 	}
 	
-	public void volver(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		listarRecetas(request, response);
+	public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// 1. Obtener los parámetros
+		// 2. Hablar con el modelo
+		// 3. Llamar a la vista
+		listarRecetas(req, resp);
 	}
 }

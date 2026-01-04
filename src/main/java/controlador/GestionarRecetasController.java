@@ -35,8 +35,8 @@ public class GestionarRecetasController extends HttpServlet {
 		try {
 			// Obtener ID de usuario del request
 			String idUsuarioParam = req.getParameter("idUsuario");
-			int idUsuario = (idUsuarioParam != null && !idUsuarioParam.isEmpty())
-					? Integer.parseInt(idUsuarioParam)
+			Long idUsuario = (idUsuarioParam != null && !idUsuarioParam.isEmpty())
+					? Long.parseLong(idUsuarioParam)
 					: 1; // valor por defecto
 			
 			// Obtener recetas por usuario

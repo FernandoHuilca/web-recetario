@@ -71,7 +71,7 @@ public class RecetaDAO {
 	/**
 	 * Obtiene todas las recetas de un usuario
 	 */
-	public List<Receta> obtenerRecetasPorUsuario(int idUsuario) {
+	public List<Receta> obtenerRecetasPorUsuario(Long idUsuario) {
 		try {
 			TypedQuery<Receta> query = em.createQuery(
 					"SELECT r FROM Receta r WHERE r.usuario.idUsuario = :idUsuario",
