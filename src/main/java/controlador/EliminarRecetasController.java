@@ -80,7 +80,7 @@ public class EliminarRecetasController extends HttpServlet{
 		// Obtener los parámetros
 		Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
 		// Llamar a la vista
-		resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);
+		resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?ruta=listarRecetas&idUsuario=" + idUsuario);
 	}
 	
 	/*

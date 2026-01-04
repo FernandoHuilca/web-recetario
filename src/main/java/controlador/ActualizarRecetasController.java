@@ -37,14 +37,14 @@ public class ActualizarRecetasController extends HttpServlet {
 
 	private void rutear(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-		String ruta = (req.getParameter("ruta") != null)? req.getParameter("ruta") : "listarRecetas";
+		String ruta = (req.getParameter("ruta") != null)? req.getParameter("ruta") : "volver";
 		
 		switch(ruta) {
 		case "actualizar":
 			actualizar(req, resp);
 			break;
-		case "actualizarReceta":
-			actualizarReceta(req, resp);
+		case "solicitarActualizarReceta":
+			solicitarActualizarReceta(req, resp);
 			break;
 		case "volver":
 			volver(req, resp);
@@ -52,7 +52,7 @@ public class ActualizarRecetasController extends HttpServlet {
 		}
 	}
 	
-	public boolean actualizar(HttpServletRequest req, HttpServletResponse resp)
+	public void actualizar(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// 1. Obtener los parámetros
 		Long idReceta = Long.parseLong(req.getParameter("id"));
@@ -98,11 +98,10 @@ public class ActualizarRecetasController extends HttpServlet {
 			req.setAttribute("urlimg", "/assets/images/message/error.png");
 			req.setAttribute("title", "Error");
 			req.setAttribute("description", "Campos obligatorios vacíos.");
-			req.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
+			req.setAttribute("href", "/ActualizarRecetasController?ruta=solicitarActualizarReceta&idReceta=" + receta.getIdReceta());
 			// Guardar la receta en sesión para recuperarla después del mensaje
 			req.getSession().setAttribute("recetaFallida", receta);
 			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
-			return false;
 		}
 
 		boolean respuesta = recetaDAO.actualizarReceta(receta);
@@ -114,20 +113,18 @@ public class ActualizarRecetasController extends HttpServlet {
 			req.setAttribute("description", "Actualización exitosa.");
 			req.setAttribute("href", "/ActualizarRecetasController?ruta=volver&idUsuario=" + receta.getUsuario().getIdUsuario());
 			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
-			return true;
 		}else {
 			req.setAttribute("urlimg", "/assets/images/message/error.png");
 			req.setAttribute("title", "Error");
 			req.setAttribute("description", "Actualización fallida.");
-			req.setAttribute("href", "/ActualizarRecetasController?ruta=actualizarReceta&idReceta=" + receta.getIdReceta());
+			req.setAttribute("href", "/ActualizarRecetasController?ruta=solicitarActualizarReceta&idReceta=" + receta.getIdReceta());
 			// Guardar la receta en sesión para recuperarla después del mensaje
 			req.getSession().setAttribute("recetaFallida", receta);
 			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
-			return false;
 		}
 	}
 	
-	public boolean actualizarReceta(HttpServletRequest req, HttpServletResponse resp)
+	public void solicitarActualizarReceta(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 		// 1. Obtener los parámetros
 		Long idReceta = Long.parseLong(req.getParameter("idReceta"));
@@ -146,13 +143,11 @@ public class ActualizarRecetasController extends HttpServlet {
 		}
 		
 		// 3. Llamar a la vista
-		if (receta == null) {
-			return false;
-		} else {
+		if (receta == null) {} 
+		else {
 			req.setAttribute("unidades", unidades);
 			req.setAttribute("receta", receta);
 			req.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(req, resp);	
-			return true;
 		}
 	}
 
@@ -160,11 +155,11 @@ public class ActualizarRecetasController extends HttpServlet {
 	
 	public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 1. Obtener los parámetros
-				Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
-				// 2. Hablar con el modelo
-				// 3. Llamar a la vista
-				req.setAttribute("idUsuario", idUsuario);
-				req.getRequestDispatcher("GestionarRecetasController?ruta=listarRecetas").forward(req, resp);
-				/*resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);*/
+		Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
+		// 2. Hablar con el modelo
+		// 3. Llamar a la vista
+		req.setAttribute("idUsuario", idUsuario);
+		req.getRequestDispatcher("GestionarRecetasController?ruta=listarRecetas").forward(req, resp);
+		/*resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);*/
 	}
 }
