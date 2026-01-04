@@ -18,14 +18,31 @@ public class GestionarRecetasController extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		listarRecetas(req, resp);
+		rutar(req, resp);
 	}
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		listarRecetas(req, resp);
+		rutar(req, resp);
 	}
 
+	public void rutar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String ruta = (req.getParameter("ruta") != null)? req.getParameter("ruta") : "listarRecetas";
+		
+		switch(ruta) {
+		case "volver":
+			volver(req, resp);
+			break;
+		case "listarRecetas":
+			listarRecetas(req, resp);
+			break;
+		default:
+			System.out.println("Error!");
+			break;
+		
+		}
+		
+	}
 	/**
 	 * Lista las recetas de un usuario específico usando RecetaDAO
 	 */
@@ -51,5 +68,12 @@ public class GestionarRecetasController extends HttpServlet {
 		} finally {
 			recetaDAO.cerrar();
 		}
-	}	
+	}
+	
+	
+		public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+			// Redirige al panel principal (vista anterior)
+			resp.sendRedirect(req.getContextPath() + "/vista/PanelPrincipal.jsp");
+	}
+	
 }

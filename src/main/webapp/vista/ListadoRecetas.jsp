@@ -17,7 +17,7 @@
 	<main>
 		<div class="return">
 			<a class="general-button text-decoration-none"
-				href="${pageContext.request.contextPath}/vista/PanelPrincipal.jsp">Volver</a>
+				href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=volver">Volver</a>
 		</div>
 
 		<section>
