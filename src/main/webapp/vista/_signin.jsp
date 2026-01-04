@@ -18,7 +18,7 @@
 
         <h1 class="text-align-center">Iniciar sesión</h1>
 
-        <section class="card">
+        <!-- <section class="card">
 
             <div class="fields">
                 <label class="form-row-label">Correo*:</label>
@@ -36,7 +36,38 @@
             <div class="button">
                 <a class="text-button text-decoration-none" href="../vista/PanelPrincipal.jsp">Iniciar sesión</a>
             </div>
+        </section> -->
+        
+        <section class="card">
+            <form action="${pageContext.request.contextPath}/VerPanelPrincipalController?ruta=cargarRecetas" method="POST">
+                
+                <div class="fields">
+                    <label class="form-row-label">Correo*:</label>
+                    <div>
+                        <input name="email" class="form-row-input" type="email" placeholder="Ingresa tu correo">
+                    </div>
+                </div>
+
+                <div class="fields">
+                    <label class="form-row-label">Contraseña*:</label>
+                    <div>
+                        <input name="password" class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                    </div>
+                </div>
+
+                <div class="button">
+                    <button type="submit" class="text-button text-decoration-none" style="border:none; cursor:pointer; width:100%; background-color: transparent;">
+                        Iniciar sesión
+                    </button>
+                </div>
+                
+        </div>
+                
+                
+            </form>
         </section>
+        
+        
     </main>
 </body>
 
