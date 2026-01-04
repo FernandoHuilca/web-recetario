@@ -46,12 +46,6 @@ public class ActualizarRecetasController extends HttpServlet {
 		case "actualizarReceta":
 			actualizarReceta(req, resp);
 			break;
-		case "cancelar":
-			cancelar(req, resp);
-			break;
-		case "listarRecetas":
-			listarRecetas(req, resp);
-			break;
 		case "volver":
 			volver(req, resp);
 			break;
@@ -162,28 +156,15 @@ public class ActualizarRecetasController extends HttpServlet {
 		}
 	}
 
-	public void cancelar(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		// 1. Obtener los parámetros
-		// 2. Hablar con el modelo
-		// 3. Llamar a la vista
-		listarRecetas(req, resp);
-	}
-
-	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// 1. Obtener los parámetros
-		Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
-		// 2. Hablar con el modelo
-		// 3. Llamar a la vista
-		req.setAttribute("idUsuario", idUsuario);
-		req.getRequestDispatcher("GestionarRecetasController").forward(req, resp);
-		/*resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);*/
-	}
+	
 	
 	public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// 1. Obtener los parámetros
-		// 2. Hablar con el modelo
-		// 3. Llamar a la vista
-		listarRecetas(req, resp);
+				Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
+				// 2. Hablar con el modelo
+				// 3. Llamar a la vista
+				req.setAttribute("idUsuario", idUsuario);
+				req.getRequestDispatcher("GestionarRecetasController?ruta=listarRecetas").forward(req, resp);
+				/*resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);*/
 	}
 }
