@@ -77,7 +77,10 @@ public class EliminarRecetasController extends HttpServlet{
 	}
 	
 	private void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-        resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController");
+		// Obtener los parámetros
+		Long idUsuario = Long.parseLong(req.getParameter("idUsuario"));
+		// Llamar a la vista
+		resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?idUsuario=" + idUsuario);
 	}
 	
 	/*
