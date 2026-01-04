@@ -14,7 +14,7 @@ public class EliminarRecetasController extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
 	
-    private static final String RUTA_VOLVER = "/GestionarRecetasController";
+    //private static final String RUTA_VOLVER = "/GestionarRecetasController";
 	private static final String RUTAELIMINARCONTROLLER = "/EliminarRecetasController?ruta=";
 		
 	@Override
@@ -48,13 +48,13 @@ public class EliminarRecetasController extends HttpServlet{
 	}
 	
 	private void solicitarEliminarReceta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		String idReceta = req.getParameter("idReceta");
+		Long idReceta = Long.parseLong(req.getParameter("idReceta"));
 		
-		if (idReceta == null || idReceta.trim().isEmpty()) {
+		/*if (idReceta == null || idReceta.trim().isEmpty()) {
 			establecerContenidoMensaje(req, resp, "ERROR: ID no válido", "No se proporcionó un ID de receta");
             return;
-        }
-		establecerContenidoMensajeConfirmacion(req, resp, "ADVERTENCIA: Confirmar eliminación de receta", "¿Está seguro de eliminar la receta?", RUTAELIMINARCONTROLLER+"confirmarEliminacion&idReceta=" + idReceta);
+        }*/
+		establecerContenidoMensajeConfirmacion(req, resp, "/assets/images/message/warning.png", "ADVERTENCIA: Confirmar eliminación de receta", "¿Está seguro de eliminar la receta?", RUTAELIMINARCONTROLLER+"confirmarEliminacion&idReceta=" + idReceta);
 	
 	}
 
@@ -65,12 +65,12 @@ public class EliminarRecetasController extends HttpServlet{
 			boolean resultado = recetaDAO.eliminarReceta(idReceta);	
 			
 			if(resultado) {
-				establecerContenidoMensaje(req, resp, "ÉXITO: Receta Eliminada", "La receta se ha eliminado exitosamente");
+				establecerContenidoMensaje(req, resp, "/assets/images/message/success.png", "ÉXITO: Receta Eliminada", "La receta se ha eliminado exitosamente");
 				return;
 			}
-			establecerContenidoMensaje(req, resp, "ERROR: La receta no fue eliminada", "La receta NO se ha eliminado");
+			establecerContenidoMensaje(req, resp, "/assets/images/message/error.png","ERROR: La receta no fue eliminada", "La receta NO se ha eliminado");
 		}catch(Exception e){
-			establecerContenidoMensaje(req, resp, "ERROR: Excepción","Error: " + e.getMessage());
+			establecerContenidoMensaje(req, resp, "/assets/images/message/error.png","ERROR: Excepción","Error: " + e.getMessage());
 		}finally{
 			recetaDAO.cerrar();
 		}	
@@ -86,19 +86,21 @@ public class EliminarRecetasController extends HttpServlet{
 	/*
 	 * ---------------- REFACTOR DE MENSAJES ---------------------
 	 */
-	private void establecerContenidoMensaje(HttpServletRequest req, HttpServletResponse resp, String titulo, 
+	private void establecerContenidoMensaje(HttpServletRequest req, HttpServletResponse resp, String imagen, String titulo, 
 			String descripcion) throws ServletException, IOException{
+		req.setAttribute("urlimg", imagen);
 		req.setAttribute("title", titulo);
 		req.setAttribute("description", descripcion);
-		req.setAttribute("href", RUTA_VOLVER);
+		req.setAttribute("href", RUTAELIMINARCONTROLLER+"volver&idUsuario=1");
 		req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
 	}
 	
-	private void establecerContenidoMensajeConfirmacion(HttpServletRequest req, HttpServletResponse resp, String titulo,
+	private void establecerContenidoMensajeConfirmacion(HttpServletRequest req, HttpServletResponse resp, String imagen, String titulo,
 			String descripcion, String hrefConfirmar)  throws ServletException, IOException{
+		req.setAttribute("urlimg", imagen);
 		req.setAttribute("title", titulo);
 		req.setAttribute("description", descripcion);
-		req.setAttribute("hrefVolver", RUTA_VOLVER);
+		req.setAttribute("hrefVolver", RUTAELIMINARCONTROLLER+"volver&idUsuario=1");
 		req.setAttribute("hrefConfirmar", hrefConfirmar);
 		req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
 	}

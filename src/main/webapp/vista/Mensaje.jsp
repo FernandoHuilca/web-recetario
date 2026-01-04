@@ -24,10 +24,10 @@
 				<c:when test="${not empty hrefConfirmar}">
 					<!-- Modo confirmación: dos botones -->
 					<div class="button-confirmacion">
-						<a class="button text-decoration-none" href="${pageContext.request.contextPath}${hrefVolver}">Volver</a>
+						<a class="button text-decoration-none" href="${pageContext.request.contextPath}${hrefConfirmar}">Confirmar</a>
 					</div>
 					<div class="button-confirmacion">
-						<a class="button text-decoration-none" href="${pageContext.request.contextPath}${hrefConfirmar}">Confirmar</a>
+						<a class="button text-decoration-none" href="${pageContext.request.contextPath}${hrefVolver}">Volver</a>
 					</div>
 				</c:when>
 				<c:otherwise>
