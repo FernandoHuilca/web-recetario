@@ -24,14 +24,6 @@ public class Usuario implements Serializable{
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id_usuario")
 	private Long idUsuario;
-	
-    public List<Receta> getRecetas() {
-		return recetas;
-	}
-
-	public void setRecetas(List<Receta> recetas) {
-		this.recetas = recetas;
-	}
 
 	@Column(nullable = false, length = 100)
 	private String nombre;
@@ -111,4 +103,11 @@ public class Usuario implements Serializable{
 		this.clave = clave;
 	}
 		
+    public List<Receta> getRecetas() {
+		return recetas;
+	}
+
+	public void setRecetas(List<Receta> recetas) {
+		this.recetas = recetas;
+	}
 }
