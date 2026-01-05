@@ -73,7 +73,7 @@
 			<div class="recipe-actions">
 				<input class="button" type="submit" value="Registrar"> <a
 					class="button"
-					href="${pageContext.request.contextPath}/GestionarRecetasController">Cancelar</a>
+					href="${pageContext.request.contextPath}/RegistrarRecetasController?ruta=cancelar">Cancelar</a>
 			</div>
 		</form>
 	</div>

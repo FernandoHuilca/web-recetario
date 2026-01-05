@@ -73,7 +73,7 @@ public class GestionarRecetasController extends HttpServlet {
 	
 		public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 			// Redirige al panel principal (vista anterior)
-			resp.sendRedirect(req.getContextPath() + "/vista/PanelPrincipal.jsp");
+			resp.sendRedirect(req.getContextPath() + "/VerPanelPrincipalController");
 	}
 	
 }

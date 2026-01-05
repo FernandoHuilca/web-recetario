@@ -52,12 +52,6 @@ public class RegistrarRecetasController extends HttpServlet {
 		case "cancelar":
 			cancelar(req, resp);
 			break;
-		case "volver":
-			volver(req, resp);
-			break;
-		case "listarRecetas":
-			listarRecetas(req, resp);
-			break;
 		default:
 			System.out.println("Error!");
 			break;
@@ -188,20 +182,8 @@ public class RegistrarRecetasController extends HttpServlet {
 	}
 
 	public void cancelar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//1. Obtener los parámetros 
-		//2. Hablar con el modelo
-		//3. Llamar a la vista
+		// Redirige al panel principal (vista anterior)
+		resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController");
 	}
 
-	public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//1. Obtener los parámetros 
-		//2. Hablar con el modelo
-		//3. Llamar a la vista
-	}
-
-	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//1. Obtener los parámetros 
-		//2. Hablar con el modelo
-		//3. Llamar a la vista
-	}
 }
