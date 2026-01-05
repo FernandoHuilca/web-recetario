@@ -28,7 +28,7 @@
 				></textarea>
 			<br>
 			<br> <label for="time">Tiempo Preparación (min)*:</label> <input
-				type="number" id="time" name="time" min="1" ><br>
+				type="number" id="time" name="time" min="1"><br>
 			<br> <label for="servings">Porciones*:</label> <input
 				type="number" id="servings" name="servings" min="1" ><br>
 			<br> <label>Ingredientes*:</label><br>

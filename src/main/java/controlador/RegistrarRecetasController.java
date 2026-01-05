@@ -80,11 +80,11 @@ public class RegistrarRecetasController extends HttpServlet {
 			// 1. Obtener los parámetros del formulario
 			String nombre = req.getParameter("name");
 			String descripcion = req.getParameter("description");
-			double tiempoPreparacion = Double.parseDouble(req.getParameter("time"));
+			Double tiempoPreparacion = Double.parseDouble(req.getParameter("time"));
 			String descripcionPasos = req.getParameter("instructions");
-			int porciones = Integer.parseInt(req.getParameter("servings"));
+			Integer porciones = Integer.parseInt(req.getParameter("servings"));
 			String imagen = null;
-			long idUsuario = 1L; // Usuario por defecto mientras no hay sesión
+			Long idUsuario = 1L; // Usuario por defecto mientras no hay sesión
 			
 			// Captura de arrays de ingredientes
 			String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
