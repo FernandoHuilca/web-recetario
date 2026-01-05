@@ -129,21 +129,6 @@ public class RecetaDAO {
 		}
 	}
 
-	// ==================== UTILIDADES ====================
-
-	/**
-	 * Obtiene el total de recetas
-	 */
-	public long contarRecetas() {
-		try {
-			TypedQuery<Long> query = em.createQuery("SELECT COUNT(r) FROM Receta r", Long.class);
-			return query.getSingleResult();
-		} catch (Exception e) {
-			e.printStackTrace();
-			return 0;
-		}
-	}
-
 	// ==================== GESTIÓN DE RECURSOS ====================
 
 	/**

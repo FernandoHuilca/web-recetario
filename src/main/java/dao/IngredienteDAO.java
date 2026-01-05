@@ -1,7 +1,6 @@
 package dao;
 
 import jakarta.persistence.EntityManager;
-import jakarta.persistence.Persistence;
 import jakarta.persistence.TypedQuery;
 import modelo.Ingrediente;
 import util.JPAUtil;
@@ -46,27 +45,6 @@ public class IngredienteDAO {
 			}
 			return null;
 		}
-
-		
-		/*try {
-			// Buscar si ya existe
-			Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
-			if (existente != null) {
-				return existente; // Retorna el que ya existe
-			}
-			
-			// Si no existe, crear nuevo
-			em.getTransaction().begin();
-			em.persist(ingrediente);
-			em.getTransaction().commit();
-			return ingrediente;
-		} catch (Exception e) {
-			if (em.getTransaction().isActive()) {
-				em.getTransaction().rollback();
-			}
-			e.printStackTrace();
-			return null;
-		}*/
 	}
 	
 	public void cerrar() {
