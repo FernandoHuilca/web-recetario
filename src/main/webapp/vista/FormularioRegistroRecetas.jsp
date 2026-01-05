@@ -22,15 +22,15 @@
 			enctype="multipart/form-data">
 			<!-- <label for="id">Id</label> -->
 			<input type="hidden" name="id" id="id"> <label for="name">Nombre*:</label>
-			<input type="text" id="name" name="name" required><br>
+			<input type="text" id="name" name="name"><br>
 			<br> <label for="description">Descripción general*:</label><br>
 			<textarea id="description" name="description" rows="3" cols="50"
-				required></textarea>
+				></textarea>
 			<br>
 			<br> <label for="time">Tiempo Preparación (min)*:</label> <input
-				type="number" id="time" name="time" min="1" required><br>
+				type="number" id="time" name="time" min="1" ><br>
 			<br> <label for="servings">Porciones*:</label> <input
-				type="number" id="servings" name="servings" min="1" required><br>
+				type="number" id="servings" name="servings" min="1" ><br>
 			<br> <label>Ingredientes*:</label><br>
 			<table id="ingredientsTable">
 				<thead>
@@ -44,9 +44,9 @@
 
 				<tbody>
 					<tr>
-						<td><input type="text" name="ingredients_name[]" required></td>
-						<td><input type="text" name="ingredients_quantity[]" required></td>
-						<td><select name="ingredients_unit[]" required>
+						<td><input type="text" name="ingredients_name[]" ></td>
+						<td><input type="text" name="ingredients_quantity[]" ></td>
+						<td><select name="ingredients_unit[]" >
 
 								<c:forEach items="${unidades}" var="unidad">
 									<option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
@@ -64,7 +64,7 @@
 				ingrediente</button>
 			<br> <label for="instructions">Pasos/ Instrucciones*:</label><br>
 			<textarea id="instructions" name="instructions" rows="6" cols="50"
-				required></textarea>
+				></textarea>
 			<br>
 			<br> <label for="image">Imagen:</label> <input type="file"
 				id="image" name="image" accept="image/*"><br>
@@ -89,10 +89,10 @@ document.addEventListener("DOMContentLoaded", function(){
 	addButton.addEventListener("click", function(){
 		const newRow = document.createElement("tr");
 		newRow.innerHTML = `
-		<td><input type="text" name="ingredients_name[]" required></td>
-		                <td><input type="text" name="ingredients_quantity[]" required></td>
+		<td><input type="text" name="ingredients_name[]" ></td>
+		                <td><input type="text" name="ingredients_quantity[]" ></td>
 		                <td>
-		                    <select name="ingredients_unit[]" required>
+		                    <select name="ingredients_unit[]" >
 		                        <c:forEach items="${unidades}" var="unidad">
 		                            <option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
 		                        </c:forEach>
