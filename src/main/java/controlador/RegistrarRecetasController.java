@@ -110,6 +110,7 @@ public class RegistrarRecetasController extends HttpServlet {
 			// Asignar usuario (por defecto id=1). Requiere que exista en la BD.
 			Usuario usuario = usuarioDAO.obtenerPorId(idUsuario);
 			if (usuario == null) {
+				req.setAttribute("urlimg", "/assets/images/message/error.png");
 				req.setAttribute("title", "ERROR: Usuario por defecto no encontrado");
 				req.setAttribute("description", "Cree un usuario con id=1 en la tabla Usuario o ajuste el idUsuario por defecto.");
 				req.setAttribute("href", "/RegistrarRecetasController");
@@ -128,6 +129,7 @@ public class RegistrarRecetasController extends HttpServlet {
 				Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
 				
 				if (ingrediente == null) {
+					req.setAttribute("urlimg", "/assets/images/message/error.png");
 					req.setAttribute("title", "ERROR: Ingrediente no pudo guardarse");
 					req.setAttribute("description", "Hubo un problema al procesar el ingrediente: " + nombreIng);
 					req.setAttribute("href", "/RegistrarRecetasController");
@@ -143,6 +145,7 @@ public class RegistrarRecetasController extends HttpServlet {
 			
 			// 5. Llamar a la vista con el resultado
 			if (!resultado) {
+				req.setAttribute("urlimg", "/assets/images/message/error.png");
 				req.setAttribute("title", "ERROR: Receta NO creada");
 				req.setAttribute("description", "No fue posible guardar la receta en la base de datos");
 				req.setAttribute("href", "/RegistrarRecetasController");
@@ -150,12 +153,14 @@ public class RegistrarRecetasController extends HttpServlet {
 				return;
 			}
 			
+			req.setAttribute("urlimg", "/assets/images/message/success.png");
 			req.setAttribute("title", "Éxito: Receta creada");
 			req.setAttribute("description", "La receta se ha creado exitosamente");
 			req.setAttribute("href", "/GestionarRecetasController");
 			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
 			
 		} catch (NumberFormatException e) {
+			req.setAttribute("urlimg", "/assets/images/message/success.png");
 			req.setAttribute("title", "ERROR: Datos inválidos");
 			req.setAttribute("description", "Asegúrese de ingresar números válidos para cantidad y porciones");
 			req.setAttribute("href", "/RegistrarRecetasController");
@@ -166,6 +171,7 @@ public class RegistrarRecetasController extends HttpServlet {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
+			req.setAttribute("urlimg", "/assets/images/message/error.png");
 			req.setAttribute("title", "ERROR: Excepción del servidor");
 			req.setAttribute("description", "Error: " + e.getMessage());
 			req.setAttribute("href", "/RegistrarRecetasController");

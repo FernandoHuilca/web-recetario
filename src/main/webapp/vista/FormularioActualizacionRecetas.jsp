@@ -29,7 +29,7 @@
 			<br>
 			
 			<br> <label for="time">Tiempo Preparación (min)*:</label> <input
-				type="number" id="time" name="time" min="1" value="${receta.tiempoPreparacion}"><br>
+				type="number" id="time" name="time" min="1" step="0.01" value="${receta.tiempoPreparacion}"><br>
 				
 			<br> <label for="servings">Porciones*:</label> <input
 				type="number" id="servings" name="servings" min="1" value="${receta.porciones}"><br>
