@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="3.0"
+	xmlns="https://jakarta.ee/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="https://jakarta.ee/xml/ns/persistence https://jakarta.ee/xml/ns/persistence/persistence_3_0.xsd">
+	<persistence-unit name="WebRecetario">
+	<provider>org.eclipse.persistence.jpa.PersistenceProvider</provider>
+
+		<exclude-unlisted-classes>false</exclude-unlisted-classes>
+		<properties>			
+			<!-- Conexión a MySQL -->
+			<property name="jakarta.persistence.jdbc.url"
+				value="${DB_URL}" />
+			<property name="jakarta.persistence.jdbc.user"
+				value="${DB_USER}" />
+			<property name="jakarta.persistence.jdbc.password"
+				value="${DB_PASSWORD}" />
+			<property name="jakarta.persistence.jdbc.driver"
+				value="com.mysql.cj.jdbc.Driver" />
+
+			<!-- Configuración EclipseLink -->
+			<property name="eclipselink.target-database" value="MySQL" />
+			<property name="eclipselink.logging.level.sql" value="FINE" />
+			<property name="eclipselink.logging.parameters" value="true" />
+
+			<!-- Generación de tablas -->
+			<property name="eclipselink.ddl-generation"
+				value="none" />
+				
+				<!-- Pool de conexiones pequeño para Clever Cloud -->
+			<property name="eclipselink.jdbc.connections.initial"
+				value="1" />
+			<property name="eclipselink.jdbc.connections.min" value="1" />
+			<property name="eclipselink.jdbc.connections.max" value="3" />
+
+			<!-- Cierra conexiones inactivas -->
+			<property name="eclipselink.connection-pool.default.initial"
+				value="1" />
+			<property name="eclipselink.connection-pool.default.min"
+				value="1" />
+			<property name="eclipselink.connection-pool.default.max"
+				value="3" />
+		</properties>
+	</persistence-unit>
+</persistence>
