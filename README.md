@@ -35,7 +35,7 @@ El proyecto sigue estrictamente el patrón **MVC**:
 
 <table>
     <tr>
-    <td><img src="https://github.com/user-attachments/assets/e0e81e6e-d87a-4558-bee7-299a844443c8" alt="Pantalla inicio"></td>
+    <td><img src="https://github.com/user-attachments/assets/c932429d-1974-4488-991b-d684b53ea05c" alt="Pantalla inicio"></td>
     <td><img src="https://github.com/user-attachments/assets/e0e81e6e-d87a-4558-bee7-299a844443c8" alt="Selección de personajes"></td>
   </tr>
      <tr>
