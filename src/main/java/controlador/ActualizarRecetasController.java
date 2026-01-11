@@ -87,6 +87,7 @@ public class ActualizarRecetasController extends HttpServlet {
 			imagen = recetaTemp.getImagen();
 		}
 
+		
 		// 2. Hablar con el modelo
 		RecetaDAO recetaDAO = new RecetaDAO();
 		Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);

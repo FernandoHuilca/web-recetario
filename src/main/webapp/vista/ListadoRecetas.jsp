@@ -51,6 +51,7 @@
 									</c:otherwise>
 								</c:choose>
 							</td>
+							
 							<td>
 								<form method="POST" action="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=solicitarActualizarReceta" style="display:inline;">
 									<input type="hidden" name="idReceta" value="${receta.idReceta}" />

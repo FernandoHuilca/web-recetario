@@ -100,7 +100,7 @@ public class RegistrarRecetasController extends HttpServlet {
 				Files.copy(imagePart.getInputStream(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 				imagen = fileName; // solo se persiste el nombre
 			}
-			
+		
 			// Captura de arrays de ingredientes
 			String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
 			String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");

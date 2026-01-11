@@ -64,7 +64,6 @@
                     <h2 class="font-h3">Pollo Navideño</h2>
                     <p class="color-subTitle">Deliciosa receta de pollo navideño...</p>
                 </div>
-
                 <div>
                     <div class="button-viewRecipe text-align-center">
                         <a class="text-decoration-none text-while" 
