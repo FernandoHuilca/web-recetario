@@ -9,7 +9,7 @@ body{
     margin: 0;
     padding: 0;
     width: 100%; 
-    height: 200px; 
+    height: 200px;
     overflow: hidden;
     background-repeat: no-repeat;
     background-position: left top;
@@ -20,16 +20,15 @@ body{
 }
 
 .card-image img{
-    display:block;
-    width:100%;
-    height:100%;
-    object-fit:cover;
+    display: block;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
 
 .margin-card-right{
     margin-right: 30px;
 }
-
 
 .bg-1-card{
     background: white;
@@ -44,6 +43,7 @@ body{
     width: 250px;
     height: 415px;
     position: relative;
+    flex: 0 0 250px;
 }
 
 .margin-card{
@@ -60,15 +60,26 @@ body{
 
 .border-cards{
     border: 2px solid rgb(210, 210, 210);
-
 }
+
 .margin-cards{
     margin: 0px 40px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 10px;
 }
 
 /* header */
 .padding-header{
-    padding: 10px 20px 10px 20px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .margin-nav-header{
@@ -81,9 +92,13 @@ body{
     background-color: var(--color-1);
     border-radius: 8px;
     cursor: pointer;
-    margin: 12px auto; /* center horizontally */
+    margin: 12px auto;
     text-align: center;
     display: block;
+    border: none;
+    color: white;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
 }
 
 .button-viewRecipe:hover{
@@ -101,8 +116,20 @@ body{
     padding: 0px;
 }
 
-.avaterPerfil{display:flex;align-items:center;margin-left:12px}
-.icon-user{width:44px;height:44px;object-fit:cover;display:block;cursor:pointer;border-radius:50%;}
+.avaterPerfil{
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.icon-user{
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    border-radius: 50%;
+}
 
 .favorite-btn{
     position: absolute;
@@ -112,13 +139,14 @@ body{
     height: 44px;
     border-radius: 50%;
     background: #ffffff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     border: none;
     cursor: pointer;
     padding: 6px;
+    transition: all 0.3s ease;
 }
 
 .favorite-btn svg{width:22px;height:22px;display:block}
@@ -147,6 +175,7 @@ body{
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .button-search:hover{
@@ -161,6 +190,7 @@ body{
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .general-button:hover{
@@ -177,7 +207,7 @@ body{
 
 .sizing-aside{
     width: 10%;
-    height: 100vh;
+    min-width: 150px;
 }
 
 .sizing-main{
@@ -186,6 +216,7 @@ body{
 
 .sidebar-title{
     padding: 0px 25px;
+    font-weight: bold;
 }
 
 .margin-aside{
@@ -200,8 +231,156 @@ body{
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
+    width: 100%;
+    margin-bottom: 10px;
+}
+
+.sidebar-button:hover {
+    background-color: var(--color-2);
 }
 
 .padding-aside{
     padding: 0px 20px;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+/* Tablets and below (1024px) */
+@media (max-width: 1024px) {
+    .sizing-card {
+        width: 220px;
+        height: 380px;
+        flex: 0 0 220px;
+    }
+
+    .margin-cards {
+        margin: 0px 20px;
+    }
+
+    .sizing-aside {
+        width: 15%;
+    }
+
+    .sizing-main {
+        width: 85%;
+    }
+
+    .search-input {
+        width: 300px;
+    }
+}
+
+/* Tablets (768px and below) */
+@media (max-width: 768px) {
+    .sizing-aside {
+        width: 100%;
+        min-width: auto;
+        margin-bottom: 20px;
+    }
+
+    .sizing-main {
+        width: 100%;
+    }
+
+    .padding-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .margin-cards {
+        margin: 0px 10px;
+        justify-content: center;
+    }
+
+    .sizing-card {
+        width: 200px;
+        height: 350px;
+        flex: 0 0 200px;
+    }
+
+    .button-viewRecipe {
+        width: 140px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .margin-aside {
+        display: flex;
+        gap: 10px;
+        flex-wrap: wrap;
+    }
+
+    .sidebar-button {
+        width: auto;
+        flex: 1 1 auto;
+        min-width: 100px;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .margin-cards {
+        margin: 0px 5px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sizing-card {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        flex: 0 0 auto;
+    }
+
+    .card-image {
+        height: 180px;
+    }
+
+    .search-input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .button-search {
+        margin-left: 0px;
+        margin-top: 8px;
+        width: 100%;
+    }
+
+    .button-viewRecipe {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .padding-header {
+        gap: 8px;
+    }
+
+    .name-description-recipe {
+        margin: 5px 10px;
+    }
+
+    .avaterPerfil {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .margin-aside {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .sidebar-button {
+        width: 100%;
+    }
+
+    .padding-aside {
+        padding: 0px 10px;
+    }
 }

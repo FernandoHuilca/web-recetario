@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -32,8 +32,7 @@
         <section class="main-text">
             <div>
                 <h1 class="h1-title">Descubre sabores únicos</h1>
-                <p class="text-img">Explora miles de recetas deliciosas, guarda tus favoritas y comparte tus propias
-                    creaciones culinarias</p>
+                <p class="text-img">Explora miles de recetas deliciosas, guarda tus favoritas y comparte tus propias creaciones culinarias</p>
             </div>
         </section>
     </main>

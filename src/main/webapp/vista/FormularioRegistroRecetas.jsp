@@ -1,7 +1,7 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
 <meta charset="UTF-8">
@@ -51,10 +51,9 @@
 								<c:forEach items="${unidades}" var="unidad">
 									<option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
 								</c:forEach>
-
 						</select></td>
 						<td>
-							<button type="button" class="remove-ingredient">---</button>
+							<button type="button" class="remove-ingredient">Eliminar</button>
 						</td>
 					</tr>
 				</tbody>
@@ -71,8 +70,8 @@
 			<br>
 
 			<div class="recipe-actions">
-				<input class="button" type="submit" value="Registrar"> <a
-					class="button"
+				<input class="button" type="submit" value="Registrar">
+				<a class="button recipe-cancel"
 					href="${pageContext.request.contextPath}/RegistrarRecetasController?ruta=cancelar">Cancelar</a>
 			</div>
 		</form>
@@ -99,7 +98,7 @@ document.addEventListener("DOMContentLoaded", function(){
 		                    </select>
 		                </td>
 		                <td>
-		                    <button type="button" class="remove-ingredient">---</button>
+		                    <button type="button" class="remove-ingredient">Eliminar</button>
 		                </td>
 		`;
 		tableBody.appendChild(newRow);
@@ -108,8 +107,9 @@ document.addEventListener("DOMContentLoaded", function(){
 	// Eliminar ingrediente (Delegar evento)
 	tableBody.addEventListener("click", function(e){
 		if(e.target.classList.contains("remove-ingredient")){
+			e.preventDefault();
 			const row = e.target.closest("tr");
-			if(tableBody.children.length >1){
+			if(tableBody.children.length > 1){
 				row.remove();
 			}else{
 				alert("Debe haber al menos un ingrediente");

@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -16,10 +16,8 @@
         <div class="">
             <h2 class="font-h2 sidebar-title">Menú</h2>
             <ul class="list-none-style padding-aside">
-                <li class="margin-aside"><a class=" sidebar-button text-decoration-none"
+                <li class="margin-aside"><a class="sidebar-button text-decoration-none"
                         href="PanelPrincipal.jsp">Panel Principal</a></li>
-                <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="recipeManagement.html">Gestión</a></li> -->
-                <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="#">Favoritos</a></li> -->
             </ul>
         </div>
     </aside>
@@ -30,16 +28,16 @@
 
 
             <section class="display-flex search-favorite">
-                <input class="search-input" type="text" placeholder="Buscar receta...">
-                <div class="button-search">Buscar</div>
+                <input class="search-input" type="text" placeholder="Buscar receta..." aria-label="Buscar receta">
+                <button class="button-search" aria-label="Ejecutar búsqueda">Buscar</button>
             </section>
 
 
             <nav class="display-flex">
                 <div class="avaterPerfil">
-                    <a href="#" class="avatar-link">
+                    <a href="#" class="avatar-link" aria-label="Perfil de usuario">
                         <img class="icon-user" src="../assets/images/dashboard/defaultPerfil.jpeg"
-                            alt="Icono de usuario">
+                            alt="Imagen de perfil">
                     </a>
                 </div>
             </nav>
@@ -51,7 +49,7 @@
 
 
         <main>
-            <section class="display-flex  margin-cards">
+            <section class="display-flex margin-cards">
 
                 <article class="sizing-card bg-1-card margin-card">
 
@@ -59,11 +57,9 @@
                         <img src="../assets/images/dashboard/pollonavideño.jpeg" alt="Pollo Navideño" loading="lazy">
                     </div>
 
-                    <!-- Favorite / bookmark button -->
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                             xmlns="http://www.w3.org/2000/svg">
-                            <!-- bookmark shape -->
                             <path d="M6 2h12v18l-6-4-6 4V2z" />
                         </svg>
                     </button>
@@ -92,11 +88,9 @@
                         <img src="../assets/images/dashboard/lasania.jpeg" alt="Lasania" loading="lazy">
                     </div>
 
-                    <!-- Favorite / bookmark button -->
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                             xmlns="http://www.w3.org/2000/svg">
-                            <!-- bookmark shape -->
                             <path d="M6 2h12v18l-6-4-6 4V2z" />
                         </svg>
                     </button>
@@ -125,11 +119,9 @@
                         <img src="../assets/images/dashboard/ensaladaRusa.jpeg" alt="Ensalada Rusa" loading="lazy">
                     </div>
 
-                    <!-- Favorite / bookmark button -->
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                             xmlns="http://www.w3.org/2000/svg">
-                            <!-- bookmark shape -->
                             <path d="M6 2h12v18l-6-4-6 4V2z" />
                         </svg>
                     </button>
@@ -149,6 +141,7 @@
 
                     </div>
 
+                </article>
 
             </section>
 

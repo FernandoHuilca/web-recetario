@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
   <meta charset="UTF-8" />
@@ -29,18 +29,18 @@
           <div>
              <c:choose>
                 <c:when test="${not empty receta.imagen}">
-                     <img src="${pageContext.request.contextPath}/assets/images/dashboard/${receta.imagen}" alt="${receta.nombre}" style="max-width: 300px; border-radius: 10px;"/>
+                     <img src="${pageContext.request.contextPath}/assets/images/dashboard/${receta.imagen}" alt="${receta.nombre}" style="max-width: 100%; width: auto; border-radius: 10px;"/>
                 </c:when>
                 <c:otherwise>
-                    <img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png" alt="imagen genérica" />
+                    <img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png" alt="imagen genérica" style="max-width: 100%; width: auto; border-radius: 10px;" />
                 </c:otherwise>
             </c:choose>
           </div>
-          <div style="margin-left: 20px;">
+          <div style="margin-left: 20px; flex-grow: 1;">
             <div>
-              <h1 class="margin-0 font-italic padding-bottom-15">
+              <h2 class="margin-0 font-italic padding-bottom-15">
                 <c:out value="${receta.nombre}"/>
-              </h1>
+              </h2>
             </div>
             <div class="padding-bottom-15">
               <c:out value="${receta.descripcion}"/>
@@ -64,9 +64,7 @@
             <c:forEach items="${receta.recetaIngredientes}" var="ri">
                 <li>
                     <strong><c:out value="${ri.ingrediente.nombre}"/></strong>: 
-                    
                     <c:out value="${ri.cantidad}"/> 
-                    
                     <c:out value="${ri.unidad}"/>
                 </li>
             </c:forEach>
@@ -88,9 +86,6 @@
           </section>
         </div>
       </div>
-    </section>
-    <section>
-      <div></div>
     </section>
   </main>
 </body>

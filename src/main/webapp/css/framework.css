@@ -112,3 +112,85 @@ font-family: var(--font-general);
     justify-content: center;
     width: 100%;
 }
+
+/* ==================== RESPONSIVE UTILITIES ==================== */
+
+/* Desktop first approach - adjustments for smaller screens */
+@media (max-width: 1024px) {
+    .display-flex {
+        flex-wrap: wrap;
+    }
+
+    .justify-content-between {
+        gap: 10px;
+    }
+}
+
+@media (max-width: 768px) {
+    * {
+        box-sizing: border-box;
+    }
+
+    .display-flex {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .flex-row {
+        flex-direction: column;
+    }
+
+    .padding-header {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    main {
+        padding: 10px;
+        width: 100%;
+    }
+
+    section {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .font-h1 {
+        font-size: clamp(1.2rem, 3vw, 2rem) !important;
+    }
+
+    .display-flex {
+        flex-direction: column;
+        gap: 8px;
+    }
+
+    .justify-content-between,
+    .justify-content-center,
+    .justify-content-around {
+        justify-content: center !important;
+    }
+
+    main {
+        padding: 5px;
+    }
+
+    section {
+        width: 100%;
+        padding: 0;
+    }
+
+    .margin-10 {
+        margin: 5px;
+    }
+
+    .margin-20 {
+        margin: 10px;
+    }
+
+    .general-button {
+        width: 100%;
+        margin: 5px 0;
+        padding: 10px;
+    }
+}

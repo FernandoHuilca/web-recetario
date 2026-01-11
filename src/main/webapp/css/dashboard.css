@@ -44,7 +44,7 @@ body{
     width: 250px;
     height: 415px;
     position: relative;
-    flex: 0 0 250px; /* keep card width and wrap when space runs out */
+    flex: 0 0 250px;
 }
 
 .ad-card{
@@ -99,17 +99,24 @@ body{
     display: flex;
     flex-wrap: wrap;
     justify-content: flex-start;
+    gap: 10px;
 }
 
 /* header */
 .padding-header{
-    padding: 10px 20px 10px 20px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+    background: white;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
 }
 
 .margin-nav-header{
     margin-right: 20px;
 }
-
 
 .button-viewRecipe{
     width: 150px;
@@ -120,12 +127,11 @@ body{
     margin: 12px auto;
     text-align: center;
     display: block;
-    
-    /* === AGREGA ESTAS 4 LÍNEAS === */
-    border: none;          /* Quita el borde negro */
-    color: white;          /* Pone el texto blanco */
-    font-size: 16px;       /* Asegura el mismo tamaño de letra que el enlace */
-    font-family: inherit;  /* Hereda la fuente de tu framework */
+    border: none;
+    color: white;
+    font-size: 16px;
+    font-family: inherit;
+    transition: background-color 0.3s ease;
 }
 
 .button-viewRecipe:hover{
@@ -143,8 +149,20 @@ body{
     padding: 0px;
 }
 
-.avaterPerfil{display:flex;align-items:center;margin-left:12px}
-.icon-user{width:44px;height:44px;object-fit:cover;display:block;cursor:pointer;border-radius:50%;}
+.avaterPerfil{
+    display: flex;
+    align-items: center;
+    margin-left: 12px;
+}
+
+.icon-user{
+    width: 44px;
+    height: 44px;
+    object-fit: cover;
+    display: block;
+    cursor: pointer;
+    border-radius: 50%;
+}
 
 .favorite-btn{
     position: absolute;
@@ -154,13 +172,14 @@ body{
     height: 44px;
     border-radius: 50%;
     background: #ffffff;
-    display:flex;
-    align-items:center;
-    justify-content:center;
+    display: flex;
+    align-items: center;
+    justify-content: center;
     box-shadow: 0 6px 18px rgba(0,0,0,0.12);
     border: none;
     cursor: pointer;
     padding: 6px;
+    transition: all 0.3s ease;
 }
 
 .favorite-btn svg{width:22px;height:22px;display:block}
@@ -189,6 +208,7 @@ body{
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .button-search:hover{
@@ -203,6 +223,7 @@ body{
     border: none;
     border-radius: 8px;
     cursor: pointer;
+    transition: background-color 0.3s ease;
 }
 
 .general-button:hover{
@@ -215,4 +236,115 @@ body{
     border-radius: 50%;
     border: 3px solid var(--color-1);
     object-fit: cover;
+}
+
+/* ==================== MEDIA QUERIES ==================== */
+
+/* Tablets and below (1024px) */
+@media (max-width: 1024px) {
+    .sizing-card {
+        width: 220px;
+        height: 380px;
+        flex: 0 0 220px;
+    }
+
+    .margin-cards {
+        margin: 0px 20px;
+        gap: 15px;
+    }
+
+    .padding-header {
+        gap: 15px;
+    }
+
+    .search-input {
+        width: 300px;
+    }
+}
+
+/* Small tablets (768px and below) */
+@media (max-width: 768px) {
+    .padding-header {
+        flex-direction: column;
+        gap: 10px;
+        padding: 10px 15px;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 300px;
+    }
+
+    .margin-cards {
+        margin: 0px 10px;
+        justify-content: center;
+        gap: 10px;
+    }
+
+    .sizing-card {
+        width: 200px;
+        height: 350px;
+        flex: 0 0 200px;
+    }
+
+    .button-viewRecipe {
+        width: 140px;
+        padding: 8px 12px;
+        font-size: 14px;
+    }
+
+    .margin-nav-header {
+        margin-right: 10px;
+    }
+}
+
+/* Mobile (480px and below) */
+@media (max-width: 480px) {
+    .padding-header {
+        flex-direction: column;
+        gap: 8px;
+        padding: 8px 10px;
+    }
+
+    .margin-cards {
+        margin: 0px 5px;
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .sizing-card {
+        width: 100%;
+        max-width: 280px;
+        height: auto;
+        flex: 0 0 auto;
+    }
+
+    .card-image {
+        height: 180px;
+    }
+
+    .search-input {
+        width: 100%;
+        font-size: 16px;
+    }
+
+    .button-search {
+        margin-left: 0px;
+        margin-top: 8px;
+        width: 100%;
+    }
+
+    .button-viewRecipe {
+        width: 100%;
+        max-width: 200px;
+    }
+
+    .name-description-recipe {
+        margin: 5px 10px;
+    }
+
+    .avaterPerfil {
+        width: 100%;
+        justify-content: center;
+    }
 }

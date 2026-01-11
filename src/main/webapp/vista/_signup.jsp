@@ -1,6 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 
 <head>
     <meta charset="UTF-8">
@@ -19,44 +19,44 @@
         <section class="card">
 
             <div class="fields">
-                <label class="form-row-label">Nombre*:</label>
+                <label class="form-row-label" for="nombre">Nombre*:</label>
                 <div>
-                    <input class="form-row-input" type="text" placeholder="Ingresa tu nombre">
+                    <input class="form-row-input" id="nombre" type="text" placeholder="Ingresa tu nombre" required>
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Apellido*:</label>
+                <label class="form-row-label" for="apellido">Apellido*:</label>
                 <div>
-                    <input class="form-row-input" type="text" placeholder="Ingresa tu apellido">
+                    <input class="form-row-input" id="apellido" type="text" placeholder="Ingresa tu apellido" required>
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Fecha de nacimiento*:</label>
+                <label class="form-row-label" for="fecha">Fecha de nacimiento*:</label>
                 <div>
-                    <input class="form-row-input" type="date" placeholder="Ingresa tu fecha de nacimiento">
+                    <input class="form-row-input" id="fecha" type="date" placeholder="Ingresa tu fecha de nacimiento" required>
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Correo*:</label>
+                <label class="form-row-label" for="email">Correo*:</label>
                 <div>
-                    <input class="form-row-input" type="email" placeholder="Ingresa tu correo">
+                    <input class="form-row-input" id="email" type="email" placeholder="Ingresa tu correo" required>
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Contraseña*:</label>
+                <label class="form-row-label" for="password">Contraseña*:</label>
                 <div>
-                    <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                    <input class="form-row-input" id="password" type="password" placeholder="Ingresa tu contraseña" required>
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Repetir contraseña*:</label>
+                <label class="form-row-label" for="password2">Repetir contraseña*:</label>
                 <div>
-                    <input class="form-row-input" type="password" placeholder="Repite tu contraseña">
+                    <input class="form-row-input" id="password2" type="password" placeholder="Repite tu contraseña" required>
                 </div>
             </div>
 

@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,11 +16,11 @@
 <body>
     <header class="display-flex justify-content-between align-center padding-header">
 
-        <div class="font-h1 ">Cocina de Gregory</div>
+        <div class="font-h1">Cocina de Gregory</div>
 
         <section class="display-flex">
-            <input class="search-input" type="text" placeholder="Buscar receta...">
-            <div class="button-search">Buscar</div>
+            <input class="search-input" type="text" placeholder="Buscar receta..." aria-label="Buscar receta">
+            <button class="button-search" aria-label="Ejecutar búsqueda">Buscar</button>
         </section>
 
         <nav class="display-flex">
@@ -37,8 +37,8 @@
             </ul>
 
             <div class="avaterPerfil">
-                <a href="#" class="avatar-link">
-                    <img class="icon-user" src="${pageContext.request.contextPath}/assets/images/dashboard/defaultPerfil.jpeg" alt="Icono de usuario">
+                <a href="#" class="avatar-link" aria-label="Perfil de usuario">
+                    <img class="icon-user" src="${pageContext.request.contextPath}/assets/images/dashboard/defaultPerfil.jpeg" alt="Imagen de perfil">
                 </a>
             </div>
         </nav>
@@ -47,7 +47,7 @@
 
 
     <main>
-        <section class="display-flex  margin-cards">
+        <section class="display-flex margin-cards">
 
             <article class="sizing-card bg-1-card margin-card">
                 <div class="card-image">
@@ -72,28 +72,8 @@
                     </div>
                 </div>
             </article>
-<!-- 
 
-            <article class="sizing-card bg-1-card margin-card ad-card">
-                <div class="card-image ad-image">
-                    <img src="${pageContext.request.contextPath}/assets/images/publicidad/publicidad.png"
-                         alt="Publicidad" loading="lazy">
-                </div>
-
-                <div class="recipeInfo name-description-recipe">
-                    <span class="ad-badge">Publicidad</span>
-                </div>
-
-                <div>
-                    <div class="button-viewRecipe text-align-center">
-                        <a class="text-decoration-none text-while" href="#">Más información</a>
-                    </div>
-                </div>
-            </article> -->
-
-
-
-           <c:forEach items="${listaRecetasBD}" var="receta">
+            <c:forEach items="${listaRecetasBD}" var="receta">
                 
                 <article class="sizing-card bg-1-card margin-card">
 
