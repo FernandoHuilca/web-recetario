@@ -187,7 +187,6 @@ public class RegistrarRecetasController extends HttpServlet {
 		}
 	}
 
-	//todo: cambiar a volver el nombre del metodo
 	public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		// Redirige al panel principal (vista anterior)
 		resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController");

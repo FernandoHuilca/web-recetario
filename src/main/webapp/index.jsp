@@ -8,6 +8,8 @@
     <title>La cocina de Gregory</title>
     <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/index.css">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3956990650935404"
+     crossorigin="anonymous"></script>
 </head>
 
 <body class="margin-0 padding-0 background-img">
