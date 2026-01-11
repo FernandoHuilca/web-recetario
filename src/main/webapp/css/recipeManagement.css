@@ -191,14 +191,24 @@ section {
     }
 
     tbody tr {
-        display: flex;
-        flex-direction: column;
+        display: grid;
+        grid-template-columns: 1fr auto;
+        gap: 10px;
+        padding: 10px;
         margin-bottom: 15px;
         border: 1px solid #ddd;
         border-radius: 5px;
         overflow: hidden;
     }
 
+     /* Últimas dos columnas: Actualizar y Eliminar */
+    tbody tr td:nth-last-child(1),
+    tbody tr td:nth-last-child(2) {
+        grid-column: 2; /* columna derecha */
+        justify-content: center;
+        padding: 4px;
+    }
+    
     tbody tr td {
         border: none;
         padding: 8px;

@@ -71,8 +71,8 @@
 
 			<div class="recipe-actions">
 				<input class="button" type="submit" value="Registrar">
-				<a class="button recipe-cancel"
-					href="${pageContext.request.contextPath}/RegistrarRecetasController?ruta=cancelar">Cancelar</a>
+				<a class="button recipe-volver"
+					href="${pageContext.request.contextPath}/RegistrarRecetasController?ruta=volver">Volver</a>
 			</div>
 		</form>
 	</div>
