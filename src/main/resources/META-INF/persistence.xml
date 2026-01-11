@@ -9,11 +9,11 @@
 		<properties>			
 			<!-- Conexión a MySQL -->
 			<property name="jakarta.persistence.jdbc.url"
-				value="${DB_URL}" />
+				value="jdbc:mysql://localhost:3306/dummy" />
 			<property name="jakarta.persistence.jdbc.user"
-				value="${DB_USER}" />
+				value="$dummy" />
 			<property name="jakarta.persistence.jdbc.password"
-				value="${DB_PASSWORD}" />
+				value="$dummy" />
 			<property name="jakarta.persistence.jdbc.driver"
 				value="com.mysql.cj.jdbc.Driver" />
 
