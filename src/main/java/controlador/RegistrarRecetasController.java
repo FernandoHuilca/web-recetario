@@ -1,6 +1,9 @@
 package controlador;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +13,7 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import dao.RecetaDAO;
 import dao.IngredienteDAO;
 import dao.UsuarioDAO;
@@ -85,6 +89,17 @@ public class RegistrarRecetasController extends HttpServlet {
 			Integer porciones = Integer.parseInt(req.getParameter("servings"));
 			String imagen = null;
 			Long idUsuario = 1L; // Usuario por defecto mientras no hay sesión
+
+			// Guardar imagen si viene en el request
+			Part imagePart = req.getPart("image");
+			if (imagePart != null && imagePart.getSize() > 0) {
+				String fileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
+				Path uploadDir = Paths.get(req.getServletContext().getRealPath("/assets/images/dashboard/"));
+				Files.createDirectories(uploadDir);
+				Path target = uploadDir.resolve(fileName);
+				Files.copy(imagePart.getInputStream(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+				imagen = fileName; // solo se persiste el nombre
+			}
 			
 			// Captura de arrays de ingredientes
 			String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");

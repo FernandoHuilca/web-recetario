@@ -6,11 +6,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.Part;
 import modelo.Ingrediente;
 import modelo.Receta;
 import modelo.Unidad;
 
 import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.List;
 
@@ -62,10 +66,26 @@ public class ActualizarRecetasController extends HttpServlet {
 		Double tiempo = req.getParameter("time").isEmpty() ? 0.0 : Double.parseDouble(req.getParameter("time"));
 		Integer porciones = req.getParameter("servings").isEmpty() ? 0 : Integer.parseInt(req.getParameter("servings"));
 		String pasos = req.getParameter("instructions");
-		String imagen = req.getParameter("image");
+		String imagen = "";
 		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
 		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");
 		String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
+
+		// Procesar imagen si se proporcionó
+		Part imagePart = req.getPart("image");
+		if (imagePart != null && imagePart.getSize() > 0) {
+			String fileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
+			Path uploadDir = Paths.get(req.getServletContext().getRealPath("/assets/images/dashboard/"));
+			Files.createDirectories(uploadDir);
+			Path target = uploadDir.resolve(fileName);
+			Files.copy(imagePart.getInputStream(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			imagen = fileName;
+		} else {
+			// Si no se carga una nueva imagen, mantener la existente
+			RecetaDAO recetaDAOTemp = new RecetaDAO();
+			Receta recetaTemp = recetaDAOTemp.obtenerRecetaPorId(idReceta);
+			imagen = recetaTemp.getImagen();
+		}
 
 		// 2. Hablar con el modelo
 		RecetaDAO recetaDAO = new RecetaDAO();

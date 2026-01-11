@@ -78,8 +78,16 @@
                 <article class="sizing-card bg-1-card margin-card">
 
                     <div class="card-image">
-                        <img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png" 
-                             alt="${receta.nombre}" loading="lazy">
+                        <c:choose>
+                            <c:when test="${not empty receta.imagen}">
+                                <img src="${pageContext.request.contextPath}/assets/images/dashboard/${receta.imagen}"
+                                     alt="${receta.nombre}" loading="lazy">
+                            </c:when>
+                            <c:otherwise>
+                                <img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png"
+                                     alt="${receta.nombre}" loading="lazy">
+                            </c:otherwise>
+                        </c:choose>
                     </div>
 
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">

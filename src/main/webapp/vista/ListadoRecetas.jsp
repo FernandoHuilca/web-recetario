@@ -39,8 +39,18 @@
 						<tr>
 							<td>${receta.nombre}</td>
 							<td>${receta.descripcion}</td>
-							<td><img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png"
-								alt="imagen receta" /></td>
+							<td>
+								<c:choose>
+									<c:when test="${not empty receta.imagen}">
+										<img src="${pageContext.request.contextPath}/assets/images/dashboard/${receta.imagen}"
+											 alt="${receta.nombre}" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;" />
+									</c:when>
+									<c:otherwise>
+										<img src="${pageContext.request.contextPath}/assets/images/common/genericRecipeIcon.png"
+											 alt="imagen receta" style="width: 80px; height: 80px; object-fit: cover; border-radius: 6px;" />
+									</c:otherwise>
+								</c:choose>
+							</td>
 							<td>
 								<form method="POST" action="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=solicitarActualizarReceta" style="display:inline;">
 									<input type="hidden" name="idReceta" value="${receta.idReceta}" />
