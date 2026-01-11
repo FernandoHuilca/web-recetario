@@ -95,10 +95,10 @@
 			addButton.addEventListener("click", function(){
 				const newRow = document.createElement("tr");
 				newRow.innerHTML = `
-				<td><input type="text" name="ingredients_name[]" required></td>
-				                <td><input type="text" name="ingredients_quantity[]" required></td>
+				<td><input type="text" name="ingredients_name[]" ></td>
+				                <td><input type="text" name="ingredients_quantity[]" ></td>
 				                <td>
-				                    <select name="ingredients_unit[]" required>
+				                    <select name="ingredients_unit[]" >
 				                        <c:forEach items="${unidades}" var="unidad">
 				                            <option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
 				                        </c:forEach>

@@ -19,44 +19,44 @@
         <section class="card">
 
             <div class="fields">
-                <label class="form-row-label" for="nombre">Nombre*:</label>
+                <label class="form-row-label">Nombre*:</label>
                 <div>
-                    <input class="form-row-input" id="nombre" type="text" placeholder="Ingresa tu nombre" required>
+                    <input class="form-row-input" type="text" placeholder="Ingresa tu nombre">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label" for="apellido">Apellido*:</label>
+                <label class="form-row-label">Apellido*:</label>
                 <div>
-                    <input class="form-row-input" id="apellido" type="text" placeholder="Ingresa tu apellido" required>
+                    <input class="form-row-input" type="text" placeholder="Ingresa tu apellido">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label" for="fecha">Fecha de nacimiento*:</label>
+                <label class="form-row-label">Fecha de nacimiento*:</label>
                 <div>
-                    <input class="form-row-input" id="fecha" type="date" placeholder="Ingresa tu fecha de nacimiento" required>
+                    <input class="form-row-input" type="date" placeholder="Ingresa tu fecha de nacimiento">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label" for="email">Correo*:</label>
+                <label class="form-row-label">Correo*:</label>
                 <div>
-                    <input class="form-row-input" id="email" type="email" placeholder="Ingresa tu correo" required>
+                    <input class="form-row-input" type="email" placeholder="Ingresa tu correo">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label" for="password">Contraseña*:</label>
+                <label class="form-row-label">Contraseña*:</label>
                 <div>
-                    <input class="form-row-input" id="password" type="password" placeholder="Ingresa tu contraseña" required>
+                    <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label" for="password2">Repetir contraseña*:</label>
+                <label class="form-row-label">Repetir contraseña*:</label>
                 <div>
-                    <input class="form-row-input" id="password2" type="password" placeholder="Repite tu contraseña" required>
+                    <input class="form-row-input" type="password" placeholder="Repite tu contraseña">
                 </div>
             </div>
 

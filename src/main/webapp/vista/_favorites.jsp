@@ -18,6 +18,8 @@
             <ul class="list-none-style padding-aside">
                 <li class="margin-aside"><a class="sidebar-button text-decoration-none"
                         href="PanelPrincipal.jsp">Panel Principal</a></li>
+                <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="recipeManagement.html">Gestión</a></li> -->
+                <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="#">Favoritos</a></li> -->
             </ul>
         </div>
     </aside>
@@ -35,9 +37,9 @@
 
             <nav class="display-flex">
                 <div class="avaterPerfil">
-                    <a href="#" class="avatar-link" aria-label="Perfil de usuario">
+                    <a href="#" class="avatar-link">
                         <img class="icon-user" src="../assets/images/dashboard/defaultPerfil.jpeg"
-                            alt="Imagen de perfil">
+                            alt="Icono de usuario">
                     </a>
                 </div>
             </nav>
@@ -57,9 +59,11 @@
                         <img src="../assets/images/dashboard/pollonavideño.jpeg" alt="Pollo Navideño" loading="lazy">
                     </div>
 
+                    <!-- Favorite / bookmark button -->
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                             xmlns="http://www.w3.org/2000/svg">
+                            <!-- bookmark shape -->
                             <path d="M6 2h12v18l-6-4-6 4V2z" />
                         </svg>
                     </button>
@@ -88,9 +92,11 @@
                         <img src="../assets/images/dashboard/lasania.jpeg" alt="Lasania" loading="lazy">
                     </div>
 
+                    <!-- Favorite / bookmark button -->
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                             xmlns="http://www.w3.org/2000/svg">
+                            <!-- bookmark shape -->
                             <path d="M6 2h12v18l-6-4-6 4V2z" />
                         </svg>
                     </button>
@@ -119,9 +125,11 @@
                         <img src="../assets/images/dashboard/ensaladaRusa.jpeg" alt="Ensalada Rusa" loading="lazy">
                     </div>
 
+                    <!-- Favorite / bookmark button -->
                     <button class="favorite-btn" aria-pressed="false" aria-label="Guardar en favoritos">
                         <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"
                             xmlns="http://www.w3.org/2000/svg">
+                            <!-- bookmark shape -->
                             <path d="M6 2h12v18l-6-4-6 4V2z" />
                         </svg>
                     </button>
