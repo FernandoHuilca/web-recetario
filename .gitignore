@@ -18,4 +18,3 @@ target/
 .DS_Store
 Thumbs.db
 
-persistence.xml
