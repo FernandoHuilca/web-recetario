@@ -39,6 +39,8 @@
 				value="1" />
 			<property name="eclipselink.connection-pool.default.max"
 				value="3" />
+			
+			<property name="eclipselink.ddl-generation" value="create-tables" />
 		</properties>
 	</persistence-unit>
 </persistence>
