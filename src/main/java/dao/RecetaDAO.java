@@ -83,6 +83,22 @@ public class RecetaDAO {
 			return null;
 		}
 	}
+	
+	/*
+	 * Obtiene todas las recetas que contengan el texto ingresado en el nombre
+	 */
+	public List<Receta> obtenerRecetasPorNombre(String nombre) {
+		try {
+			TypedQuery<Receta> query = em.createQuery(
+					"SELECT r FROM Receta r WHERE LOWER(r.nombre) LIKE LOWER(:nombre)",
+					Receta.class);
+			query.setParameter("nombre", "%" + nombre + "%");
+			return query.getResultList();
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
 	// ==================== ACTUALIZAR ====================
 

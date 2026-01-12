@@ -18,10 +18,25 @@
 
         <div class="font-h1">Cocina de Gregory</div>
 
-        <section class="display-flex">
-            <input class="search-input" type="text" placeholder="Buscar receta..." aria-label="Buscar receta">
-            <button class="button-search" aria-label="Ejecutar búsqueda">Buscar</button>
-        </section>
+		<!--<section class="display-flex">
+            <input class="search-input" type="text" placeholder="Buscar receta..." name="criterioBusqueda" id="criterioBusqueda">
+             <div class="button-search">Buscar</div>
+            <a class="button-search text-decoration-none" href="${pageContext.request.contextPath}/BuscarRecetaController?ruta=solicitarBuscarRecetaPorNombre&nombre=">Buscar</a>
+        </section> -->
+
+        <form action="${pageContext.request.contextPath}/BuscarRecetaController?ruta=solicitarBuscarRecetaPorNombre" method="POST" class="display-flex" id="formularioBusqueda">
+            <input class="search-input" type="text" placeholder="Buscar receta..." name="criterioBusqueda" id="criterioBusqueda" value="${criterioBusqueda}">
+            <button type="submit" class="button-search" style="font: inherit;">Buscar</button>
+        </form>
+        <c:if test="${not empty showListarRecetas}">
+            <a id="listarRecetasBtn"
+               class="button-search text-decoration-none"
+               href="${pageContext.request.contextPath}/VerPanelPrincipalController?ruta=cargarRecetas"
+               style="font: inherit;">
+                Listar recetas
+            </a>
+        </c:if>
+
 
         <nav class="display-flex">
             <ul class="display-flex list-none-style">
