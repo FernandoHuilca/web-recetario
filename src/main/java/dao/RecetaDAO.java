@@ -89,6 +89,10 @@ public class RecetaDAO {
 	 */
 	public List<Receta> obtenerRecetasPorNombre(String nombre) {
 		try {
+			// Validar que el nombre no esté vacío
+			if (nombre == null || nombre.trim().isEmpty()) {
+				return java.util.Collections.emptyList();
+			}
 			TypedQuery<Receta> query = em.createQuery(
 					"SELECT r FROM Receta r WHERE LOWER(r.nombre) LIKE LOWER(:nombre)",
 					Receta.class);
