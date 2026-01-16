@@ -18,7 +18,7 @@
 		<h1 class="font-h1">Registrar Receta</h1>
 
 		<form method="POST"
-			action="${pageContext.request.contextPath}/RegistrarRecetasController?ruta=guardar"
+			action="${pageContext.request.contextPath}/GestionarRecetasController?ruta=guardar"
 			enctype="multipart/form-data">
 			<!-- <label for="id">Id</label> -->
 			<input type="hidden" name="id" id="id"> <label for="name">Nombre*:</label>
@@ -72,7 +72,7 @@
 			<div class="recipe-actions">
 				<input class="button" type="submit" value="Registrar">
 				<a class="button recipe-volver"
-					href="${pageContext.request.contextPath}/RegistrarRecetasController?ruta=volver">Volver</a>
+					href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=volver&rutaVolver=/GestionarRecetasController">Volver</a>
 			</div>
 		</form>
 	</div>
