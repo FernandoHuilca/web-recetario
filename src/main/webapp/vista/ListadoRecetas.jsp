@@ -67,7 +67,7 @@
 								</a> -->
 							</td>
 							<td>
-								<form method="POST" action="${pageContext.request.contextPath}/EliminarRecetasController?ruta=solicitarEliminarReceta" style="display:inline;">
+								<form method="POST" action="${pageContext.request.contextPath}/GestionarRecetasController?ruta=solicitarEliminarReceta" style="display:inline;">
 									<input type="hidden" name="idReceta" value="${receta.idReceta}" />
 									<button type="submit" class="icon-button" title="Eliminar receta">
 									<!-- onclick="return confirm('¿Estás seguro de que deseas eliminar esta receta?');"-->
@@ -84,7 +84,7 @@
 			</table>
 			<div class="text-align-center margin-20">
 				<a class="general-button text-decoration-none"
-					href="${pageContext.request.contextPath}/RegistrarRecetasController">Registrar receta</a>
+					href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=registrarReceta">Registrar receta</a>
 			</div>
 		</section>
 	</main>
