@@ -55,8 +55,8 @@ public class Receta implements Serializable {
     // Constructores
 	public Receta() {}
 
-	public Receta(String nombre, String descripcion, double tiempoPreparacion, String descripcionPasos,
-			int porciones, String imagen, Usuario Usuario) {
+	public Receta(String nombre, String descripcion, Double tiempoPreparacion, String descripcionPasos,
+			Integer porciones, String imagen, Usuario Usuario) {
 		this.nombre = nombre;
 		this.descripcion = descripcion;
 		this.tiempoPreparacion = tiempoPreparacion;
@@ -91,11 +91,11 @@ public class Receta implements Serializable {
 		this.descripcion = descripcion;
 	}
 
-	public double getTiempoPreparacion() {
+	public Double getTiempoPreparacion() {
 		return tiempoPreparacion;
 	}
 
-	public void setTiempoPreparacion(double tiempoPreparacion) {
+	public void setTiempoPreparacion(Double tiempoPreparacion) {
 		this.tiempoPreparacion = tiempoPreparacion;
 	}
 
@@ -107,11 +107,11 @@ public class Receta implements Serializable {
 		this.descripcionPasos = descripcionPasos;
 	}
 
-	public int getPorciones() {
+	public Integer getPorciones() {
 		return porciones;
 	}
 
-	public void setPorciones(int porciones) {
+	public void setPorciones(Integer porciones) {
 		this.porciones = porciones;
 	}
 
@@ -134,14 +134,6 @@ public class Receta implements Serializable {
 
 	public void setRecetaIngredientes(List<RecetaIngrediente> recetaIngredientes) {
 		this.recetaIngredientes = recetaIngredientes;
-	}
-
-	public void setTiempoPreparacion(Double tiempoPreparacion) {
-		this.tiempoPreparacion = tiempoPreparacion;
-	}
-
-	public void setPorciones(Integer porciones) {
-		this.porciones = porciones;
 	}
 
 	public void setUsuario(Usuario usuario) {

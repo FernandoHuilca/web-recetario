@@ -16,7 +16,7 @@
 	
 		<h1 class="font-h1">Actualizar Receta</h1>
 		
-		<form action="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=actualizar" method="POST" enctype="multipart/form-data">
+		<form action="${pageContext.request.contextPath}/GestionarRecetasController?ruta=actualizar" method="POST" enctype="multipart/form-data">
 			
 			<input type="hidden" name="id" id="id" value="${receta.idReceta}">
 			
@@ -51,14 +51,14 @@
 					<c:forEach items="${receta.recetaIngredientes}" var="recetaIngrediente">	
 						<tr>
 							<td><input type="text" name="ingredients_name[]" value="${recetaIngrediente.ingrediente.nombre}"></td>
-							<td><input type="text" name="ingredients_quantity[]" value="${recetaIngrediente.cantidad}"></td>
+							<td><input type="number" name="ingredients_quantity[]" value="${recetaIngrediente.cantidad}" step="0.01"></td>
 							<td><select name="ingredients_unit[]">
 									<c:forEach items="${unidades}" var="unidad">
 										<option value="${unidad}" ${unidad eq recetaIngrediente.unidad ? 'selected' : ''}>${unidad.name()} (${unidad.simbolo})</option>
 									</c:forEach>
 							</select></td>
 							<td>
-								<button type="button" class="remove-ingredient">---</button>
+								<button type="button" class="remove-ingredient">Eliminar</button>
 							</td>
 						</tr>
 					</c:forEach>
@@ -79,7 +79,7 @@
 
 			<div class="recipe-actions">
 				<input class="button" type="submit" value="Actualizar"> <a
-					class="button" href="${pageContext.request.contextPath}/ActualizarRecetasController?ruta=volver&idUsuario=${receta.usuario.idUsuario}">Cancelar</a>
+					class="button" href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=volver&rutaVolver=/GestionarRecetasController&idUsuario=${receta.usuario.idUsuario}">Volver</a>
 			</div>
 			
 		</form>
@@ -105,7 +105,7 @@
 				                    </select>
 				                </td>
 				                <td>
-				                    <button type="button" class="remove-ingredient">---</button>
+				                    <button type="button" class="remove-ingredient">Eliminar</button>
 				                </td>
 				`;
 				tableBody.appendChild(newRow);

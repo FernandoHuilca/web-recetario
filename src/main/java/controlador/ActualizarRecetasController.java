@@ -63,12 +63,12 @@ public class ActualizarRecetasController extends HttpServlet {
 		System.out.println(idReceta);
 		String nombre = req.getParameter("name");
 		String descripcion = req.getParameter("description");
-		Double tiempo = req.getParameter("time").isEmpty() ? 0.0 : Double.parseDouble(req.getParameter("time"));
-		Integer porciones = req.getParameter("servings").isEmpty() ? 0 : Integer.parseInt(req.getParameter("servings"));
+		Double tiempo = req.getParameter("time").isEmpty() ? null : Double.parseDouble(req.getParameter("time"));
+		Integer porciones = req.getParameter("servings").isEmpty() ? null : Integer.parseInt(req.getParameter("servings"));
 		String pasos = req.getParameter("instructions");
 		String imagen = "";
-		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
-		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");
+		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]"); 
+		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]"); 
 		String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
 
 		// Procesar imagen si se proporcionó
@@ -103,7 +103,7 @@ public class ActualizarRecetasController extends HttpServlet {
 		
 		for (int i = 0; i < nombresIngredientes.length; i++) {
 			String nombreIng = nombresIngredientes[i];
-			double cantidad = Double.parseDouble(cantidadesIngredientes[i]);
+			Double cantidad = (cantidadesIngredientes[i] == null || cantidadesIngredientes[i].isEmpty()) ? null : Double.parseDouble(cantidadesIngredientes[i]);
 			Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
 			
 			// Buscar o crear ingrediente en BD para evitar cascade PERSIST issues
@@ -114,7 +114,7 @@ public class ActualizarRecetasController extends HttpServlet {
 
 		// Campos obligatorios vacíos
 		if (receta.getNombre().isEmpty() || receta.getDescripcion().isEmpty() || 
-			receta.getDescripcionPasos().isEmpty() || receta.getPorciones() == 0 || receta.getTiempoPreparacion() == 0 || 
+			receta.getDescripcionPasos().isEmpty() || receta.getPorciones() == null || receta.getTiempoPreparacion() == null || 
 			receta.getRecetaIngredientes().isEmpty()) {
 			req.setAttribute("urlimg", "/assets/images/message/error.png");
 			req.setAttribute("title", "Error");
@@ -123,6 +123,7 @@ public class ActualizarRecetasController extends HttpServlet {
 			// Guardar la receta en sesión para recuperarla después del mensaje
 			req.getSession().setAttribute("recetaFallida", receta);
 			req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
+			return;
 		}
 
 		boolean respuesta = recetaDAO.actualizarReceta(receta);

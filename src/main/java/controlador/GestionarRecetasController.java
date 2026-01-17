@@ -59,6 +59,12 @@ public class GestionarRecetasController extends HttpServlet {
 			break;
 			
 		// 3. ACTUALIZAR
+		case "solicitarActualizarReceta":
+			solicitarActualizarReceta(req, resp);
+			break;
+		case "actualizar":
+			actualizar(req, resp);
+			break;
 			
 		// 4. ELIMINAR	
 		case "solicitarEliminarReceta":
@@ -224,7 +230,118 @@ public class GestionarRecetasController extends HttpServlet {
 	/*
 	 * ---------------------------------------------------- 3. ACTUALIZAR ---------------------------------------------------------
 	 */
+	public void solicitarActualizarReceta(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// 1. Obtener los parámetros
+		Long idReceta = Long.parseLong(req.getParameter("idReceta"));
+		// 2. Hablar con el modelo
+		List<Unidad> unidades = Arrays.asList(Unidad.values());
+		
+		// Verificar si hay una receta fallida en sesión
+		Receta receta = (Receta) req.getSession().getAttribute("recetaFallida");
+		
+		if (receta != null) {
+			// Limpiar la sesión
+			req.getSession().removeAttribute("recetaFallida");
+		} else {
+			// Si no hay receta en sesión, obtenerla de la BD
+			RecetaDAO recetaDAO = new RecetaDAO();
+			receta = recetaDAO.obtenerRecetaPorId(idReceta);
+		}
+		
+		// 3. Llamar a la vista
+		if (receta == null) {} 
+		else {
+			req.setAttribute("unidades", unidades);
+			req.setAttribute("receta", receta);
+			req.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(req, resp);	
+		}
+	}
 	
+	public void actualizar(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		// 1. Obtener los parámetros
+		Long idReceta = Long.parseLong(req.getParameter("id"));
+		String nombre = req.getParameter("name");
+		String descripcion = req.getParameter("description");
+		Double tiempo = req.getParameter("time").isEmpty() ? null : Double.parseDouble(req.getParameter("time"));
+		Integer porciones = req.getParameter("servings").isEmpty() ? null : Integer.parseInt(req.getParameter("servings"));
+		String pasos = req.getParameter("instructions");
+		String imagen = null;
+
+		// Procesar imagen si se proporcionó
+		Part imagePart = req.getPart("image");
+		if (imagePart != null && imagePart.getSize() > 0) {
+			String fileName = Paths.get(imagePart.getSubmittedFileName()).getFileName().toString();
+			Path uploadDir = Paths.get(req.getServletContext().getRealPath("/assets/images/dashboard/"));
+			Files.createDirectories(uploadDir);
+			Path target = uploadDir.resolve(fileName);
+			Files.copy(imagePart.getInputStream(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
+			imagen = fileName;
+		} else {
+			// Si no se carga una nueva imagen, mantener la existente
+			RecetaDAO recetaDAOTemp = new RecetaDAO();
+			Receta recetaTemp = recetaDAOTemp.obtenerRecetaPorId(idReceta);
+			imagen = recetaTemp.getImagen();
+		}
+		
+		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]"); 
+		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]"); 
+		String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
+
+		boolean ingredientesInvalidos = false;
+
+		for (int i = 0; i < nombresIngredientes.length; i++) {
+		    if (nombresIngredientes[i].isEmpty() ||
+		        cantidadesIngredientes[i] == null || cantidadesIngredientes[i].isEmpty()) {
+		        ingredientesInvalidos = true;
+		        break;
+		    }
+		}
+		
+		// 2. Hablar con el modelo
+		RecetaDAO recetaDAO = new RecetaDAO();
+		Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+		receta.setNombre(nombre);
+		receta.setDescripcion(descripcion);
+		receta.setTiempoPreparacion(tiempo);
+		receta.setPorciones(porciones);
+		receta.setDescripcionPasos(pasos);
+		receta.setImagen(imagen);
+		
+		if (nombre.isEmpty() || descripcion.isEmpty() || pasos.isEmpty() ||
+			    porciones == null || tiempo == null || ingredientesInvalidos) {
+
+			    req.getSession().setAttribute("recetaFallida", receta);
+
+			    MensajeUtil.mostrarError(req, resp, "Error", "Campos obligatorios vacíos.", RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+			    return;
+			}
+		
+		receta.getRecetaIngredientes().clear();
+		IngredienteDAO ingredienteDAO = new IngredienteDAO();
+		
+		for (int i = 0; i < nombresIngredientes.length; i++) {
+		    Ingrediente ingrediente =
+		        ingredienteDAO.guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
+
+		    receta.agregarIngrediente(
+		        ingrediente,
+		        Double.parseDouble(cantidadesIngredientes[i]),
+		        Unidad.valueOf(unidadesIngredientes[i])
+		    );
+		}
+
+		boolean respuesta = recetaDAO.actualizarReceta(receta);
+		
+		// 3. Llamar a la vista
+		if(respuesta) {
+			MensajeUtil.mostrarExito(req, resp, "Éxito", "Actualización exitosa.", RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=" + receta.getUsuario().getIdUsuario());
+		}else {
+			req.getSession().setAttribute("recetaFallida", receta);
+			MensajeUtil.mostrarError(req, resp, "Error", "Actualización fallida.", RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + receta.getIdReceta());
+		}
+	}
 	
 	/*
 	 * ---------------------------------------------------- 4. ELIMINAR ---------------------------------------------------------
