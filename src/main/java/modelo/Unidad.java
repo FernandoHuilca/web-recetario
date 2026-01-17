@@ -1,22 +1,28 @@
 package modelo;
 
 public enum Unidad {
-    GRAMOS("g"),
-    KILOGRAMOS("kg"),
-    MILILITROS("ml"),
-    LITROS("l"),
-    UNIDAD("unidad"),
-    CUCHARADA("cda"),
-    CUCHARADITA("cdita"),
-    TAZA("taza");
+    GRAMOS("Gramos","g"),
+    KILOGRAMOS("Kilogramos","kg"),
+    MILILITROS("Mililitros","ml"),
+    LITROS("Litros","l"),
+    UNIDAD("Unidad","unidad"),
+    CUCHARADA("Cucharada","cda"),
+    CUCHARADITA("Cucharadita","cdita"),
+    TAZA("Taza","taza");
     
     private String simbolo;
+    private String nombre;
     
-    Unidad(String simbolo) {
+    Unidad(String nombre, String simbolo) {
+    	this.nombre = nombre;
         this.simbolo = simbolo;
     }
     
     public String getSimbolo() {
         return simbolo;
+    }
+    
+    public String getNombre() {
+    	return nombre;
     }
 }

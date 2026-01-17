@@ -17,7 +17,7 @@
   </header>
   <main>
     <div class="return">
-        <a class="general-button text-decoration-none" href="${pageContext.request.contextPath}/VerPanelPrincipalController">Volver</a>
+        <a class="general-button text-decoration-none" href="${pageContext.request.contextPath}/GestionarPanelPrincipalController">Volver</a>
     </div>
     
     <section>
@@ -61,7 +61,7 @@
             <h2 class="margin-0">Ingredientes</h2>
           </div>
           <ul class="margin-0">
-            <c:forEach items="${receta.recetaIngredientes}" var="ri">
+            <c:forEach items="${detalles}" var="ri">
                 <li>
                     <strong><c:out value="${ri.ingrediente.nombre}"/></strong>: 
                     <c:out value="${ri.cantidad}"/> 
@@ -69,7 +69,7 @@
                 </li>
             </c:forEach>
             
-            <c:if test="${empty receta.recetaIngredientes}">
+            <c:if test="${empty detalles}">
                 <li>No hay ingredientes registrados.</li>
             </c:if>
           </ul>

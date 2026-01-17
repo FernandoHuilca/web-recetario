@@ -39,7 +39,7 @@
         </section> -->
         
         <section class="card">
-            <form action="${pageContext.request.contextPath}/VerPanelPrincipalController?ruta=cargarRecetas" method="POST">
+            <form action="${pageContext.request.contextPath}/GestionarPanelPrincipalController?ruta=cargarRecetas" method="POST">
                 
                 <div class="fields">
                     <label class="form-row-label">Correo*:</label>

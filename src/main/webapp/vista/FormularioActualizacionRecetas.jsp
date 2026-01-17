@@ -48,7 +48,7 @@
 
 				<tbody>
 				
-					<c:forEach items="${receta.recetaIngredientes}" var="recetaIngrediente">	
+					<c:forEach items="${detalles}" var="recetaIngrediente">	
 						<tr>
 							<td><input type="text" name="ingredients_name[]" value="${recetaIngrediente.ingrediente.nombre}"></td>
 							<td><input type="number" name="ingredients_quantity[]" value="${recetaIngrediente.cantidad}" step="0.01"></td>

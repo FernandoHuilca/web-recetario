@@ -48,9 +48,6 @@ public class Receta implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_usuario", nullable = false)
 	private Usuario usuario;
-    
-    @OneToMany(mappedBy = "receta", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<RecetaIngrediente> recetaIngredientes = new ArrayList<>();
 	
     // Constructores
 	public Receta() {}
@@ -128,23 +125,18 @@ public class Receta implements Serializable {
 		this.imagen = imagen;
 	}
 
-	public List<RecetaIngrediente> getRecetaIngredientes() {
-		return recetaIngredientes;
-	}
-
-	public void setRecetaIngredientes(List<RecetaIngrediente> recetaIngredientes) {
-		this.recetaIngredientes = recetaIngredientes;
-	}
-
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
+	
 
+	/*
 	// Método de ayuda para registrar ingredientes
     public void agregarIngrediente(Ingrediente ingrediente, Double cantidad, Unidad unidad) {
         RecetaIngrediente ri = new RecetaIngrediente(this, ingrediente, cantidad, unidad);
         recetaIngredientes.add(ri);
     }
+    */
 
 	@Override
 	public String toString() {

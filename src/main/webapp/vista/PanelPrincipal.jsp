@@ -24,14 +24,14 @@
             <a class="button-search text-decoration-none" href="${pageContext.request.contextPath}/BuscarRecetaController?ruta=solicitarBuscarRecetaPorNombre&nombre=">Buscar</a>
         </section> -->
 
-        <form action="${pageContext.request.contextPath}/BuscarRecetaController?ruta=solicitarBuscarRecetaPorNombre" method="POST" class="display-flex" id="formularioBusqueda">
+        <form action="${pageContext.request.contextPath}/GestionarPanelPrincipalController?ruta=solicitarBuscarRecetaPorNombre" method="POST" class="display-flex" id="formularioBusqueda">
             <input class="search-input" type="text" placeholder="Buscar receta..." name="criterioBusqueda" id="criterioBusqueda" value="${criterioBusqueda}">
             <button type="submit" class="button-search" style="font: inherit;">Buscar</button>
         </form>
         <c:if test="${not empty showListarRecetas}">
             <a id="listarRecetasBtn"
                class="button-search text-decoration-none"
-               href="${pageContext.request.contextPath}/VerPanelPrincipalController?ruta=cargarRecetas"
+               href="${pageContext.request.contextPath}/GestionarPanelPrincipalController?ruta=cargarRecetas"
                style="font: inherit;">
                 Listar recetas
             </a>
@@ -116,7 +116,7 @@
                     </div>
 
                     <div>
-                        <form method="POST" action="${pageContext.request.contextPath}/VerRecetaController?ruta=verReceta">
+                        <form method="POST" action="${pageContext.request.contextPath}/GestionarPanelPrincipalController?ruta=verReceta">
                             <input type="hidden" name="idReceta" value="${receta.idReceta}" />
 
                             <div class="button-viewRecipe text-align-center">

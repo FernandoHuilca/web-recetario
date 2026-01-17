@@ -32,9 +32,9 @@ public class testMateito {
 				120.0, // tiempo de preparacion
 				"1. Sazonar pollo\n2. Colocar en el horno al pollo\n3. Cortar el pollo", 10, "polloNavideno.jpg", usuario);
 
-		receta.agregarIngrediente(pollo, 2.5, Unidad.KILOGRAMOS);
+		//receta.agregarIngrediente(pollo, 2.5, Unidad.KILOGRAMOS);
 
-		usuario.getRecetas().add(receta);
+		//usuario.getRecetas().add(receta);
 
 		em.persist(usuario);
 

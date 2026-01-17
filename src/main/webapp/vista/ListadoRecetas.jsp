@@ -84,7 +84,7 @@
 			</table>
 			<div class="text-align-center margin-20">
 				<a class="general-button text-decoration-none"
-					href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=registrarReceta">Registrar receta</a>
+					href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=solicitarRegistrarReceta">Registrar receta</a>
 			</div>
 		</section>
 	</main>

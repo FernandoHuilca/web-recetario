@@ -31,7 +31,7 @@ public class Usuario implements Serializable{
     @Column(nullable = false, length = 100)
 	private String apellido;
     
-    @Column(name = "fecha_nacimiento")
+    @Column(nullable = false, name = "fecha_nacimiento")
 	private LocalDate fechaNacimiento;
     
     @Column(nullable = false, unique = true, length = 150)
@@ -39,9 +39,6 @@ public class Usuario implements Serializable{
     
     @Column(nullable = false)
 	private String clave;
-    
-    @OneToMany(mappedBy = "usuario", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Receta> recetas = new ArrayList<>();
 	
     // Constructores
     public Usuario() {}
@@ -101,13 +98,5 @@ public class Usuario implements Serializable{
 
 	public void setClave(String clave) {
 		this.clave = clave;
-	}
-		
-    public List<Receta> getRecetas() {
-		return recetas;
-	}
-
-	public void setRecetas(List<Receta> recetas) {
-		this.recetas = recetas;
 	}
 }

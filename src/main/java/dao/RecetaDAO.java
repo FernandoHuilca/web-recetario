@@ -130,9 +130,13 @@ public class RecetaDAO {
 	 * Elimina una receta por su ID
 	 */
 	public boolean eliminarReceta(Long idReceta) {
+	    DetalleIngredienteDAO detalleDAO = new DetalleIngredienteDAO();
 		try {
 			em.getTransaction().begin();
-			Receta receta = em.find(Receta.class, idReceta);
+			
+	        detalleDAO.eliminarPorReceta(idReceta);
+			
+	        Receta receta = em.find(Receta.class, idReceta);
 			if (receta != null) {
 				em.remove(receta);
 				em.getTransaction().commit();

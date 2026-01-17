@@ -42,13 +42,13 @@ public class test {
 					"ensaladaPapa.jpg",
 					usuario
 					);
-			
+			/*
 			receta.agregarIngrediente(papa, 3000.0, Unidad.GRAMOS);
 			receta.agregarIngrediente(jamon, 15.0, Unidad.GRAMOS);
 			receta.agregarIngrediente(lechuga, 1500.0, Unidad.GRAMOS);
 			
 			usuario.getRecetas().add(receta);
-			
+			*/
 			em.persist(usuario);
 			
 			// Commit de la transacción

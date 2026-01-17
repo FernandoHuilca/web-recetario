@@ -4,8 +4,8 @@ import jakarta.persistence.*;
 import java.io.Serializable;
 
 @Entity
-@Table(name = "RecetaIngrediente")
-public class RecetaIngrediente implements Serializable {
+@Table(name = "DetalleIngrediente")
+public class DetalleIngrediente implements Serializable {
     private static final long serialVersionUID = 1L;
     
     @Id
@@ -29,9 +29,9 @@ public class RecetaIngrediente implements Serializable {
     private Unidad unidad;
     
     // Constructores
-    public RecetaIngrediente() {}
+    public DetalleIngrediente() {}
     
-    public RecetaIngrediente(Receta receta, Ingrediente ingrediente, 
+    public DetalleIngrediente(Receta receta, Ingrediente ingrediente, 
                              Double cantidad, Unidad unidad) {
         this.receta = receta;
         this.ingrediente = ingrediente;
@@ -56,4 +56,5 @@ public class RecetaIngrediente implements Serializable {
     
     public Unidad getUnidad() { return unidad; }
     public void setUnidad(Unidad unidad) { this.unidad = unidad; }
+    
 }

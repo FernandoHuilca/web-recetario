@@ -26,9 +26,6 @@ public class Ingrediente implements Serializable {
 
     @Column(nullable = false, unique = true, length = 100)
 	private String nombre;
-    
-    @OneToMany(mappedBy = "ingrediente")
-    private List<RecetaIngrediente> recetaIngredientes = new ArrayList<>();
 	
 	public Ingrediente() {}
 
