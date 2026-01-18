@@ -18,7 +18,7 @@
 		<h1 class="font-h1">Registrar Receta</h1>
 
 		<form method="POST"
-			action="${pageContext.request.contextPath}/GestionarRecetasController?ruta=registrar"
+			action="${pageContext.request.contextPath}/GestionarRecetasController?ruta=confirmarRegistro"
 			enctype="multipart/form-data">
 			<!-- <label for="id">Id</label> -->
 			<input type="hidden" name="id" id="id"> <label for="name">Nombre*:</label>

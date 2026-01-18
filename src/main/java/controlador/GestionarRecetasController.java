@@ -30,7 +30,7 @@ import util.MensajeUtil;
 public class GestionarRecetasController extends HttpServlet {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	private static final String RUTA_GESTIONAR_RECETAS_CONTROLLER = "/GestionarRecetasController?ruta=";
 
 	@Override
@@ -44,22 +44,22 @@ public class GestionarRecetasController extends HttpServlet {
 	}
 
 	public void rutar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		String ruta = (req.getParameter("ruta") != null)? req.getParameter("ruta") : "listarRecetas";
-		
-		switch(ruta) {
+		String ruta = (req.getParameter("ruta") != null) ? req.getParameter("ruta") : "listarRecetas";
+
+		switch (ruta) {
 		// 1. LISTAR
 		case "listarRecetas":
 			listarRecetas(req, resp);
 			break;
-		
+
 		// 2. REGISTRAR
 		case "solicitarRegistrarReceta":
 			solicitarRegistrarReceta(req, resp);
 			break;
-		case "registrar":
-			registrar(req, resp);
+		case "confirmarRegistro":
+			confirmarRegistro(req, resp);
 			break;
-			
+
 		// 3. ACTUALIZAR
 		case "solicitarActualizarReceta":
 			solicitarActualizarReceta(req, resp);
@@ -67,15 +67,15 @@ public class GestionarRecetasController extends HttpServlet {
 		case "actualizar":
 			actualizar(req, resp);
 			break;
-			
-		// 4. ELIMINAR	
+
+		// 4. ELIMINAR
 		case "solicitarEliminarReceta":
 			solicitarEliminarReceta(req, resp);
 			break;
 		case "confirmarEliminacion":
 			confirmarEliminacion(req, resp);
 			break;
-		
+
 		// VOLVER
 		case "volver":
 			volver(req, resp);
@@ -86,52 +86,59 @@ public class GestionarRecetasController extends HttpServlet {
 			break;
 		}
 	}
-	
+
 	/*
-	 * ------------------------------------------------ 1. LISTAR ----------------------------------------------------------------
+	 * ---------------------------- 1. LISTAR ----------------------------
 	 */
 	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		RecetaDAO recetaDAO = new RecetaDAO();
-		
+
 		try {
 			// Obtener ID de usuario del request
 			String idUsuarioParam = req.getParameter("idUsuario");
-			Long idUsuario = (idUsuarioParam != null && !idUsuarioParam.isEmpty())
-					? Long.parseLong(idUsuarioParam)
-					: 1; // valor por defecto
-			
+			Long idUsuario = (idUsuarioParam != null && !idUsuarioParam.isBlank()) ? Long.parseLong(idUsuarioParam) : 1; // valor
+																															// por
+																															// defecto
+
 			// Obtener recetas por usuario
 			List<Receta> recetas = recetaDAO.obtenerRecetasPorUsuario(idUsuario);
+
+			// Presentar
 			req.setAttribute("recetas", recetas);
 			req.setAttribute("idUsuario", idUsuario);
 			req.getRequestDispatcher("/vista/ListadoRecetas.jsp").forward(req, resp);
+
 		} catch (Exception e) {
 			e.printStackTrace();
-			MensajeUtil.mostrarError(req, resp, "ERROR", "No se pudo listar las recetas", "/GestionarPanelPrincipalController");
+			MensajeUtil.mostrarError(req, resp, "ERROR", "No se pudo listar las recetas",
+					"/GestionarPanelPrincipalController");
+
 		} finally {
 			recetaDAO.cerrar();
 		}
 	}
-	
+
 	/*
-	 * ------------------------------------------------- 2. REGISTRAR --------------------------------------------------------------
+	 * ----------------------------  2. REGISTRAR ---------------------------- 
 	 */
-	public void solicitarRegistrarReceta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+	public void solicitarRegistrarReceta(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+
 		// Obtener todas las unidades del enum
 		List<Unidad> unidades = Arrays.asList(Unidad.values());
-		// Llamar a la vista
+
+		// Llamar a la vista (Presentar)
 		req.setAttribute("unidades", unidades);
 		req.getRequestDispatcher("vista/FormularioRegistroRecetas.jsp").forward(req, resp);
 	}
-	
-	
-	public void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+	public void confirmarRegistro(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		RecetaDAO recetaDAO = new RecetaDAO();
 		IngredienteDAO ingredienteDAO = new IngredienteDAO();
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
-		
+
 		try {
 			// 1. Obtener los parámetros del formulario
 			String nombre = req.getParameter("name");
@@ -142,6 +149,63 @@ public class GestionarRecetasController extends HttpServlet {
 			String imagen = null;
 			Long idUsuario = 1L; // Usuario por defecto mientras no hay sesión
 
+			// Captura de arrays de ingredientes
+			String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
+			String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");
+			String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
+
+			// ===================== VALIDACIONES ===================== 
+			// 2. Validar campos principales
+			if (nombre == null || descripcion == null || tiempoPreparacion == null || descripcionPasos == null
+					|| porciones == null || idUsuario == null || nombre.isBlank() || descripcion.isBlank()
+					|| descripcionPasos.isBlank()) {
+				MensajeUtil.mostrarError(req, resp, "ERROR", "Campos obligatorios no completados correctamente",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
+				return;
+			}
+
+			// 3. Validar que existan los ingredientes
+			if (nombresIngredientes == null || nombresIngredientes.length == 0 || cantidadesIngredientes == null
+					|| unidadesIngredientes == null || cantidadesIngredientes.length != nombresIngredientes.length
+					|| unidadesIngredientes.length != nombresIngredientes.length) {
+				MensajeUtil.mostrarError(req, resp, "ERROR", "Debe agregar al menos un ingrediente con todos sus datos",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
+				return;
+			}
+
+			// Guardar los Ingredientes y DetallesIngredientes
+			for (int i = 0; i < nombresIngredientes.length; i++) {
+
+				if (nombresIngredientes[i] == null || cantidadesIngredientes[i] == null
+						|| unidadesIngredientes[i] == null || nombresIngredientes[i].isBlank()
+						|| cantidadesIngredientes[i].isBlank() || unidadesIngredientes[i].isBlank()) {
+					MensajeUtil.mostrarError(req, resp, "ERROR", "Campos obligatorios no completados correctamente",
+							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
+					return;
+				}
+
+				// Validar formato numérico
+				try {
+					Double.parseDouble(cantidadesIngredientes[i]);
+				} catch (NumberFormatException e) {
+					MensajeUtil.mostrarError(req, resp, "ERROR",
+							"Cantidad inválida en ingrediente #" + (i + 1) + ": " + nombresIngredientes[i],
+							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
+					return;
+				}
+
+				// Validar unidad
+				try {
+					Unidad.valueOf(unidadesIngredientes[i]);
+				} catch (IllegalArgumentException e) {
+					MensajeUtil.mostrarError(req, resp, "ERROR",
+							"Unidad inválida en ingrediente #" + (i + 1) + ": " + unidadesIngredientes[i],
+							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
+					return;
+				}
+			}
+
+			// ===================== GUARDAR IMAGEN, RECETA, INGREDIENTE Y DETALLE INGREDIENTE ===================== 
 			// Guardar imagen si viene en el request
 			Part imagePart = req.getPart("image");
 			if (imagePart != null && imagePart.getSize() > 0) {
@@ -152,20 +216,8 @@ public class GestionarRecetasController extends HttpServlet {
 				Files.copy(imagePart.getInputStream(), target, java.nio.file.StandardCopyOption.REPLACE_EXISTING);
 				imagen = fileName; // solo se persiste el nombre
 			}
-		
-			// Captura de arrays de ingredientes
-			String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
-			String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");
-			String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
-			
-			// Validar que existan los ingredientes
-			if (nombresIngredientes == null || nombresIngredientes.length == 0) {
-				req.setAttribute("error", "Debe agregar al menos un ingrediente");
-				solicitarRegistrarReceta(req, resp);
-				return;
-			}
-			
-			// 3. Construir la receta usando JPA
+
+			// Construir la receta usando JPA
 			Receta receta = new Receta();
 			receta.setNombre(nombre);
 			receta.setDescripcion(descripcion);
@@ -173,57 +225,68 @@ public class GestionarRecetasController extends HttpServlet {
 			receta.setPorciones(porciones);
 			receta.setDescripcionPasos(descripcionPasos);
 			receta.setImagen(imagen);
-			
+
 			// Asignar usuario (por defecto id=1). Requiere que exista en la BD.
 			Usuario usuario = usuarioDAO.obtenerPorId(idUsuario);
 			if (usuario == null) {
-				MensajeUtil.mostrarError(req, resp, "ERROR: Usuario por defecto no encontrado", "Cree un usuario con id=1 en la tabla Usuario o ajuste el idUsuario por defecto.", RUTA_GESTIONAR_RECETAS_CONTROLLER+"registrarReceta");
+				MensajeUtil.mostrarError(req, resp, "ERROR",
+						"Cree un usuario con id=1 en la tabla Usuario o ajuste el idUsuario por defecto.",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 				return;
 			}
 			receta.setUsuario(usuario);
-			
-			// 4. Guardar usando RecetaDAO con JPA/ORM
+
+			// Guardar RECETA usando RecetaDAO con JPA/ORM
 			boolean resultado = recetaDAO.guardarReceta(receta);
-			// 5. Llamar a la vista con el resultado
 			if (!resultado) {
-				MensajeUtil.mostrarError(req, resp, "ERROR: Receta NO creada", "No fue posible guardar la receta en la base de datos", RUTA_GESTIONAR_RECETAS_CONTROLLER+"registrarReceta");
+				MensajeUtil.mostrarError(req, resp, "ERROR", "No fue posible guardar la receta en la base de datos",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 				return;
 			}
 
-			// 6. Guardar los DetalleIngrediente
+			// 8. Guardar los Ingredientes y DetallesIngredientes
 			for (int i = 0; i < nombresIngredientes.length; i++) {
-				String nombreIng = nombresIngredientes[i];
-				double cantidad = Double.parseDouble(cantidadesIngredientes[i]);
-				Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
-				
-				// Buscar o crear ingrediente en BD para evitar cascade PERSIST issues
+				// Guardar Ingrediente
+				String nombreIng = nombresIngredientes[i].toLowerCase().trim();
 				Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
-				
+
 				if (ingrediente == null) {
-					MensajeUtil.mostrarError(req, resp, "ERROR: Ingrediente no pudo guardarse", "Hubo un problema al procesar el ingrediente: " + nombreIng, RUTA_GESTIONAR_RECETAS_CONTROLLER+"registrarReceta");
+					// Si falla un ingrediente, deberías eliminar la receta que acabas de crear
+					// o hacer rollback si usas transacciones
+					recetaDAO.eliminarReceta(receta.getIdReceta());
+					MensajeUtil.mostrarError(req, resp, "ERROR",
+							"Hubo un problema al procesar el ingrediente: " + nombreIng,
+							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 					return;
 				}
-				
+
+				// Guardar DetalleIngrediente
+				Double cantidad = Double.parseDouble(cantidadesIngredientes[i]);
+				Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
 				DetalleIngrediente detalleIngrediente = new DetalleIngrediente(receta, ingrediente, cantidad, unidad);
-				detalleIngredienteDAO.guardarDetalleIngrediente(detalleIngrediente);
+				boolean resultadoDetalleIngrediente = detalleIngredienteDAO
+						.guardarDetalleIngrediente(detalleIngrediente);
+
+				if (!resultadoDetalleIngrediente) {
+					// Si falla un detalle, también deberías eliminar la receta
+					recetaDAO.eliminarReceta(receta.getIdReceta());
+					MensajeUtil.mostrarError(req, resp, "ERROR",
+							"Hubo un problema al procesar el detalle del ingrediente: " + nombreIng,
+							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
+					return;
+				}
 			}
-			
-			MensajeUtil.mostrarExito(req, resp, "Éxito: Receta creada", "La receta se ha creado exitosamente", RUTA_GESTIONAR_RECETAS_CONTROLLER+"listarRecetas");
-			
+
+			MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha creado exitosamente",
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "listarRecetas");
+
 		} catch (NumberFormatException e) {
-			try {
-				MensajeUtil.mostrarError(req, resp, "ERROR: Datos inválidos", "Asegúrese de ingresar números válidos para cantidad y porciones", RUTA_GESTIONAR_RECETAS_CONTROLLER+"registrarReceta");
-			} catch (ServletException | IOException e1) {
-				e1.printStackTrace();
-			}
+			MensajeUtil.mostrarError(req, resp, "ERROR", "Campos obligatorios no completados correctamente",
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 		} catch (Exception e) {
 			e.printStackTrace();
-			MensajeUtil.mostrarError(req, resp, "ERROR: Excepción del servidor", "Error: " + e.getMessage(), RUTA_GESTIONAR_RECETAS_CONTROLLER+"registrarReceta");
-			try {
-				req.getRequestDispatcher("vista/Mensaje.jsp").forward(req, resp);
-			} catch (ServletException | IOException e1) {
-				e1.printStackTrace();
-			}
+			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(),
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 		} finally {
 			recetaDAO.cerrar();
 			ingredienteDAO.cerrar();
@@ -231,70 +294,69 @@ public class GestionarRecetasController extends HttpServlet {
 			detalleIngredienteDAO.cerrar();
 		}
 	}
-	
+
 	/*
-	 * ---------------------------------------------------- 3. ACTUALIZAR ---------------------------------------------------------
+	 * ----------------------------  3. ACTUALIZAR ----------------------------  
 	 */
 	public void solicitarActualizarReceta(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
 
 		RecetaDAO recetaDAO = new RecetaDAO();
-	    DetalleIngredienteDAO detalleDAO = new DetalleIngredienteDAO();
+		DetalleIngredienteDAO detalleDAO = new DetalleIngredienteDAO();
 
 		try {
 
 			// 1. Obtener los parámetros
 			Long idReceta = Long.parseLong(req.getParameter("idReceta"));
-			
+
 			// 2. Hablar con el modelo
 			List<Unidad> unidades = Arrays.asList(Unidad.values());
-			
+
 			// Verificar si hay una receta fallida en sesión
 			Receta receta = (Receta) req.getSession().getAttribute("recetaFallida");
-	        List<DetalleIngrediente> detalles = null;
-			
-	        if (receta != null) {
-	            // Limpiar la sesión
-	            req.getSession().removeAttribute("recetaFallida");
-	            // Cargar los detalles de la BD porque los necesitamos para el formulario
-	            detalles = detalleDAO.obtenerPorReceta(idReceta);
-	        } else {
-	            // Si no hay receta en sesión, obtenerla de la BD
-	            receta = recetaDAO.obtenerRecetaPorId(idReceta);
-	            // CARGAR LOS DETALLES DE INGREDIENTES
-	            detalles = detalleDAO.obtenerPorReceta(idReceta);
-	        }
-			
+			List<DetalleIngrediente> detalles = null;
+
+			if (receta != null) {
+				// Limpiar la sesión
+				req.getSession().removeAttribute("recetaFallida");
+				// Cargar los detalles de la BD porque los necesitamos para el formulario
+				detalles = detalleDAO.obtenerPorReceta(idReceta);
+			} else {
+				// Si no hay receta en sesión, obtenerla de la BD
+				receta = recetaDAO.obtenerRecetaPorId(idReceta);
+				// CARGAR LOS DETALLES DE INGREDIENTES
+				detalles = detalleDAO.obtenerPorReceta(idReceta);
+			}
+
 			// 3. Llamar a la vista
 			if (receta == null) {
-				 MensajeUtil.mostrarError(req, resp, "Error", "Receta no encontrada", 
-			                RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
-			} 
-			else {
+				MensajeUtil.mostrarError(req, resp, "Error", "Receta no encontrada",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
+			} else {
 				req.setAttribute("unidades", unidades);
 				req.setAttribute("receta", receta);
-	            req.setAttribute("detalles", detalles); // PASAR LOS DETALLES AL JSP
-				req.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(req, resp);	
+				req.setAttribute("detalles", detalles); // PASAR LOS DETALLES AL JSP
+				req.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(req, resp);
 			}
 		} finally {
 			recetaDAO.cerrar();
 			detalleDAO.cerrar();
 		}
 	}
-	
-	public void actualizar(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		
+
+	public void actualizar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
 		RecetaDAO recetaDAO = new RecetaDAO();
-	    IngredienteDAO ingredienteDAO = new IngredienteDAO();
-	    DetalleIngredienteDAO detalleDAO = new DetalleIngredienteDAO();
-	    
+		IngredienteDAO ingredienteDAO = new IngredienteDAO();
+		DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
+
 		// 1. Obtener los parámetros
 		Long idReceta = Long.parseLong(req.getParameter("id"));
 		String nombre = req.getParameter("name");
 		String descripcion = req.getParameter("description");
-		Double tiempo = req.getParameter("time").isEmpty() ? null : Double.parseDouble(req.getParameter("time"));
-		Integer porciones = req.getParameter("servings").isEmpty() ? null : Integer.parseInt(req.getParameter("servings"));
+		Double tiempo = req.getParameter("time").isBlank() ? null : Double.parseDouble(req.getParameter("time"));
+		Integer porciones = req.getParameter("servings").isBlank() ? null
+				: Integer.parseInt(req.getParameter("servings"));
 		String pasos = req.getParameter("instructions");
 		String imagen = null;
 
@@ -313,143 +375,152 @@ public class GestionarRecetasController extends HttpServlet {
 			Receta recetaTemp = recetaDAOTemp.obtenerRecetaPorId(idReceta);
 			imagen = recetaTemp.getImagen();
 		}
-		
-		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]"); 
-		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]"); 
+
+		String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
+		String[] cantidadesIngredientes = req.getParameterValues("ingredients_quantity[]");
 		String[] unidadesIngredientes = req.getParameterValues("ingredients_unit[]");
 
 		boolean ingredientesInvalidos = false;
 
 		for (int i = 0; i < nombresIngredientes.length; i++) {
-		    if (nombresIngredientes[i].isEmpty() ||
-		        cantidadesIngredientes[i] == null || cantidadesIngredientes[i].isEmpty()) {
-		        ingredientesInvalidos = true;
-		        break;
-		    }
+			if (nombresIngredientes[i].isBlank() || cantidadesIngredientes[i] == null
+					|| cantidadesIngredientes[i].isBlank()) {
+				ingredientesInvalidos = true;
+				break;
+			}
 		}
-		
+
 		// Validar campos
-        if (nombre.isEmpty() || descripcion.isEmpty() || pasos.isEmpty() ||
-                porciones == null || tiempo == null || ingredientesInvalidos) {
-            Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
-            req.getSession().setAttribute("recetaFallida", receta);
-            MensajeUtil.mostrarError(req, resp, "Error", "Campos obligatorios vacíos.", 
-                RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-            return;
-        }
-		
+		if (nombre.isBlank() || descripcion.isBlank() || pasos.isBlank() || porciones == null || tiempo == null
+				|| ingredientesInvalidos) {
+			Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+			req.getSession().setAttribute("recetaFallida", receta);
+			MensajeUtil.mostrarError(req, resp, "Error", "Campos obligatorios vacíos.",
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+			return;
+		}
+
 		// 2. Actualizar la receta
 		Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
-		DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
 		receta.setNombre(nombre);
 		receta.setDescripcion(descripcion);
 		receta.setTiempoPreparacion(tiempo);
 		receta.setPorciones(porciones);
 		receta.setDescripcionPasos(pasos);
 		receta.setImagen(imagen);
-		
+
 		boolean respuesta = recetaDAO.actualizarReceta(receta);
-		
+
 		// 3. Llamar a la vista
-        if (!respuesta) {
-            req.getSession().setAttribute("recetaFallida", receta);
-            MensajeUtil.mostrarError(req, resp, "Error", "Actualización fallida.", 
-                RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-            return;
-        }
-		
-        // 4. ELIMINAR los DetalleIngrediente antiguos
-		detalleIngredienteDAO.eliminarPorReceta(idReceta);
-		
-        // 5. CREAR y GUARDAR los nuevos DetalleIngrediente
-		for (int i = 0; i < nombresIngredientes.length; i++) {
-		    Ingrediente ingrediente =
-		        ingredienteDAO.guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
-		    
-		    if (ingrediente == null) {
-                MensajeUtil.mostrarError(req, resp, "Error", 
-                    "No se pudo guardar el ingrediente: " + nombresIngredientes[i], 
-                    RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-                return;
-            }
-
-			DetalleIngrediente detalleIngrediente = new DetalleIngrediente(receta, ingrediente, Double.parseDouble(cantidadesIngredientes[i]), Unidad.valueOf(unidadesIngredientes[i]));
-		    boolean detalleIngredienteGuardado = detalleIngredienteDAO.guardarDetalleIngrediente(detalleIngrediente);
-		    
-		    if (!detalleIngredienteGuardado) {
-                MensajeUtil.mostrarError(req, resp, "Error", 
-                    "No se pudo guardar el detalle del ingrediente", 
-                    RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-                return;
-            }
+		if (!respuesta) {
+			req.getSession().setAttribute("recetaFallida", receta);
+			MensajeUtil.mostrarError(req, resp, "Error", "Actualización fallida.",
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+			return;
 		}
-		
-		MensajeUtil.mostrarExito(req, resp, "Éxito", "Actualización exitosa.", RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=" + receta.getUsuario().getIdUsuario());
-	}
-	
-	
-	/*
-	 * ---------------------------------------------------- 4. ELIMINAR ---------------------------------------------------------
-	 */
-	private void solicitarEliminarReceta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
-		Long idReceta = Long.parseLong(req.getParameter("idReceta"));
-		
-		/*if (idReceta == null || idReceta.trim().isEmpty()) {
-			establecerContenidoMensaje(req, resp, "ERROR: ID no válido", "No se proporcionó un ID de receta");
-            return;
-        }*/
-		MensajeUtil.mostrarMensajeDeAdvertencia(req, resp, "ADVERTENCIA", "¿Está seguro de eliminar la receta?", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1", RUTA_GESTIONAR_RECETAS_CONTROLLER+"confirmarEliminacion&idReceta=" + idReceta);	
+
+		// 4. ELIMINAR los DetalleIngrediente antiguos
+		detalleIngredienteDAO.eliminarPorReceta(idReceta);
+
+		// 5. CREAR y GUARDAR los nuevos DetalleIngrediente
+		for (int i = 0; i < nombresIngredientes.length; i++) {
+			Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
+
+			if (ingrediente == null) {
+				MensajeUtil.mostrarError(req, resp, "Error",
+						"No se pudo guardar el ingrediente: " + nombresIngredientes[i],
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+				return;
+			}
+
+			DetalleIngrediente detalleIngrediente = new DetalleIngrediente(receta, ingrediente,
+					Double.parseDouble(cantidadesIngredientes[i]), Unidad.valueOf(unidadesIngredientes[i]));
+			boolean detalleIngredienteGuardado = detalleIngredienteDAO.guardarDetalleIngrediente(detalleIngrediente);
+
+			if (!detalleIngredienteGuardado) {
+				MensajeUtil.mostrarError(req, resp, "Error", "No se pudo guardar el detalle del ingrediente",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+				return;
+			}
+		}
+
+		MensajeUtil.mostrarExito(req, resp, "Éxito", "Actualización exitosa.",
+				RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=" + receta.getUsuario().getIdUsuario());
 	}
 
-	private void confirmarEliminacion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
+	/*
+	 * ---------------------------------------------------- 4. ELIMINAR
+	 * ---------------------------------------------------------
+	 */
+	private void solicitarEliminarReceta(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		Long idReceta = Long.parseLong(req.getParameter("idReceta"));
+
+		/*
+		 * if (idReceta == null || idReceta.trim().isBlank()) {
+		 * establecerContenidoMensaje(req, resp, "ERROR: ID no válido",
+		 * "No se proporcionó un ID de receta"); return; }
+		 */
+		MensajeUtil.mostrarMensajeDeAdvertencia(req, resp, "ADVERTENCIA", "¿Está seguro de eliminar la receta?",
+				RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1",
+				RUTA_GESTIONAR_RECETAS_CONTROLLER + "confirmarEliminacion&idReceta=" + idReceta);
+	}
+
+	private void confirmarEliminacion(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
 		RecetaDAO recetaDAO = new RecetaDAO();
 		try {
 			Long idReceta = Long.parseLong(req.getParameter("idReceta"));
-			boolean resultado = recetaDAO.eliminarReceta(idReceta);	
-			
-			if(resultado) {
-				MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha eliminado exitosamente", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
+			boolean resultado = recetaDAO.eliminarReceta(idReceta);
+
+			if (resultado) {
+				MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha eliminado exitosamente",
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
 				return;
 			}
-			MensajeUtil.mostrarError(req, resp, "ERROR", "La receta no fue eliminada", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
-		}catch(Exception e){
-			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(), RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
-		}finally{
+			MensajeUtil.mostrarError(req, resp, "ERROR", "La receta no fue eliminada",
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
+		} catch (Exception e) {
+			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(),
+					RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
+		} finally {
 			recetaDAO.cerrar();
-		}	
+		}
 	}
-	
+
 	/*
-	 * ---------------------------------------------- VOLVER -------------------------------------------
+	 * ---------------------------------------------- VOLVER
+	 * -------------------------------------------
 	 */
 	public void volver(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		
+
 		// 1. Intentar obtener ruta específica si existe
-        String rutaVolver = req.getParameter("rutaVolver");
-        
-        if (rutaVolver != null && !rutaVolver.trim().isEmpty()) {
-            // Redirigir a la ruta específica
-            resp.sendRedirect(req.getContextPath() + rutaVolver);
-            return;
-        }
-        
-        // 2. Si no hay ruta específica, verificar si hay idUsuario para volver a listar
-        String idUsuarioParam = req.getParameter("idUsuario");
-        if (idUsuarioParam != null && !idUsuarioParam.trim().isEmpty()) {
-            try {
-                Long idUsuario = Long.parseLong(idUsuarioParam);
-                // Redirigir al listado de recetas del usuario
-                resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?ruta=listarRecetas&idUsuario=" + idUsuario);
-                return;
-            } catch (NumberFormatException e) {
-                // Si el idUsuario no es válido, continuar con el fallback
-                resp.sendRedirect(req.getContextPath() + "/GestionarPanelPrincipalController");
-            }
-        }
-        
-        // 3. Fallback: Redirigir al panel principal o página por defecto
-        resp.sendRedirect(req.getContextPath() + "/GestionarPanelPrincipalController");
-    
+		String rutaVolver = req.getParameter("rutaVolver");
+
+		if (rutaVolver != null && !rutaVolver.trim().isBlank()) {
+			// Redirigir a la ruta específica
+			resp.sendRedirect(req.getContextPath() + rutaVolver);
+			return;
+		}
+
+		// 2. Si no hay ruta específica, verificar si hay idUsuario para volver a listar
+		String idUsuarioParam = req.getParameter("idUsuario");
+		if (idUsuarioParam != null && !idUsuarioParam.trim().isBlank()) {
+			try {
+				Long idUsuario = Long.parseLong(idUsuarioParam);
+				// Redirigir al listado de recetas del usuario
+				resp.sendRedirect(
+						req.getContextPath() + "/GestionarRecetasController?ruta=listarRecetas&idUsuario=" + idUsuario);
+				return;
+			} catch (NumberFormatException e) {
+				// Si el idUsuario no es válido, continuar con el fallback
+				resp.sendRedirect(req.getContextPath() + "/GestionarPanelPrincipalController");
+			}
+		}
+
+		// 3. Fallback: Redirigir al panel principal o página por defecto
+		resp.sendRedirect(req.getContextPath() + "/GestionarPanelPrincipalController");
+
 	}
-	
+
 }

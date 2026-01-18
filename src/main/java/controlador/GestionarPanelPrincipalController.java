@@ -83,13 +83,13 @@ public class GestionarPanelPrincipalController extends HttpServlet {
         RecetaDAO dao = new RecetaDAO();
 
         try {
-            // Obtener TODAS las recetas de la BD
+            // 1. Obtener TODAS las recetas de la BD
             List<Receta> listaRecetas = dao.obtenerRecetas();
 
             // Guardarlas en el request
             request.setAttribute("listaRecetasBD", listaRecetas);
 
-            // Ir al Panel Principal
+            // 2. Ir al Panel Principal
             request.getRequestDispatcher("/vista/PanelPrincipal.jsp").forward(request, response);
 
         } catch (Exception e) {
