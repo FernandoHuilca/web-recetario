@@ -1,8 +1,8 @@
 # La cocina de Gregory 🍳🧑🏻‍🍳
 
 >[!TIP]
-> **¡Accede a proyecto!!**  
-[👉🏻**Vista la página aquí**👈🏻](https://web-recetario.onrender.com) 
+> **¡Accede al proyecto!!**  
+[👉🏻**Visita la página aquí**👈🏻](https://web-recetario.onrender.com) 
 
 **La Cocina de Gregory** es una aplicación web robusta para la gestión y visualización de recetas culinarias. Este proyecto fue desarrollado aplicando patrones de diseño empresarial como **MVC (Modelo-Vista-Controlador)** y **DAO (Data Access Object)**, asegurando una arquitectura limpia y escalable. 
 
@@ -61,6 +61,10 @@ El stack tecnológico seleccionado garantiza rendimiento y mantenibilidad:
 - **Frontend:** HTML5, CSS3 (Framework propio), JavaScript
 - **Servidor de Aplicaciones:** Apache Tomcat 10
 - **IDE:** Eclipse Enterprise
+
+## Arquitectura sobre los DAOs. 
+<img width="2084" height="1205" alt="image" src="https://github.com/user-attachments/assets/9ea6b139-e1af-4eb1-be8b-b99a52f95c8f" />
+
 
 ## Autores 🧑🏻‍💻 
 
