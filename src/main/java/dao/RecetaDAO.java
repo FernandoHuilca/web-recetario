@@ -3,7 +3,7 @@ package dao;
 import java.util.List;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import modelo.Receta;
+import modelo.entidades.Receta;
 import util.JPAUtil;
 
 /**

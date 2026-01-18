@@ -1,7 +1,7 @@
 package dao;
 
 import jakarta.persistence.EntityManager;
-import modelo.Usuario;
+import modelo.entidades.Usuario;
 import util.JPAUtil;
 
 public class UsuarioDAO {

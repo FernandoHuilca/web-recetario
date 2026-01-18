@@ -2,7 +2,7 @@ package dao;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import modelo.Ingrediente;
+import modelo.entidades.Ingrediente;
 import util.JPAUtil;
 
 public class IngredienteDAO {

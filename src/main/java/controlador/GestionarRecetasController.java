@@ -14,15 +14,15 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
+import modelo.entidades.DetalleIngrediente;
+import modelo.entidades.Ingrediente;
+import modelo.entidades.Receta;
+import modelo.entidades.Unidad;
+import modelo.entidades.Usuario;
 import dao.DetalleIngredienteDAO;
 import dao.IngredienteDAO;
 import dao.RecetaDAO;
 import dao.UsuarioDAO;
-import modelo.DetalleIngrediente;
-import modelo.Ingrediente;
-import modelo.Receta;
-import modelo.Unidad;
-import modelo.Usuario;
 import util.MensajeUtil;
 
 @WebServlet("/GestionarRecetasController")

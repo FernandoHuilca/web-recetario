@@ -10,8 +10,8 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modelo.DetalleIngrediente;
-import modelo.Receta;
+import modelo.entidades.DetalleIngrediente;
+import modelo.entidades.Receta;
 import util.MensajeUtil;
 
 @WebServlet("/GestionarPanelPrincipalController")

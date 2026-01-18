@@ -4,9 +4,9 @@ import java.util.List;
 
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.TypedQuery;
-import modelo.DetalleIngrediente;
-import modelo.Ingrediente;
-import modelo.Receta;
+import modelo.entidades.DetalleIngrediente;
+import modelo.entidades.Ingrediente;
+import modelo.entidades.Receta;
 import util.JPAUtil;
 
 public class DetalleIngredienteDAO {

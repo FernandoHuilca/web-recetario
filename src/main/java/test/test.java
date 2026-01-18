@@ -5,10 +5,10 @@ import java.time.LocalDate;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
-import modelo.Ingrediente;
-import modelo.Receta;
-import modelo.Unidad;
-import modelo.Usuario;
+import modelo.entidades.Ingrediente;
+import modelo.entidades.Receta;
+import modelo.entidades.Unidad;
+import modelo.entidades.Usuario;
 
 public class test {
 
