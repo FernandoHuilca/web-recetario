@@ -1,4 +1,4 @@
-package modelo;
+package modelo.entidades;
 
 import jakarta.persistence.*;
 import java.io.Serializable;

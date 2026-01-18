@@ -14,15 +14,12 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
-import dao.DetalleIngredienteDAO;
-import dao.IngredienteDAO;
-import dao.RecetaDAO;
-import dao.UsuarioDAO;
-import modelo.DetalleIngrediente;
-import modelo.Ingrediente;
-import modelo.Receta;
-import modelo.Unidad;
-import modelo.Usuario;
+import modelo.dao.FactoryDAO;
+import modelo.entidades.DetalleIngrediente;
+import modelo.entidades.Ingrediente;
+import modelo.entidades.Receta;
+import modelo.entidades.Unidad;
+import modelo.entidades.Usuario;
 import util.MensajeUtil;
 
 @WebServlet("/GestionarRecetasController")
@@ -91,8 +88,8 @@ public class GestionarRecetasController extends HttpServlet {
 	 * ---------------------------- 1. LISTAR ----------------------------
 	 */
 	public void listarRecetas(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		RecetaDAO recetaDAO = new RecetaDAO();
-
+		//RecetaDAO recetaDAO = new RecetaDAO();
+		
 		try {
 			// Obtener ID de usuario del request
 			String idUsuarioParam = req.getParameter("idUsuario");
@@ -101,9 +98,8 @@ public class GestionarRecetasController extends HttpServlet {
 																															// defecto
 
 			// Obtener recetas por usuario
-			List<Receta> recetas = recetaDAO.obtenerRecetasPorUsuario(idUsuario);
-
-			// Presentar
+			//List<Receta> recetas = recetaDAO.obtenerRecetasPorUsuario(idUsuario);
+			List<Receta> recetas = FactoryDAO.getFactory().getRecetaDAO().obtenerRecetasPorUsuario(idUsuario);
 			req.setAttribute("recetas", recetas);
 			req.setAttribute("idUsuario", idUsuario);
 			req.getRequestDispatcher("/vista/ListadoRecetas.jsp").forward(req, resp);
@@ -114,7 +110,8 @@ public class GestionarRecetasController extends HttpServlet {
 					"/GestionarPanelPrincipalController");
 
 		} finally {
-			recetaDAO.cerrar();
+			//recetaDAO.cerrar();
+			FactoryDAO.getFactory().getRecetaDAO().cerrar();
 		}
 	}
 
@@ -131,14 +128,14 @@ public class GestionarRecetasController extends HttpServlet {
 		req.setAttribute("unidades", unidades);
 		req.getRequestDispatcher("vista/FormularioRegistroRecetas.jsp").forward(req, resp);
 	}
-
-	public void confirmarRegistro(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		RecetaDAO recetaDAO = new RecetaDAO();
-		IngredienteDAO ingredienteDAO = new IngredienteDAO();
-		DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
-
+	
+	
+	public void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		//RecetaDAO recetaDAO = new RecetaDAO();
+		//IngredienteDAO ingredienteDAO = new IngredienteDAO();
+		//UsuarioDAO usuarioDAO = new UsuarioDAO();
+		//DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
+		
 		try {
 			// 1. Obtener los parámetros del formulario
 			String nombre = req.getParameter("name");
@@ -227,7 +224,8 @@ public class GestionarRecetasController extends HttpServlet {
 			receta.setImagen(imagen);
 
 			// Asignar usuario (por defecto id=1). Requiere que exista en la BD.
-			Usuario usuario = usuarioDAO.obtenerPorId(idUsuario);
+			//Usuario usuario = usuarioDAO.obtenerPorId(idUsuario);
+			Usuario usuario = FactoryDAO.getFactory().getUsuarioDAO().getById(idUsuario);
 			if (usuario == null) {
 				MensajeUtil.mostrarError(req, resp, "ERROR",
 						"Cree un usuario con id=1 en la tabla Usuario o ajuste el idUsuario por defecto.",
@@ -235,9 +233,11 @@ public class GestionarRecetasController extends HttpServlet {
 				return;
 			}
 			receta.setUsuario(usuario);
-
-			// Guardar RECETA usando RecetaDAO con JPA/ORM
-			boolean resultado = recetaDAO.guardarReceta(receta);
+			
+			// 4. Guardar usando RecetaDAO con JPA/ORM
+			//boolean resultado = recetaDAO.guardarReceta(receta);
+			boolean resultado = FactoryDAO.getFactory().getRecetaDAO().create(receta);
+			// 5. Llamar a la vista con el resultado
 			if (!resultado) {
 				MensajeUtil.mostrarError(req, resp, "ERROR", "No fue posible guardar la receta en la base de datos",
 						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
@@ -246,10 +246,13 @@ public class GestionarRecetasController extends HttpServlet {
 
 			// 8. Guardar los Ingredientes y DetallesIngredientes
 			for (int i = 0; i < nombresIngredientes.length; i++) {
-				// Guardar Ingrediente
-				String nombreIng = nombresIngredientes[i].toLowerCase().trim();
-				Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
-
+				String nombreIng = nombresIngredientes[i];
+				double cantidad = Double.parseDouble(cantidadesIngredientes[i]);
+				Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
+				
+				// Buscar o crear ingrediente en BD para evitar cascade PERSIST issues
+				//Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
+				Ingrediente ingrediente = FactoryDAO.getFactory().getIngredienteDAO().guardarIngrediente(new Ingrediente(nombreIng));
 				if (ingrediente == null) {
 					// Si falla un ingrediente, deberías eliminar la receta que acabas de crear
 					// o hacer rollback si usas transacciones
@@ -264,22 +267,12 @@ public class GestionarRecetasController extends HttpServlet {
 				Double cantidad = Double.parseDouble(cantidadesIngredientes[i]);
 				Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
 				DetalleIngrediente detalleIngrediente = new DetalleIngrediente(receta, ingrediente, cantidad, unidad);
-				boolean resultadoDetalleIngrediente = detalleIngredienteDAO
-						.guardarDetalleIngrediente(detalleIngrediente);
-
-				if (!resultadoDetalleIngrediente) {
-					// Si falla un detalle, también deberías eliminar la receta
-					recetaDAO.eliminarReceta(receta.getIdReceta());
-					MensajeUtil.mostrarError(req, resp, "ERROR",
-							"Hubo un problema al procesar el detalle del ingrediente: " + nombreIng,
-							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
-					return;
-				}
+				//detalleIngredienteDAO.guardarDetalleIngrediente(detalleIngrediente);
+				FactoryDAO.getFactory().getDetalleIngredienteDAO().create(detalleIngrediente);
 			}
-
-			MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha creado exitosamente",
-					RUTA_GESTIONAR_RECETAS_CONTROLLER + "listarRecetas");
-
+			
+			MensajeUtil.mostrarExito(req, resp, "Éxito: Receta creada", "La receta se ha creado exitosamente", RUTA_GESTIONAR_RECETAS_CONTROLLER+"listarRecetas");
+			
 		} catch (NumberFormatException e) {
 			MensajeUtil.mostrarError(req, resp, "ERROR", "Campos obligatorios no completados correctamente",
 					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
@@ -294,15 +287,12 @@ public class GestionarRecetasController extends HttpServlet {
 			detalleIngredienteDAO.cerrar();
 		}
 	}
-
+	
 	/*
 	 * ----------------------------  3. ACTUALIZAR ----------------------------  
 	 */
 	public void solicitarActualizarReceta(HttpServletRequest req, HttpServletResponse resp)
 			throws ServletException, IOException {
-
-		RecetaDAO recetaDAO = new RecetaDAO();
-		DetalleIngredienteDAO detalleDAO = new DetalleIngredienteDAO();
 
 		try {
 
@@ -314,20 +304,23 @@ public class GestionarRecetasController extends HttpServlet {
 
 			// Verificar si hay una receta fallida en sesión
 			Receta receta = (Receta) req.getSession().getAttribute("recetaFallida");
-			List<DetalleIngrediente> detalles = null;
-
-			if (receta != null) {
-				// Limpiar la sesión
-				req.getSession().removeAttribute("recetaFallida");
-				// Cargar los detalles de la BD porque los necesitamos para el formulario
-				detalles = detalleDAO.obtenerPorReceta(idReceta);
+	        List<DetalleIngrediente> detalles = null;
+			
+	        if (receta != null) {
+	            // Limpiar la sesión
+	            req.getSession().removeAttribute("recetaFallida");
+	            // Cargar los detalles de la BD porque los necesitamos para el formulario
+	            //detalles = detalleDAO.obtenerPorReceta(idReceta);
+				detalles = FactoryDAO.getFactory().getDetalleIngredienteDAO().obtenerPorReceta(idReceta);
 			} else {
-				// Si no hay receta en sesión, obtenerla de la BD
-				receta = recetaDAO.obtenerRecetaPorId(idReceta);
+	            // Si no hay receta en sesión, obtenerla de la BD
+	            //receta = recetaDAO.obtenerRecetaPorId(idReceta);
+	            receta = FactoryDAO.getFactory().getRecetaDAO().getById(idReceta);
 				// CARGAR LOS DETALLES DE INGREDIENTES
-				detalles = detalleDAO.obtenerPorReceta(idReceta);
+	            //detalles = detalleDAO.obtenerPorReceta(idReceta);
+	        	detalles = FactoryDAO.getFactory().getDetalleIngredienteDAO().obtenerPorReceta(idReceta);
 			}
-
+			
 			// 3. Llamar a la vista
 			if (receta == null) {
 				MensajeUtil.mostrarError(req, resp, "Error", "Receta no encontrada",
@@ -339,17 +332,17 @@ public class GestionarRecetasController extends HttpServlet {
 				req.getRequestDispatcher("vista/FormularioActualizacionRecetas.jsp").forward(req, resp);
 			}
 		} finally {
-			recetaDAO.cerrar();
-			detalleDAO.cerrar();
+			// recetaDAO.cerrar();
+			FactoryDAO.getFactory().getRecetaDAO().cerrar();
+			// detalleDAO.cerrar();
+			FactoryDAO.getFactory().getDetalleIngredienteDAO().cerrar();
 		}
 	}
-
-	public void actualizar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-		RecetaDAO recetaDAO = new RecetaDAO();
-		IngredienteDAO ingredienteDAO = new IngredienteDAO();
-		DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
-
+	
+	public void actualizar(HttpServletRequest req, HttpServletResponse resp)
+			throws ServletException, IOException {
+		
+	    
 		// 1. Obtener los parámetros
 		Long idReceta = Long.parseLong(req.getParameter("id"));
 		String nombre = req.getParameter("name");
@@ -371,8 +364,8 @@ public class GestionarRecetasController extends HttpServlet {
 			imagen = fileName;
 		} else {
 			// Si no se carga una nueva imagen, mantener la existente
-			RecetaDAO recetaDAOTemp = new RecetaDAO();
-			Receta recetaTemp = recetaDAOTemp.obtenerRecetaPorId(idReceta);
+			//Receta recetaTemp = recetaDAOTemp.obtenerRecetaPorId(idReceta);
+			Receta recetaTemp = FactoryDAO.getFactory().getRecetaDAO().getById(idReceta);
 			imagen = recetaTemp.getImagen();
 		}
 
@@ -391,57 +384,61 @@ public class GestionarRecetasController extends HttpServlet {
 		}
 
 		// Validar campos
-		if (nombre.isBlank() || descripcion.isBlank() || pasos.isBlank() || porciones == null || tiempo == null
-				|| ingredientesInvalidos) {
-			Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+        if (nombre.isEmpty() || descripcion.isEmpty() || pasos.isEmpty() ||
+                porciones == null || tiempo == null || ingredientesInvalidos) {
+            //Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+            Receta receta = FactoryDAO.getFactory().getRecetaDAO().getById(idReceta);
 			req.getSession().setAttribute("recetaFallida", receta);
-			MensajeUtil.mostrarError(req, resp, "Error", "Campos obligatorios vacíos.",
-					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-			return;
-		}
-
+            MensajeUtil.mostrarError(req, resp, "Error", "Campos obligatorios vacíos.", 
+                RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+            return;
+        }
+		
 		// 2. Actualizar la receta
-		Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+		//Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
+		Receta receta = FactoryDAO.getFactory().getRecetaDAO().getById(idReceta);
+		//DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
 		receta.setNombre(nombre);
 		receta.setDescripcion(descripcion);
 		receta.setTiempoPreparacion(tiempo);
 		receta.setPorciones(porciones);
 		receta.setDescripcionPasos(pasos);
 		receta.setImagen(imagen);
-
-		boolean respuesta = recetaDAO.actualizarReceta(receta);
-
+		
+		//boolean respuesta = recetaDAO.actualizarReceta(receta);
+		boolean respuesta = FactoryDAO.getFactory().getRecetaDAO().update(receta);
 		// 3. Llamar a la vista
-		if (!respuesta) {
-			req.getSession().setAttribute("recetaFallida", receta);
-			MensajeUtil.mostrarError(req, resp, "Error", "Actualización fallida.",
-					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-			return;
-		}
-
-		// 4. ELIMINAR los DetalleIngrediente antiguos
-		detalleIngredienteDAO.eliminarPorReceta(idReceta);
-
-		// 5. CREAR y GUARDAR los nuevos DetalleIngrediente
+        if (!respuesta) {
+            req.getSession().setAttribute("recetaFallida", receta);
+            MensajeUtil.mostrarError(req, resp, "Error", "Actualización fallida.", 
+                RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+            return;
+        }
+		
+        // 4. ELIMINAR los DetalleIngrediente antiguos
+		//detalleIngredienteDAO.eliminarPorReceta(idReceta);
+		FactoryDAO.getFactory().getDetalleIngredienteDAO().eliminarPorReceta(idReceta);
+        // 5. CREAR y GUARDAR los nuevos DetalleIngrediente
 		for (int i = 0; i < nombresIngredientes.length; i++) {
-			Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
+		    Ingrediente ingrediente =
+		        //ingredienteDAO.guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
+				FactoryDAO.getFactory().getIngredienteDAO().guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
+		    if (ingrediente == null) {
+                MensajeUtil.mostrarError(req, resp, "Error", 
+                    "No se pudo guardar el ingrediente: " + nombresIngredientes[i], 
+                    RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+                return;
+            }
 
-			if (ingrediente == null) {
-				MensajeUtil.mostrarError(req, resp, "Error",
-						"No se pudo guardar el ingrediente: " + nombresIngredientes[i],
-						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-				return;
-			}
-
-			DetalleIngrediente detalleIngrediente = new DetalleIngrediente(receta, ingrediente,
-					Double.parseDouble(cantidadesIngredientes[i]), Unidad.valueOf(unidadesIngredientes[i]));
-			boolean detalleIngredienteGuardado = detalleIngredienteDAO.guardarDetalleIngrediente(detalleIngrediente);
-
-			if (!detalleIngredienteGuardado) {
-				MensajeUtil.mostrarError(req, resp, "Error", "No se pudo guardar el detalle del ingrediente",
-						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
-				return;
-			}
+			DetalleIngrediente detalleIngrediente = new DetalleIngrediente(receta, ingrediente, Double.parseDouble(cantidadesIngredientes[i]), Unidad.valueOf(unidadesIngredientes[i]));
+		    //boolean detalleIngredienteGuardado = detalleIngredienteDAO.guardarDetalleIngrediente(detalleIngrediente);
+		    boolean detalleIngredienteGuardado = FactoryDAO.getFactory().getDetalleIngredienteDAO().create(detalleIngrediente);
+		    if (!detalleIngredienteGuardado) {
+                MensajeUtil.mostrarError(req, resp, "Error", 
+                    "No se pudo guardar el detalle del ingrediente", 
+                    RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);
+                return;
+            }
 		}
 
 		MensajeUtil.mostrarExito(req, resp, "Éxito", "Actualización exitosa.",
@@ -466,26 +463,20 @@ public class GestionarRecetasController extends HttpServlet {
 				RUTA_GESTIONAR_RECETAS_CONTROLLER + "confirmarEliminacion&idReceta=" + idReceta);
 	}
 
-	private void confirmarEliminacion(HttpServletRequest req, HttpServletResponse resp)
-			throws ServletException, IOException {
-		RecetaDAO recetaDAO = new RecetaDAO();
+	private void confirmarEliminacion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException{
 		try {
 			Long idReceta = Long.parseLong(req.getParameter("idReceta"));
-			boolean resultado = recetaDAO.eliminarReceta(idReceta);
-
-			if (resultado) {
-				MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha eliminado exitosamente",
-						RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
+			boolean resultado = FactoryDAO.getFactory().getRecetaDAO().eliminarReceta(idReceta);
+			if(resultado) {
+				MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha eliminado exitosamente", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
 				return;
 			}
-			MensajeUtil.mostrarError(req, resp, "ERROR", "La receta no fue eliminada",
-					RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
-		} catch (Exception e) {
-			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(),
-					RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
-		} finally {
-			recetaDAO.cerrar();
-		}
+			MensajeUtil.mostrarError(req, resp, "ERROR", "La receta no fue eliminada", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
+		}catch(Exception e){
+			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(), RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
+		}finally{
+			FactoryDAO.getFactory().getRecetaDAO().cerrar();
+		}	
 	}
 
 	/*

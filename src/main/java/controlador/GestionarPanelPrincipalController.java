@@ -3,15 +3,15 @@ package controlador;
 import java.io.IOException;
 import java.util.List;
 
-import dao.DetalleIngredienteDAO;
-import dao.RecetaDAO;
+
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import modelo.DetalleIngrediente;
-import modelo.Receta;
+import modelo.dao.FactoryDAO;
+import modelo.entidades.DetalleIngrediente;
+import modelo.entidades.Receta;
 import util.MensajeUtil;
 
 @WebServlet("/GestionarPanelPrincipalController")
@@ -80,11 +80,11 @@ public class GestionarPanelPrincipalController extends HttpServlet {
     protected void cargarRecetas(HttpServletRequest request, HttpServletResponse response) 
             throws ServletException, IOException {
 
-        RecetaDAO dao = new RecetaDAO();
 
         try {
-            // 1. Obtener TODAS las recetas de la BD
-            List<Receta> listaRecetas = dao.obtenerRecetas();
+            // Obtener TODAS las recetas de la BD
+            //List<Receta> listaRecetas = JPAFactoryDAO.getFactory().getRecetaDAO().getAll(); <-- Si hago esto ya estoy especificando que quiero JPA y entonces me maté haciendo todo un sabado la arquitectura para que no ocupes? XD
+            List<Receta> listaRecetas = FactoryDAO.getFactory().getRecetaDAO().getAll();
 
             // Guardarlas en el request
             request.setAttribute("listaRecetasBD", listaRecetas);
@@ -96,7 +96,7 @@ public class GestionarPanelPrincipalController extends HttpServlet {
             e.printStackTrace();
             // En caso de error, podrías redirigir a una página de error o recargar vacio
         } finally {
-            dao.cerrar();
+            FactoryDAO.getFactory().getRecetaDAO().cerrar();
         }
     }
     
@@ -108,8 +108,7 @@ public class GestionarPanelPrincipalController extends HttpServlet {
 		// 1. Obtener los parámetros
 		String nombre = req.getParameter("criterioBusqueda");
 		// 2. Hablar con el modelo
-		RecetaDAO recetaDAO = new RecetaDAO();
-		List<Receta> recetas = recetaDAO.obtenerRecetasPorNombre(nombre);
+		List<Receta> recetas = FactoryDAO.getFactory().getRecetaDAO().obtenerRecetasPorNombre(nombre);
 		// 3. Llamar a la vista
 		if (recetas == null || recetas.isEmpty()) {
 			MensajeUtil.mostrarError(req, resp, "ERROR", "Receta no encontrada.", "/GestionarPanelPrincipalController?ruta=volver");
@@ -133,18 +132,18 @@ public class GestionarPanelPrincipalController extends HttpServlet {
             return;
         }
 
-        RecetaDAO dao = new RecetaDAO();
-        DetalleIngredienteDAO  detalleIngredienteDAO = new DetalleIngredienteDAO();
+        //RecetaDAO dao = new RecetaDAO();
+        //DetalleIngredienteDAO  detalleIngredienteDAO = new DetalleIngredienteDAO();
         
         try {
             Long idReceta = Long.parseLong(idParam);
-            Receta receta = dao.obtenerRecetaPorId(idReceta);
+            Receta receta = FactoryDAO.getFactory().getRecetaDAO().getById(idReceta);
             
             if(receta != null) {
                 //Inicialización de datos LAZY (Carga perezosa)
                 
                 // 1. Cargamos la lista intermedia (DetalleIngrediente)
-                List<DetalleIngrediente> detallesIngredientes = detalleIngredienteDAO.obtenerPorReceta(idReceta); 
+                List<DetalleIngrediente> detallesIngredientes = FactoryDAO.getFactory().getDetalleIngredienteDAO().obtenerPorReceta(idReceta); 
                 
                 // 2. Cargamos el Ingrediente real dentro de cada elemento
                 // Si no hacemos esto, al pedir el nombre en el JSP dará error
@@ -162,8 +161,8 @@ public class GestionarPanelPrincipalController extends HttpServlet {
             e.printStackTrace();
             volver(request, response);
         } finally {
-            dao.cerrar();
-            detalleIngredienteDAO.cerrar();
+            FactoryDAO.getFactory().getRecetaDAO().cerrar();
+            FactoryDAO.getFactory().getDetalleIngredienteDAO().cerrar();
         }
     }
 

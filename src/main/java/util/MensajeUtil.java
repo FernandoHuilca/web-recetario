@@ -12,7 +12,7 @@ public class MensajeUtil {
 	private static final String IMG_SUCCESS = "/assets/images/message/success.png";
 	private static final String IMG_ERROR = "/assets/images/message/error.png";
 	private static final String IMG_WARNING = "/assets/images/message/warning.png";
-	private static final String IMG_INFO = "/assets/images/message/info.png";
+	//private static final String IMG_INFO = "/assets/images/message/info.png";
 	
 	public static void mostrarExito(HttpServletRequest req, HttpServletResponse resp, 
 			String titulo, String descripcion, String href) throws ServletException, IOException {
