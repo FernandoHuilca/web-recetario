@@ -130,11 +130,7 @@ public class GestionarRecetasController extends HttpServlet {
 	}
 	
 	
-	public void registrar(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		//RecetaDAO recetaDAO = new RecetaDAO();
-		//IngredienteDAO ingredienteDAO = new IngredienteDAO();
-		//UsuarioDAO usuarioDAO = new UsuarioDAO();
-		//DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
+	public void confirmarRegistro(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		
 		try {
 			// 1. Obtener los parámetros del formulario
@@ -170,7 +166,7 @@ public class GestionarRecetasController extends HttpServlet {
 				return;
 			}
 
-			// Guardar los Ingredientes y DetallesIngredientes
+	        // Validar TODOS los ingredientes ANTES de guardar
 			for (int i = 0; i < nombresIngredientes.length; i++) {
 
 				if (nombresIngredientes[i] == null || cantidadesIngredientes[i] == null
@@ -247,8 +243,6 @@ public class GestionarRecetasController extends HttpServlet {
 			// 8. Guardar los Ingredientes y DetallesIngredientes
 			for (int i = 0; i < nombresIngredientes.length; i++) {
 				String nombreIng = nombresIngredientes[i];
-				double cantidad = Double.parseDouble(cantidadesIngredientes[i]);
-				Unidad unidad = Unidad.valueOf(unidadesIngredientes[i]);
 				
 				// Buscar o crear ingrediente en BD para evitar cascade PERSIST issues
 				//Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
@@ -256,7 +250,6 @@ public class GestionarRecetasController extends HttpServlet {
 				if (ingrediente == null) {
 					// Si falla un ingrediente, deberías eliminar la receta que acabas de crear
 					// o hacer rollback si usas transacciones
-					recetaDAO.eliminarReceta(receta.getIdReceta());
 					MensajeUtil.mostrarError(req, resp, "ERROR",
 							"Hubo un problema al procesar el ingrediente: " + nombreIng,
 							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
@@ -281,10 +274,14 @@ public class GestionarRecetasController extends HttpServlet {
 			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(),
 					RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 		} finally {
-			recetaDAO.cerrar();
-			ingredienteDAO.cerrar();
-			usuarioDAO.cerrar();
-			detalleIngredienteDAO.cerrar();
+			// recetaDAO.cerrar();
+			FactoryDAO.getFactory().getRecetaDAO().cerrar();
+			// ingredienteDAO.cerrar();
+			FactoryDAO.getFactory().getIngredienteDAO().cerrar();
+			// usuarioDAO.cerrar();
+			FactoryDAO.getFactory().getUsuarioDAO().cerrar();
+			// detalleIngredienteDAO.cerrar();
+			FactoryDAO.getFactory().getDetalleIngredienteDAO().cerrar();
 		}
 	}
 	
