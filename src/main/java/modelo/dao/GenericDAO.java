@@ -9,4 +9,6 @@ public interface GenericDAO <T, ID> {
     public boolean delete (ID id);
     public T getById (ID id);
     public List<T> getAll (); 
+
+    public void cerrar();
 }

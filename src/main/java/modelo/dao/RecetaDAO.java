@@ -9,5 +9,6 @@ public interface RecetaDAO extends GenericDAO<Receta, Long>{
     //Estos son los métodos que son propios de RecetaDAO y no los comunes que ya me traigo del GenericDAO
     public List<Receta> obtenerRecetasPorUsuario(Long idUsuario); 
     public List<Receta> obtenerRecetasPorNombre(String nombre); 
+    public boolean eliminarReceta(Long idReceta) ;
     
 }
