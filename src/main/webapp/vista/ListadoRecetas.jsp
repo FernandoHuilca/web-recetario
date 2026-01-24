@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java"%>
+<%@ include file="verificarSesion.jsp" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 <!DOCTYPE html>
 <html lang="es">
@@ -17,7 +18,7 @@
 	<main>
 		<div class="return">
 			<a class="general-button text-decoration-none"
-				href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=volver">Volver</a>
+				href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=volver&rutaVolver=/GestionarPanelPrincipalController?ruta=cargarRecetas">Volver</a>
 		</div>
 
 		<section>

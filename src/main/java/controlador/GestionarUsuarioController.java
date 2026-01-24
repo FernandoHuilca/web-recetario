@@ -56,11 +56,10 @@ public class GestionarUsuarioController extends HttpServlet{
 		String clave = req.getParameter("password");
 		// 2. Hablar con el modelo
 		Usuario usuario = FactoryDAO.getFactory().getUsuarioDAO().autenticar(correo, clave);
-		System.out.println(usuario);
 		// 3. Llamar a la vista
 		if (usuario != null) {
 			HttpSession sesionUsuario = req.getSession();
-			sesionUsuario.setAttribute("autorizado", usuario);
+			sesionUsuario.setAttribute("autorizado", usuario.getIdUsuario());
 			// le permito pasar listar usuarios
 			resp.sendRedirect("GestionarPanelPrincipalController?ruta=cargarRecetas");
 		} else {

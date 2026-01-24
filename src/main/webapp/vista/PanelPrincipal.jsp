@@ -1,4 +1,5 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ include file="verificarSesion.jsp" %>
 <%@ taglib prefix="c" uri="jakarta.tags.core" %>
 
 <!DOCTYPE html>
@@ -42,7 +43,7 @@
             <ul class="display-flex list-none-style">
                 <li class="margin-nav-header">
                     <a class="general-button text-decoration-none"
-                       href="${pageContext.request.contextPath}/GestionarRecetasController">Gestión de recetas</a>
+                       href="${pageContext.request.contextPath}/GestionarRecetasController?ruta=listarRecetas">Gestión de recetas</a>
                 </li>
                 
                 <li class="margin-nav-header">
