@@ -8,12 +8,10 @@
     <title>La cocina de Gregory</title>
     <link rel="stylesheet" href="css/framework.css">
     <link rel="stylesheet" href="css/index.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-3956990650935404"
-     crossorigin="anonymous"></script>
 </head>
 
 <body class="margin-0 padding-0 background-img">
-    <main>
+    <main class="">
         <header class="display-flex justify-content-between align-items-center">
             <div>
                 <h1 class="h1-header margin-0">La cocina de Gregory</h1>
@@ -21,7 +19,7 @@
             <div></div>
             <div class="display-flex">
                 <div class="button button-signin">
-                    <a class="text-decoration-none text-signin" href="vista/_signin.jsp">Iniciar sesión</a>
+                    <a class="text-decoration-none text-signin" href="${pageContext.request.contextPath}/GestionarUsuarioController?ruta=solicitarIniciarSesion">Iniciar sesión</a>
                 </div>
                 <div class="button button-signup">
                     <a class="text-decoration-none text-signup" href="vista/_signup.jsp">Registrarse</a>

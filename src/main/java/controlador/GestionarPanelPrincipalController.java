@@ -62,7 +62,12 @@ public class GestionarPanelPrincipalController extends HttpServlet {
     			volver(req, resp);
     			break;
     		
-    		// 5. LOG OUT
+    		// 5. CERRAR SESION
+    		case "cerrarSesion":
+    			cerrarSesion(req, resp);
+    			break;
+    		
+    		// 7. LOG OUT
             case "salir":
                 salir(req, resp);
                 break;
@@ -120,6 +125,27 @@ public class GestionarPanelPrincipalController extends HttpServlet {
 		}
 	}
 	
+    /*
+     * ------------------------------------------- GESTIONAR CUENTA -----------------------------------------------------
+     */
+    
+    // Ya no es necesario: el menú se maneja en el cliente con JavaScript
+    /*
+    public void solicitarGestionarCuenta(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        Boolean showMenu = (Boolean) req.getAttribute("showGestionCuenta");
+        
+        if (showMenu != null && showMenu) {
+            req.setAttribute("showGestionCuenta", false);
+        } else {
+            req.setAttribute("showGestionCuenta", true);
+        }
+    }
+    */
+    
+    public void cerrarSesion(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    	req.getSession().invalidate();
+    	resp.sendRedirect(req.getContextPath() + "/index.jsp");
+    }
 	
     /*
      * ------------------------------------------- VER RECETA -----------------------------------------------------
