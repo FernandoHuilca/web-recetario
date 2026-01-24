@@ -12,9 +12,9 @@
 </head>
 
 <body class="margin-0 display-flex justify-content-center align-items-center">
-    <main>
+    <main class="display-flex flex-column justify-content-center align-items-center">
 
-        <div><a class="general-button text-decoration-none" href="../index.jsp">Volver</a></div>
+        <div style="align-self: flex-start;"><a class="general-button text-decoration-none" href="${pageContext.request.contextPath}/GestionarUsuarioController?ruta=volver">Volver</a></div>
 
         <h1 class="text-align-center">Iniciar sesión</h1>
 
@@ -39,24 +39,24 @@
         </section> -->
         
         <section class="card">
-            <form action="${pageContext.request.contextPath}/GestionarPanelPrincipalController?ruta=cargarRecetas" method="POST">
+            <form action="${pageContext.request.contextPath}/GestionarUsuarioController?ruta=confirmarInicioSesion" method="POST">
                 
                 <div class="fields">
                     <label class="form-row-label">Correo*:</label>
                     <div>
-                        <input name="email" class="form-row-input" type="email" placeholder="Ingresa tu correo">
+                        <input name="email" id="email" class="form-row-input" type="email" placeholder="Ingresa tu correo">
                     </div>
                 </div>
 
                 <div class="fields">
                     <label class="form-row-label">Contraseña*:</label>
                     <div>
-                        <input name="password" class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                        <input name="password" id="password" class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
                     </div>
                 </div>
 
                 <div class="button">
-                    <button type="submit" class="text-button text-decoration-none" style="border:none; cursor:pointer; width:100%; background-color: transparent;">
+                    <button type="submit" class="text-button text-decoration-none" style="border:none; cursor:pointer; width:100%; background-color: transparent; font: inherit;">
                         Iniciar sesión
                     </button>
                 </div>

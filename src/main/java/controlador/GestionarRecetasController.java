@@ -92,10 +92,9 @@ public class GestionarRecetasController extends HttpServlet {
 		
 		try {
 			// Obtener ID de usuario del request
-			String idUsuarioParam = req.getParameter("idUsuario");
-			Long idUsuario = (idUsuarioParam != null && !idUsuarioParam.isBlank()) ? Long.parseLong(idUsuarioParam) : 1; // valor
-																															// por
-																															// defecto
+			//Receta receta = (Receta) req.getSession().getAttribute("recetaFallida");
+			//String idUsuarioParam = req.getParameter("idUsuario");
+			Long idUsuario = (Long) req.getSession().getAttribute("autorizado");
 
 			// Obtener recetas por usuario
 			//List<Receta> recetas = recetaDAO.obtenerRecetasPorUsuario(idUsuario);
@@ -140,7 +139,7 @@ public class GestionarRecetasController extends HttpServlet {
 			String descripcionPasos = req.getParameter("instructions");
 			Integer porciones = Integer.parseInt(req.getParameter("servings"));
 			String imagen = null;
-			Long idUsuario = 1L; // Usuario por defecto mientras no hay sesión
+			Long idUsuario = (Long) req.getSession().getAttribute("autorizado");
 
 			// Captura de arrays de ingredientes
 			String[] nombresIngredientes = req.getParameterValues("ingredients_name[]");
@@ -321,7 +320,7 @@ public class GestionarRecetasController extends HttpServlet {
 			// 3. Llamar a la vista
 			if (receta == null) {
 				MensajeUtil.mostrarError(req, resp, "Error", "Receta no encontrada",
-						RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1");
+						RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver");
 			} else {
 				req.setAttribute("unidades", unidades);
 				req.setAttribute("receta", receta);
@@ -439,7 +438,7 @@ public class GestionarRecetasController extends HttpServlet {
 		}
 
 		MensajeUtil.mostrarExito(req, resp, "Éxito", "Actualización exitosa.",
-				RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=" + receta.getUsuario().getIdUsuario());
+				RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver");
 	}
 
 	/*
@@ -456,7 +455,7 @@ public class GestionarRecetasController extends HttpServlet {
 		 * "No se proporcionó un ID de receta"); return; }
 		 */
 		MensajeUtil.mostrarMensajeDeAdvertencia(req, resp, "ADVERTENCIA", "¿Está seguro de eliminar la receta?",
-				RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver&idUsuario=1",
+				RUTA_GESTIONAR_RECETAS_CONTROLLER + "volver",
 				RUTA_GESTIONAR_RECETAS_CONTROLLER + "confirmarEliminacion&idReceta=" + idReceta);
 	}
 
@@ -465,12 +464,12 @@ public class GestionarRecetasController extends HttpServlet {
 			Long idReceta = Long.parseLong(req.getParameter("idReceta"));
 			boolean resultado = FactoryDAO.getFactory().getRecetaDAO().eliminarReceta(idReceta);
 			if(resultado) {
-				MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha eliminado exitosamente", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
+				MensajeUtil.mostrarExito(req, resp, "ÉXITO", "La receta se ha eliminado exitosamente", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver");
 				return;
 			}
-			MensajeUtil.mostrarError(req, resp, "ERROR", "La receta no fue eliminada", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
+			MensajeUtil.mostrarError(req, resp, "ERROR", "La receta no fue eliminada", RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver");
 		}catch(Exception e){
-			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(), RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver&idUsuario=1");
+			MensajeUtil.mostrarError(req, resp, "ERROR", "Error: " + e.getMessage(), RUTA_GESTIONAR_RECETAS_CONTROLLER+"volver");
 		}finally{
 			FactoryDAO.getFactory().getRecetaDAO().cerrar();
 		}	
@@ -491,24 +490,8 @@ public class GestionarRecetasController extends HttpServlet {
 			return;
 		}
 
-		// 2. Si no hay ruta específica, verificar si hay idUsuario para volver a listar
-		String idUsuarioParam = req.getParameter("idUsuario");
-		if (idUsuarioParam != null && !idUsuarioParam.trim().isBlank()) {
-			try {
-				Long idUsuario = Long.parseLong(idUsuarioParam);
-				// Redirigir al listado de recetas del usuario
-				resp.sendRedirect(
-						req.getContextPath() + "/GestionarRecetasController?ruta=listarRecetas&idUsuario=" + idUsuario);
-				return;
-			} catch (NumberFormatException e) {
-				// Si el idUsuario no es válido, continuar con el fallback
-				resp.sendRedirect(req.getContextPath() + "/GestionarPanelPrincipalController");
-			}
-		}
-
-		// 3. Fallback: Redirigir al panel principal o página por defecto
-		resp.sendRedirect(req.getContextPath() + "/GestionarPanelPrincipalController");
-
+		// 2. Si no hay ruta específica, listar las recetas del usuario
+		resp.sendRedirect(req.getContextPath() + "/GestionarRecetasController?ruta=listarRecetas");
 	}
 
 }
