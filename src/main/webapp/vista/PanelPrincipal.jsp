@@ -52,10 +52,14 @@
                 </li>
             </ul>
 
-            <div class="avaterPerfil">
-                <a href="#" class="avatar-link" aria-label="Perfil de usuario">
+            <div class="avaterPerfil" id="avatarContainer" style="position: relative;">
+                <button class="avatar-link" aria-label="Perfil de usuario" id="avatarBtn" style="background: none; border: none; padding: 0; cursor: pointer;">
                     <img class="icon-user" src="${pageContext.request.contextPath}/assets/images/dashboard/defaultPerfil.jpeg" alt="Imagen de perfil">
-                </a>
+                </button>
+                
+                <div class="profile-dropdown" id="profileDropdown" style="position: absolute; top: 60px; right: 0; background: white; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); min-width: 180px; visibility: hidden; opacity: 0; transition: opacity 0.3s ease; z-index: 1000;">
+                    <a href="${pageContext.request.contextPath}/GestionarPanelPrincipalController?ruta=cerrarSesion" id="logoutBtn" class="profile-option logout-btn" style="display: block; padding: 12px 16px; color: #000; text-decoration: none; cursor: pointer; border: none; width: 100%; text-align: left;">Cerrar sesión</a>
+                </div>
             </div>
         </nav>
 
@@ -137,6 +141,33 @@
         </section>
 
     </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const avatarBtn = document.getElementById('avatarBtn');
+            const profileDropdown = document.getElementById('profileDropdown');
+            const avatarContainer = document.getElementById('avatarContainer');
+
+            avatarBtn.addEventListener('click', function(e) {
+                e.stopPropagation();
+                
+                if (profileDropdown.style.visibility === 'hidden' || profileDropdown.style.visibility === '') {
+                    profileDropdown.style.visibility = 'visible';
+                    profileDropdown.style.opacity = '1';
+                } else {
+                    profileDropdown.style.visibility = 'hidden';
+                    profileDropdown.style.opacity = '0';
+                }
+            });
+
+            document.addEventListener('click', function(e) {
+                if (!avatarContainer.contains(e.target)) {
+                    profileDropdown.style.visibility = 'hidden';
+                    profileDropdown.style.opacity = '0';
+                }
+            });
+        });
+    </script>
 
 </body>
 </html>
