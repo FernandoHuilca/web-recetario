@@ -245,10 +245,9 @@ public class GestionarRecetasController extends HttpServlet {
 				
 				// Buscar o crear ingrediente en BD para evitar cascade PERSIST issues
 				//Ingrediente ingrediente = ingredienteDAO.guardarIngrediente(new Ingrediente(nombreIng));
-				Ingrediente ingrediente = FactoryDAO.getFactory().getIngredienteDAO().guardarIngrediente(new Ingrediente(nombreIng));
-				if (ingrediente == null) {
-					// Si falla un ingrediente, deberías eliminar la receta que acabas de crear
-					// o hacer rollback si usas transacciones
+				Ingrediente ingrediente = new Ingrediente(nombreIng);
+				boolean resultadoIngrediente = FactoryDAO.getFactory().getIngredienteDAO().guardarIngrediente(ingrediente);
+				if (!resultadoIngrediente) {
 					MensajeUtil.mostrarError(req, resp, "ERROR",
 							"Hubo un problema al procesar el ingrediente: " + nombreIng,
 							RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
@@ -416,10 +415,9 @@ public class GestionarRecetasController extends HttpServlet {
 		FactoryDAO.getFactory().getDetalleIngredienteDAO().eliminarPorReceta(idReceta);
         // 5. CREAR y GUARDAR los nuevos DetalleIngrediente
 		for (int i = 0; i < nombresIngredientes.length; i++) {
-		    Ingrediente ingrediente =
-		        //ingredienteDAO.guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
-				FactoryDAO.getFactory().getIngredienteDAO().guardarIngrediente(new Ingrediente(nombresIngredientes[i]));
-		    if (ingrediente == null) {
+		    Ingrediente ingrediente = new Ingrediente(nombresIngredientes[i]);
+		    boolean resultadoIngrediente = FactoryDAO.getFactory().getIngredienteDAO().guardarIngrediente(ingrediente);
+		    if (!resultadoIngrediente) {
                 MensajeUtil.mostrarError(req, resp, "Error", 
                     "No se pudo guardar el ingrediente: " + nombresIngredientes[i], 
                     RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarActualizarReceta&idReceta=" + idReceta);

@@ -36,7 +36,7 @@
 			<table id="ingredientsTable">
 				<thead>
 					<tr>
-						<th>Ingrediente</th>
+						<th>Nombre</th>
 						<th>Cantidad</th>
 						<th>Unidad</th>
 						<th></th>

@@ -26,22 +26,22 @@ public class JPAIngredienteDAO extends JPAGenericDAO<Ingrediente, Long> implemen
     }
 
     @Override
-    public Ingrediente guardarIngrediente(Ingrediente ingrediente) {
+    public boolean guardarIngrediente(Ingrediente ingrediente) {
       Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
 		if (existente != null) {
-			return existente; // Retorna el que ya existe
+			return true;
 		}
 		
 		try {
 			em.getTransaction().begin();
 			em.persist(ingrediente);
 			em.getTransaction().commit();
-			return ingrediente;
+			return true;
 		} catch (Exception e) {
 			if (em.getTransaction().isActive()) {
 				em.getTransaction().rollback();
 			}
-			return null;
+			return false;
 		}
     }
 
