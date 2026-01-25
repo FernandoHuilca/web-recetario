@@ -55,7 +55,10 @@ public class JPAUtil {
             // String url = System.getenv("DB_URL");
             // String user = System.getenv("DB_USER");
             // String password = System.getenv("DB_PASSWORD");
-                        String url = System.getenv("DB_URL");            String user = System.getenv("DB_USER");            String password = System.getenv("DB_PASSWORD");
+            
+            String url = System.getenv("DB_URL");
+            String user = System.getenv("DB_USER");
+            String password = System.getenv("DB_PASSWORD");
             
             if (url != null) {
                 props.put("jakarta.persistence.jdbc.url", url);

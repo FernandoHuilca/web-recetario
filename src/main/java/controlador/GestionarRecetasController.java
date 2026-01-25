@@ -223,7 +223,7 @@ public class GestionarRecetasController extends HttpServlet {
 			Usuario usuario = FactoryDAO.getFactory().getUsuarioDAO().getById(idUsuario);
 			if (usuario == null) {
 				MensajeUtil.mostrarError(req, resp, "ERROR",
-						"Cree un usuario con id=1 en la tabla Usuario o ajuste el idUsuario por defecto.",
+						"No fue posible obtener el usuario.",
 						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 				return;
 			}
