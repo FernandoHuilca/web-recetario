@@ -50,7 +50,7 @@
 						<td><select name="ingredients_unit[]" >
 
 								<c:forEach items="${unidades}" var="unidad">
-									<option value="${unidad}">${unidad.name()} (${unidad.simbolo})</option>
+									<option value="${unidad}">${unidad.nombre} (${unidad.simbolo})</option>
 								</c:forEach>
 						</select></td>
 						<td>
