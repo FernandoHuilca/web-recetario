@@ -22,7 +22,7 @@
                     <a class="text-decoration-none text-signin" href="${pageContext.request.contextPath}/GestionarUsuarioController?ruta=solicitarIniciarSesion">Iniciar sesión</a>
                 </div>
                 <div class="button button-signup">
-                    <a class="text-decoration-none text-signup" href="vista/_signup.jsp">Registrarse</a>
+                    <a class="text-decoration-none text-signup" href="${pageContext.request.contextPath}/GestionarUsuarioController?ruta=solicitarRegistrarUsuario">Registrarse</a>
                 </div>
             </div>
         </header>

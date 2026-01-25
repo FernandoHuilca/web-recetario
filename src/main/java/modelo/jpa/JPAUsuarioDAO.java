@@ -25,7 +25,19 @@ public class JPAUsuarioDAO extends JPAGenericDAO<Usuario, Long> implements Usuar
 		}
 	}
     
-
-
+	@Override
+	public boolean verificarCorreoYaExistente(String correo) {
+		try {
+			String sentenciaJPQL = "SELECT COUNT(u) FROM Usuario u WHERE u.correo = :correo";
+			
+			Query consulta = em.createQuery(sentenciaJPQL);
+			consulta.setParameter("correo", correo);
+			
+			Long cantidad = (Long) consulta.getSingleResult();
+			return cantidad > 0;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 
 }
