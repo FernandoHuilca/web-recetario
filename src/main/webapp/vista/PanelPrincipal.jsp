@@ -8,6 +8,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="monetag" content="0f1ad801d6a26680e64fcc83fdafdd9b">
+<script>(function(s){s.dataset.zone='10518971',s.src='https://nap5k.com/tag.min.js'})([document.documentElement, document.body].filter(Boolean).pop().appendChild(document.createElement('script')))</script>
     <title>Dashboard</title>
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/framework.css">
     <link rel="stylesheet" href="${pageContext.request.contextPath}/css/dashboard.css">
