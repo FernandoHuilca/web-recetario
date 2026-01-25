@@ -7,7 +7,6 @@ import jakarta.persistence.EntityManagerFactory;
 import jakarta.persistence.Persistence;
 import modelo.entidades.Ingrediente;
 import modelo.entidades.Receta;
-import modelo.entidades.Unidad;
 import modelo.entidades.Usuario;
 
 public class test {
@@ -33,15 +32,15 @@ public class test {
 			em.persist(lechuga);
 			
 			// 3. Crear receta
-			Receta receta = new Receta(
-					"Ensalada de papa",
-					"Ensalada muy rica", // descripcion
-					25.0, // tiempo de preparacion
-					"1. Cortar papas\n2. Agregar jamon\n3. Agregar lechuga",
-					10,
-					"ensaladaPapa.jpg",
-					usuario
-					);
+			// Receta receta = new Receta(
+			// 		"Ensalada de papa",
+			// 		"Ensalada muy rica", // descripcion
+			// 		25.0, // tiempo de preparacion
+			// 		"1. Cortar papas\n2. Agregar jamon\n3. Agregar lechuga",
+			// 		10,
+			// 		"ensaladaPapa.jpg",
+			// 		usuario
+			// 		);
 			/*
 			receta.agregarIngrediente(papa, 3000.0, Unidad.GRAMOS);
 			receta.agregarIngrediente(jamon, 15.0, Unidad.GRAMOS);
