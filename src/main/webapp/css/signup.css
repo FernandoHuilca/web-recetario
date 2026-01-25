@@ -63,6 +63,11 @@ body {
     font-weight: 500;
     text-decoration: none;
     display: block;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    background-color: transparent;
+    font: inherit;
 }
 
 .button:hover{

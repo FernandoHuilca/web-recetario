@@ -30,7 +30,7 @@
             <div class="fields">
                 <label class="form-row-label">Contrseña*:</label>
                 <div>
-                    <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                    <input class="form-row-input" type="password" placeholder="Ingresa tu clave">
                 </div>
             </div>
             <div class="button">
@@ -49,14 +49,14 @@
                 </div>
 
                 <div class="fields">
-                    <label class="form-row-label">Contraseña*:</label>
+                    <label class="form-row-label">Clave*:</label>
                     <div>
-                        <input name="password" id="password" class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                        <input name="password" id="password" class="form-row-input" type="password" placeholder="Ingresa tu clave">
                     </div>
                 </div>
 
                 <div class="button">
-                    <button type="submit" class="text-button text-decoration-none" style="border:none; cursor:pointer; width:100%; background-color: transparent; font: inherit;">
+                    <button type="submit" class="text-button">
                         Iniciar sesión
                     </button>
                 </div>

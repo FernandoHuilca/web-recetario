@@ -15,56 +15,61 @@
         <div class="return"><a class="general-button text-decoration-none" href="../index.jsp">Volver</a></div>
 
         <h1 class="text-align-center">Registro</h1>
-
+        
+        <form method="POST" action="${pageContext.request.contextPath}/GestionarUsuarioController">
+                    <input type="hidden" name="ruta" value="confirmarRegistro">
+        
         <section class="card">
 
             <div class="fields">
                 <label class="form-row-label">Nombre*:</label>
                 <div>
-                    <input class="form-row-input" type="text" placeholder="Ingresa tu nombre">
+                    <input name="name" id="name" class="form-row-input" type="text" placeholder="Ingresa tu nombre" value="<%= request.getParameter("name") != null ? request.getParameter("name") : "" %>">
                 </div>
             </div>
 
             <div class="fields">
                 <label class="form-row-label">Apellido*:</label>
                 <div>
-                    <input class="form-row-input" type="text" placeholder="Ingresa tu apellido">
+                    <input name="lastname" id="lastname" class="form-row-input" type="text" placeholder="Ingresa tu apellido" value="<%= request.getParameter("lastname") != null ? request.getParameter("lastname") : "" %>">
                 </div>
             </div>
 
             <div class="fields">
                 <label class="form-row-label">Fecha de nacimiento*:</label>
                 <div>
-                    <input class="form-row-input" type="date" placeholder="Ingresa tu fecha de nacimiento">
+                    <input name="birthdate" id="birthdate" class="form-row-input" type="date" placeholder="Ingresa tu fecha de nacimiento" value="<%= request.getParameter("birthdate") != null ? request.getParameter("birthdate") : "" %>">
                 </div>
             </div>
 
             <div class="fields">
                 <label class="form-row-label">Correo*:</label>
                 <div>
-                    <input class="form-row-input" type="email" placeholder="Ingresa tu correo">
+                    <input name="email" id="email" class="form-row-input" type="email" placeholder="Ingresa tu correo" value="<%= request.getParameter("email") != null ? request.getParameter("email") : "" %>">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Contraseña*:</label>
+                <label class="form-row-label">Clave*:</label>
                 <div>
-                    <input class="form-row-input" type="password" placeholder="Ingresa tu contraseña">
+                    <input name="password" id="password" class="form-row-input" type="password" placeholder="Ingresa tu clave">
                 </div>
             </div>
 
             <div class="fields">
-                <label class="form-row-label">Repetir contraseña*:</label>
+                <label class="form-row-label">Repetir clave*:</label>
                 <div>
-                    <input class="form-row-input" type="password" placeholder="Repite tu contraseña">
+                    <input name="passwordConfirmation" id="passwordConfirmation" class="form-row-input" type="password" placeholder="Repite tu clave">
                 </div>
             </div>
 
             <div class="button">
-                <a class="text-button text-decoration-none" href="../vista/_signin.jsp">Registrarse</a>
+                <button type="submit" class="text-button">Registrarse</button>
             </div>
 
         </section>
+               </form>
+       
     </main>
 </body>
 
