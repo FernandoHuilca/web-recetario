@@ -136,8 +136,8 @@ public class GestionarRecetasController extends HttpServlet {
 			String nombre = req.getParameter("name");
 			String descripcion = req.getParameter("description");
 			Double tiempoPreparacion = Double.parseDouble(req.getParameter("time"));
-			String pasos = req.getParameter("instructions");
 			Integer porciones = Integer.parseInt(req.getParameter("servings"));
+			String pasos = req.getParameter("instructions");
 			String imagen = null;
 			Long idUsuario = (Long) req.getSession().getAttribute("autorizado");
 
