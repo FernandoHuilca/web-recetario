@@ -10,8 +10,8 @@ public class DetalleIngrediente implements Serializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name="id_receta_ingrediente")
-    private Long idRecetaIngrediente;
+    @Column(name="id_detalle_ingrediente")
+    private Long idDetalleIngrediente;
     
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "id_receta", nullable = false)
@@ -40,8 +40,8 @@ public class DetalleIngrediente implements Serializable {
     }
     
     // Getters y Setters
-    public Long getId() { return idRecetaIngrediente; }
-    public void setId(Long id) { this.idRecetaIngrediente = id; }
+    public Long getId() { return idDetalleIngrediente; }
+    public void setId(Long id) { this.idDetalleIngrediente = id; }
     
     public Receta getReceta() { return receta; }
     public void setReceta(Receta receta) { this.receta = receta; }

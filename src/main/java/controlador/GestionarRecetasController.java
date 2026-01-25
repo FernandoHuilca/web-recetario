@@ -136,8 +136,8 @@ public class GestionarRecetasController extends HttpServlet {
 			String nombre = req.getParameter("name");
 			String descripcion = req.getParameter("description");
 			Double tiempoPreparacion = Double.parseDouble(req.getParameter("time"));
-			String descripcionPasos = req.getParameter("instructions");
 			Integer porciones = Integer.parseInt(req.getParameter("servings"));
+			String pasos = req.getParameter("instructions");
 			String imagen = null;
 			Long idUsuario = (Long) req.getSession().getAttribute("autorizado");
 
@@ -148,9 +148,9 @@ public class GestionarRecetasController extends HttpServlet {
 
 			// ===================== VALIDACIONES ===================== 
 			// 2. Validar campos principales
-			if (nombre == null || descripcion == null || tiempoPreparacion == null || descripcionPasos == null
+			if (nombre == null || descripcion == null || tiempoPreparacion == null || pasos == null
 					|| porciones == null || idUsuario == null || nombre.isBlank() || descripcion.isBlank()
-					|| descripcionPasos.isBlank()) {
+					|| pasos.isBlank()) {
 				MensajeUtil.mostrarError(req, resp, "ERROR", "Campos obligatorios no completados correctamente",
 						RUTA_GESTIONAR_RECETAS_CONTROLLER + "solicitarRegistrarReceta");
 				return;
@@ -215,7 +215,7 @@ public class GestionarRecetasController extends HttpServlet {
 			receta.setDescripcion(descripcion);
 			receta.setTiempoPreparacion(tiempoPreparacion);
 			receta.setPorciones(porciones);
-			receta.setDescripcionPasos(descripcionPasos);
+			receta.setDescripcionPasos(pasos);
 			receta.setImagen(imagen);
 
 			// Asignar usuario (por defecto id=1). Requiere que exista en la BD.
@@ -342,7 +342,7 @@ public class GestionarRecetasController extends HttpServlet {
 		Long idReceta = Long.parseLong(req.getParameter("id"));
 		String nombre = req.getParameter("name");
 		String descripcion = req.getParameter("description");
-		Double tiempo = req.getParameter("time").isBlank() ? null : Double.parseDouble(req.getParameter("time"));
+		Double tiempoPreparacion = req.getParameter("time").isBlank() ? null : Double.parseDouble(req.getParameter("time"));
 		Integer porciones = req.getParameter("servings").isBlank() ? null
 				: Integer.parseInt(req.getParameter("servings"));
 		String pasos = req.getParameter("instructions");
@@ -380,7 +380,7 @@ public class GestionarRecetasController extends HttpServlet {
 
 		// Validar campos
         if (nombre.isEmpty() || descripcion.isEmpty() || pasos.isEmpty() ||
-                porciones == null || tiempo == null || ingredientesInvalidos) {
+                porciones == null || tiempoPreparacion == null || ingredientesInvalidos) {
             //Receta receta = recetaDAO.obtenerRecetaPorId(idReceta);
             Receta receta = FactoryDAO.getFactory().getRecetaDAO().getById(idReceta);
 			req.getSession().setAttribute("recetaFallida", receta);
@@ -395,7 +395,7 @@ public class GestionarRecetasController extends HttpServlet {
 		//DetalleIngredienteDAO detalleIngredienteDAO = new DetalleIngredienteDAO();
 		receta.setNombre(nombre);
 		receta.setDescripcion(descripcion);
-		receta.setTiempoPreparacion(tiempo);
+		receta.setTiempoPreparacion(tiempoPreparacion);
 		receta.setPorciones(porciones);
 		receta.setDescripcionPasos(pasos);
 		receta.setImagen(imagen);
