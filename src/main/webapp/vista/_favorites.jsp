@@ -18,7 +18,7 @@
             <h2 class="font-h2 sidebar-title">Menú</h2>
             <ul class="list-none-style padding-aside">
                 <li class="margin-aside"><a class="sidebar-button text-decoration-none"
-                        href="PanelPrincipal.jsp">Panel Principal</a></li>
+                        href="${pageContext.request.contextPath}/GestionarPanelPrincipalController">Panel Principal</a></li>
                 <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="recipeManagement.html">Gestión</a></li> -->
                 <!-- <li class="margin-aside"><a class=" sidebar-button text-decoration-none" href="#">Favoritos</a></li> -->
             </ul>
@@ -50,6 +50,9 @@
 
         </header>
 
+        <div style="background-color: #f0f4f8; border-left: 4px solid #3498db; padding: 16px; margin: 20px; border-radius: 4px; color: #2c3e50; font-size: 14px;">
+            <strong>Información:</strong> La funcionalidad de favoritos estará disponible próximamente. Por ahora, los cambios que realices aquí no se guardarán.
+        </div>
 
         <main>
             <section class="display-flex margin-cards">

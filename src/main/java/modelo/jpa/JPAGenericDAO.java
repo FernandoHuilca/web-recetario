@@ -92,7 +92,8 @@ public class JPAGenericDAO<T, ID> implements GenericDAO<T, ID> {
 		Root<T> root = criteriaQuery.from(this.persistentClass);
 		// Se establece la clausula SELECT
 		criteriaQuery.select(root); // criteriaQuery.multiselect(root.get(atr))
-		
+		// Se ordena por ID descendente para que las más nuevas aparezcan primero
+		criteriaQuery.orderBy(criteriaBuilder.desc(root.get("idReceta")));
 		Query query = em.createQuery(criteriaQuery);
 		return query.getResultList();
     }
