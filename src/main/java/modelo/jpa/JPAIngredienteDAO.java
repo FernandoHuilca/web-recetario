@@ -14,7 +14,7 @@ public class JPAIngredienteDAO extends JPAGenericDAO<Ingrediente, Long> implemen
     public Ingrediente obtenerPorNombre(String nombre) {
      try {
 			TypedQuery<Ingrediente> query = em.createQuery(
-				"SELECT i FROM Ingrediente i WHERE i.nombre = :nombre", 
+				"SELECT i FROM Ingrediente i WHERE LOWER(i.nombre) = LOWER(:nombre)", 
 				Ingrediente.class
 			);
 			query.setParameter("nombre", nombre);
@@ -25,13 +25,19 @@ public class JPAIngredienteDAO extends JPAGenericDAO<Ingrediente, Long> implemen
 		}  
     }
 
-    @Override
-    public boolean guardarIngrediente(Ingrediente ingrediente) {
-      Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
+	@Override
+	public boolean guardarIngrediente(Ingrediente ingrediente) {
+		// Normalizar nombre: primera letra mayúscula, resto minúsculas
+		String nombreNormalizado = ingrediente.getNombre().substring(0, 1).toUpperCase()
+				+ ingrediente.getNombre().substring(1).toLowerCase();
+		ingrediente.setNombre(nombreNormalizado);
+
+		Ingrediente existente = obtenerPorNombre(ingrediente.getNombre());
 		if (existente != null) {
+			ingrediente.setIdIngrediente(existente.getIdIngrediente());
 			return true;
 		}
-		
+
 		try {
 			em.getTransaction().begin();
 			em.persist(ingrediente);
@@ -43,7 +49,7 @@ public class JPAIngredienteDAO extends JPAGenericDAO<Ingrediente, Long> implemen
 			}
 			return false;
 		}
-    }
+	}
 
     
 }
