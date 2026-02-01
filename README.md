@@ -1,8 +1,12 @@
 # La cocina de Gregory 🍳🧑🏻‍🍳
 
->[!TIP]
+>[!IMPORTANT]
 > **¡Accede al proyecto!!**  
-[👉🏻**Visita la página aquí**👈🏻](https://web-recetario.onrender.com) 
+[👉🏻**Visita la página aquí**👈🏻](https://web-recetario.onrender.com)
+
+## Presentación final :D 
+<img src="https://github.com/user-attachments/assets/61d212bf-c3f4-4417-93cd-2bd097e29c42" width="600" />
+
 
 **La Cocina de Gregory** es una aplicación web robusta para la gestión y visualización de recetas culinarias. Este proyecto fue desarrollado aplicando patrones de diseño empresarial como **MVC (Modelo-Vista-Controlador)** y **DAO (Data Access Object)**, asegurando una arquitectura limpia y escalable. 
 
@@ -39,12 +43,12 @@ El proyecto sigue estrictamente el patrón **MVC**:
 
 <table>
     <tr>
-    <td><img src="https://github.com/user-attachments/assets/c932429d-1974-4488-991b-d684b53ea05c" alt="Pantalla inicio"></td>
     <td><img src="https://github.com/user-attachments/assets/e0e81e6e-d87a-4558-bee7-299a844443c8" alt="Selección de personajes"></td>
+    <td><img src="https://github.com/user-attachments/assets/c932429d-1974-4488-991b-d684b53ea05c" alt="Pantalla inicio"></td>
   </tr>
      <tr>
-    <td><img src="https://github.com/user-attachments/assets/e0e81e6e-d87a-4558-bee7-299a844443c8"" alt="Pantalla inicio"></td>
-    <td><img src="https://github.com/user-attachments/assets/e0e81e6e-d87a-4558-bee7-299a844443c8" alt="Selección de personajes"></td>
+    <td><img src="https://github.com/user-attachments/assets/bc3ac754-9190-462a-b0ef-33dd3e1fe01c" alt="Pantalla inicio"></td>
+    <td><img src="https://github.com/user-attachments/assets/0aaa8279-58d8-452f-8a0d-ba120612252d" alt="Selección de personajes"></td>
   </tr>
 </table>
 
