@@ -76,7 +76,11 @@ El stack tecnológico seleccionado garantiza rendimiento y mantenibilidad:
 - **Mateo Simbaña** - Programador [@mateonicolasg](https://github.com/mateonicolasg)
 - **Sebastian León** - Programador [@seblion](https://github.com/seblion)
 - **Gregory Salazar** - Programador [@Gregory](https://github.com/GregorySD1707)
-  
+
+## Profe
+- **Ing. Carlos Iniguez** - Profesor [@ciniguez](https://github.com/ciniguez)
+
+## Imagenes 
 <table>
     <tr>
     <td><img src="https://github.com/user-attachments/assets/ad757606-3228-4f9a-9c35-9e2ba8df77cf" alt="Foto del Colaborador"></td>
